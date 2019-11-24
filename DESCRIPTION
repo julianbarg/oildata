@@ -1,0 +1,11 @@
+Package: oildata
+Type: Package
+Title: Access data on the American oil pipeline system and pipeline safety.
+Version: 0.0.1
+Authors@R: person("Julian", "Barg", email = "barg.julian@gmail.com", role = c("aut", "cre"))
+Description: Data accessed through https://www.phmsa.dot.gov/data-and-statistics/pipeline/source-data.
+License: GPL-3 + file LICENSE
+URL: https://github.com/julianbarg/oildata
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.1
