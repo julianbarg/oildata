@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-.temp_data
+.temp-data
+.idea
+.testing

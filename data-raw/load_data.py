@@ -9,8 +9,7 @@ from os import listdir
 import pandas as pd
 
 update_file = sys.argv[1]
-temp_folder_location = ".temp_data"
-data_folder_location = "data"
+temp_folder_location = "data-raw/.temp-data"
 
 
 class PhmsaDownloader:
@@ -18,12 +17,10 @@ class PhmsaDownloader:
     This downloader is used to download the raw data on pipelines and oil spills in the US. Run update_data after
     initializing to download data. Will overwrite existing files!
     :param temp_folder: Temporary folder which downloaded zip files get saved to.
-    :param data_folder: Final destination for the downloaded data.
     """
 
-    def __init__(self, temp_folder, data_folder):
+    def __init__(self, temp_folder):
         self.temp_folder = temp_folder
-        self.data_folder = data_folder
 
         source = namedtuple('source', 'address skiprows')
         self.sources = {
@@ -70,9 +67,9 @@ class PhmsaDownloader:
         :param data: The DataFrame with the downloaded data, as provided by the read_files method.
         """
         data.loc[:, data.dtypes == 'O'] = data.loc[:, data.dtypes == 'O'].astype(str)
-        data.to_feather(f"{self.data_folder}/{file}.feather")
+        data.to_feather(f"{self.temp_folder}/{file}.feather")
 
 
 if __name__ == "__main__":
-    downloader = PhmsaDownloader(temp_folder=temp_folder_location, data_folder=data_folder_location)
+    downloader = PhmsaDownloader(temp_folder=temp_folder_location)
     downloader.update_data(file=update_file)
