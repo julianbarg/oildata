@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 import sys
-from collections import namedtuple
 import requests as rq
 import io
 from zipfile import ZipFile
 from os import listdir
 import pandas as pd
+from functools import partial
 
-update_file = sys.argv[1]
+update_files = sys.argv[1:]
 temp_folder_location = "data-raw/.temp-data"
 
 
@@ -22,11 +22,20 @@ class PhmsaDownloader:
     def __init__(self, temp_folder):
         self.temp_folder = temp_folder
 
-        source = namedtuple('source', 'address skiprows')
-        self.sources = {
-            'pipelines_2010': source(
-                'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline/annual_hazardous_liquid_2010_present.zip',
-                2)}
+        self.parsing = {
+            'pipelines_2010': {
+                'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
+                          '/annual_hazardous_liquid_2010_present.zip',
+                'extension': '.xlsx',
+                'parsing_function': partial(pd.read_excel, skiprows=2)
+            },
+            'incidents_2010': {
+                'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
+                          '/accident_hazardous_liquid_jan2010_present.zip',
+                'extension': '.txt',
+                'parsing_function': partial(pd.read_csv, sep='\t', encoding='Windows-1252', low_memory=False)
+            }
+        }
 
     def update_data(self, file):
         """
@@ -43,20 +52,25 @@ class PhmsaDownloader:
         initialized.
         :param file: Which file should be downloaded. Currently implemented are: "pipelines_2010".
         """
-        data_zipped = rq.get(self.sources[file].address)
+        data_zipped = rq.get(self.parsing[file]['source'])
         data = ZipFile(io.BytesIO(data_zipped.content))
         data.extractall(f"{self.temp_folder}/{file}")
 
     def read_files(self, file):
         """
-        Read all .xlsx files that were downloaded into one dataframe.
+        Read all files that were downloaded into one dataframe.
         :param file: Which file should be downloaded. Currently implemented are: "pipelines_2010".
         :return: Pandas DataFrame with all downloaded data.
         """
-        files = [_ for _ in listdir(f"{self.temp_folder}/{file}") if ".xlsx" in _]
-        data = pd.concat(
-            [pd.read_excel(f"{self.temp_folder}/{file}/{_}", skiprows=self.sources[file].skiprows) for _ in files])
-        data = data.reset_index(drop=True)
+        files = [_ for _ in listdir(f"{self.temp_folder}/{file}") if self.parsing[file]['extension'] in _]
+
+        if len(files) == 1:
+            data = self.parsing[file]['parsing_function'](f"{self.temp_folder}/{file}/{files[0]}")
+        elif len(files) > 1:
+            data = pd.concat([self.parsing[file]['parsing_function'](f"{self.temp_folder}/{file}/{_}") for _ in files])
+            data = data.reset_index(drop=True)
+        else:
+            raise FileNotFoundError("No file selected.")
 
         return data
 
@@ -72,4 +86,5 @@ class PhmsaDownloader:
 
 if __name__ == "__main__":
     downloader = PhmsaDownloader(temp_folder=temp_folder_location)
-    downloader.update_data(file=update_file)
+    for file in update_files:
+        downloader.update_data(file=file)
