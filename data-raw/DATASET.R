@@ -19,7 +19,7 @@ get_datasets <- function(dataset_input, datasets_all) {
 }
 
 load_datasets <- function(datasets) {
-  dataset_arguments <- paste(datasets, sep = " ")
+  dataset_arguments <- paste(datasets, collapse = " ")
   function_call <- paste("data-raw/load_data.py", dataset_arguments)
   system(function_call)
 }
