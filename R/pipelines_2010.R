@@ -1,0 +1,106 @@
+#' Annual data on pipelines in the US from 2010 onward
+#'
+#' Annual Report Data from Gas Distribution, Gas Gathering, Gas Transmission,
+#' Hazardous Liquids, Liquefied Natural Gas (LNG), and Underground Natural Gas
+#' Storage (UNGS) Facility Operators. Operators are required to submit annual
+#' reports to PHMSA. Reports include information such as total pipeline mileage,
+#' facilities, commodities transported, mileage by material, and installation
+#' dates.
+#'
+#' @source United States Department of Transportation (DOT) Pipeline and
+#'   Hazardous Materials Safety Administration (PHMSA).
+#'   \url{https://www.phmsa.dot.gov/data-and-statistics/pipeline/gas-distribution-gas-gathering-gas-transmission-hazardous-liquids}
+#'    (right side bar).
+#' @format A data frame with columns:
+#' \describe{
+#'  \item{DATAFILE_AS_OF}{}
+#'  \item{Year}{Report year.}
+#'  \item{REPORT_NUMBER}{}
+#'  \item{SUPPLEMENTAL_NUMBER}{}
+#'  \item{ID}{Unique operator ID.}
+#'  \item{Name}{Name of the pipelines operator at the time of the report year.}
+#'  \item{PARTA4STREET}{}
+#'  \item{PARTA4CITY}{}
+#'  \item{PARTA4STATE}{}
+#'  \item{PARTA4ZIP}{}
+#'  \item{PARTA4COUNTRY}{}
+#'  \item{PARTA5COMMODITY}{}
+#'  \item{PARTA7INTER}{}
+#'  \item{PARTA7INTRA}{}
+#'  \item{PARTBHCAOFFSHORE}{}
+#'  \item{PARTBHCAONSHORE}{}
+#'  \item{PARTBHCATOTAL}{}
+#'  \item{PARTCOFFCO2}{}
+#'  \item{PARTCOFFCRUDE}{}
+#'  \item{PARTCOFFETHANOL}{}
+#'  \item{PARTCOFFHVL}{}
+#'  \item{PARTCOFFRPP}{}
+#'  \item{PARTCONCO2}{}
+#'  \item{PARTCONCRUDE}{}
+#'  \item{PARTCONETHANOL}{}
+#'  \item{PARTCONHVL}{}
+#'  \item{PARTCONRPP}{}
+#'  \item{PARTDONCPB}{}
+#'  \item{PARTDONCPC}{}
+#'  \item{PARTDONCUB}{}
+#'  \item{PARTDONCUC}{}
+#'  \item{PARTDONCUP}{}
+#'  \item{PARTDONCUO}{}
+#'  \item{PARTDONTOTAL}{}
+#'  \item{PARTDOFFCPB}{}
+#'  \item{PARTDOFFCPC}{}
+#'  \item{PARTDOFFCUB}{}
+#'  \item{PARTDOFFCUC}{}
+#'  \item{PARTDOFFCUP}{}
+#'  \item{PARTDOFFCUO}{}
+#'  \item{PARTDOFFTOTAL}{}
+#'  \item{PARTDCPBTOTAL}{}
+#'  \item{PARTDCPCTOTAL}{}
+#'  \item{PARTDCUBTOTAL}{}
+#'  \item{PARTDCUCTOTAL}{}
+#'  \item{PARTDCUPTOTAL}{}
+#'  \item{PARTDCUOTOTAL}{}
+#'  \item{PARTDTOTALMILES}{}
+#'  \item{PARTEUNKNHF}{}
+#'  \item{PARTEUNKNLF}{}
+#'  \item{PARTEUNKNTOTAL}{}
+#'  \item{PARTEPRE40HF}{}
+#'  \item{PARTEPRE40LF}{}
+#'  \item{PARTEPRE40TOTAL}{}
+#'  \item{PARTE1940HF}{}
+#'  \item{PARTE1940LF}{}
+#'  \item{PARTE1940TOTAL}{}
+#'  \item{PARTE1950HF}{}
+#'  \item{PARTE1950LF}{}
+#'  \item{PARTE1950TOTAL}{}
+#'  \item{PARTE1960HF}{}
+#'  \item{PARTE1960LF}{}
+#'  \item{PARTE1960TOTAL}{}
+#'  \item{PARTE1970HF}{}
+#'  \item{PARTE1970LF}{}
+#'  \item{PARTE1970TOTAL}{}
+#'  \item{PARTE1980HF}{}
+#'  \item{PARTE1980LF}{}
+#'  \item{PARTE1980TOTAL}{}
+#'  \item{PARTE1990HF}{}
+#'  \item{PARTE1990LF}{}
+#'  \item{PARTE1990TOTAL}{}
+#'  \item{PARTE2000HF}{}
+#'  \item{PARTE2000LF}{}
+#'  \item{PARTE2000TOTAL}{}
+#'  \item{PARTE2010HF}{}
+#'  \item{PARTE2010LF}{}
+#'  \item{PARTE2010TOTAL}{}
+#'  \item{PARTETOTAL}{}
+#'  \item{PARTETOTALHF}{}
+#'  \item{PARTETOTALLF}{}
+#'  \item{REPORT_SUBMISSION_TYPE}{}
+#'  \item{REPORT_DATE}{}
+#'  \item{FILING_DATE}{}
+#'  \item{FORM_REV}{}
+#' }
+#' @examples
+#' \dontrun{
+#'  pipelines_2010
+#' }
+"pipelines_2010"
