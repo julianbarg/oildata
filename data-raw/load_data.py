@@ -132,4 +132,5 @@ class PhmsaDownloader:
 if __name__ == "__main__":
     downloader = PhmsaDownloader(temp_folder=temp_folder_location)
     for file in update_files:
-        downloader.update_data(file=file)
+        if file in downloader.parsing.keys():
+            downloader.update_data(file=file)
