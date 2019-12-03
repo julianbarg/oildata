@@ -36,6 +36,7 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder) {
   }
   if ("Name" %in% colnames(df)) {
     df$Name <- str_to_title(df$Name)
+    df$name <- DataAnalysisTools::remove_company_suffixes(df$Name)
   }
   assign(dataset, df)
 }
