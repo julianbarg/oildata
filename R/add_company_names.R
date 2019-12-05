@@ -14,11 +14,11 @@ add_company_names <- function(vector, dataset = oildata::pipelines_2010) {
 
   # Prepare dataset to merge with
   all_names <- dataset %>%
-    select(ID, Name, Year) %>%
+    select(ID, name, year) %>%
     group_by(ID) %>%
-    filter(Year == max(Year)) %>%
+    filter(year == max(year)) %>%
     slice(1) %>%
-    select(-Year)
+    select(-year)
   all_names$ID <- as.character(all_names$ID)
 
   temp_names <- data.frame(organization = vector)
@@ -26,8 +26,8 @@ add_company_names <- function(vector, dataset = oildata::pipelines_2010) {
 
   # Do the merging to obtain the (missing) names
   temp_names <- left_join(temp_names, all_names, by = c("organization" = "ID"))
-  name_missing <- !is.na(temp_names$Name)  # The name of the company can only be missing if joining by OPERATOR_ID is successfuly (bc then there is an ID, not a Name there)
-  names <- ifelse(name_missing, temp_names$Name, temp_names$organization)
+  name_missing <- !is.na(temp_names$name)  # The name of the company can only be missing if joining by OPERATOR_ID is successfuly (bc then there is an ID, not a Name there)
+  names <- ifelse(name_missing, temp_names$name, temp_names$organization)
 
   return(DataAnalysisTools::as.type(names, col_type))
 }
