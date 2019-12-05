@@ -31,12 +31,12 @@
 #' @format A data frame with columns:
 #' \describe{
 #'  \item{REPORT_RECEIVED_DATE}{}
-#'  \item{Year}{Year of the incident report.}
+#'  \item{year}{Year of the incident report.}
 #'  \item{REPORT_NUMBER}{}
 #'  \item{SUPPLEMENTAL_NUMBER}{}
 #'  \item{REPORT_TYPE}{}
 #'  \item{ID}{Unique operator ID.}
-#'  \item{Name}{Name of the pipelines operator at the time of the report year.}
+#'  \item{name}{Name of the pipelines operator at the time of the report year.}
 #'  \item{OPERATOR_STREET_ADDRESS}{}
 #'  \item{OPERATOR_CITY_NAME}{}
 #'  \item{OPERATOR_STATE_ABBREVIATION}{}
@@ -46,7 +46,7 @@
 #'  \item{LOCATION_LONGITUDE}{}
 #'  \item{NRC_RPT_NUM}{}
 #'  \item{NRC_RPT_DATETIME}{}
-#'  \item{COMMODITY_RELEASED_TYPE}{}
+#'  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
 #'  \item{COMMODITY_SUBTYPE}{}
 #'  \item{COMMODITY_DETAILS}{}
 #'  \item{BLEND_DETAILS}{}

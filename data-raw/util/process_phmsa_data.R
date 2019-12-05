@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 library(tidyverse)
 library(devtools)
+library(rlang)
 
 # Input
 dataset_input <- commandArgs(trailingOnly = TRUE)
@@ -9,18 +10,38 @@ dataset_input <- dataset_input[! startsWith(dataset_input, "--")]
 
 temp_data_folder <- "data-raw/.temp-data"
 all_datasets <- list(incidents_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
-                                                            "Name" = "NAME",
-                                                            "Year" = "IYEAR")),
+                                                            "name" = "NAME",
+                                                            "year" = "IYEAR",
+                                                            "commodity" = "CLASS_TXT")),
                      incidents_2010 = list(new_colnames = c("ID" = "OPERATOR_ID",
-                                                            "Name" = "NAME",
-                                                            "Year" = "IYEAR")),
+                                                            "name" = "NAME",
+                                                            "year" = "IYEAR",
+                                                            "commodity" = "COMMODITY_RELEASED_TYPE")),
                      pipelines_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
-                                                            "Name" = "NAME",
-                                                            "Year" = "YR")),
+                                                            "name" = "NAME",
+                                                            "year" = "YR",
+                                                            "commodity" = "SYSTEM_TYPE",
+                                                            "hca_onshore" = "HCAONM",
+                                                            "hca_offshore" = "HCAOFFM",
+                                                            "hca_total" = "HCAMT",
+                                                            "total_miles" = "DINSTMT"),
+                                           new_columns = list("total_onshore" = "CPBONM + CPCONM + CUBONM + CUCONM",
+                                                              "total_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM")),
+                                           # new_columns =
+                                           #   list("name" = "total_onshore",
+                                           #        "formula" = "CPBONM + CPCONM + CUBONM + CUCONM")),
                      pipelines_2010 = list(new_colnames = c("ID" = "OPERATOR_ID",
-                                                            "Name" = "PARTA2NAMEOFCOMP",
-                                                            "Year" = "REPORT_YEAR"))
+                                                            "name" = "PARTA2NAMEOFCOMP",
+                                                            "year" = "REPORT_YEAR",
+                                                            "commodity" = "PARTA5COMMODITY",
+                                                            "hca_onshore" = "PARTBHCAONSHORE",
+                                                            "hca_offshore" = "PARTBHCAOFFSHORE",
+                                                            "hca_total" = "PARTBHCATOTAL",
+                                                            "total_onshore" = "PARTDONTOTAL",
+                                                            "total_offshore" = "PARTDOFFTOTAL",
+                                                            "total_miles" = "PARTDTOTALMILES"))
                      )
+factor_cols <- c("ID", "commodity")
 
 # Functions
 download_datasets <- function(datasets) {
@@ -29,15 +50,43 @@ download_datasets <- function(datasets) {
   system(function_call)
 }
 
-process_dataset <- function(dataset, all_datasets, temp_data_folder) {
+create_column <- function(df, col_name, formula){
+  df <- df %>%
+    mutate(!! col_name := !! parse_expr(formula))
+  return(df)
+}
+
+process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols) {
   df <- feather::read_feather(paste0(temp_data_folder, "/", dataset, ".feather"))
+  df[ , map_lgl(df, is.character)] <- sapply(df[ , map_lgl(df, is.character)], function(x) ifelse(x == "nan", NA, x))
+
+
   if ("new_colnames" %in% names(all_datasets[[dataset]])) {
     df <- rename(df, !!! all_datasets[[dataset]][["new_colnames"]])
   }
-  if ("Name" %in% colnames(df)) {
-    df$Name <- str_to_title(df$Name)
-    df$Name <- DataAnalysisTools::remove_company_suffixes(df$Name)
+
+  if ("new_columns" %in% names(all_datasets[[dataset]])) {
+    for (new_column in names(all_datasets[[dataset]][["new_columns"]])) {
+      df <- create_column(df, new_column, all_datasets[[dataset]][["new_columns"]][[new_column]])
+    }
   }
+
+  if ("name" %in% colnames(df)) {
+    df$name <- str_to_title(df$name)
+    df$name <- DataAnalysisTools::remove_company_suffixes(df$name)
+  }
+
+  if ("commodity" %in% colnames(df)) {
+    df$commodity <- oildata:::fix_commodities(df$commodity)
+  }
+
+  if (any(colnames(df) %in% factor_cols)) {
+    df[ , colnames(df) %in% factor_cols] <- map(df[ , colnames(df) %in% factor_cols], as.factor)
+  }
+
+  # short_cols <- map_lgl(df, function(x) length(unique(x)) <= 3)
+  # df[ , short_cols] <- map(df[ , short_cols], as.factor)
+
   assign(dataset, df)
 }
 
@@ -69,7 +118,8 @@ prepare_datasets <- function(dataset_input, datasets_all, temp_data_folder, redo
   if (redownload == TRUE) {
     download_datasets(datasets = datasets)
   }
-  dfs <- map(datasets, process_dataset, all_datasets = all_datasets, temp_data_folder = temp_data_folder)
+  dfs <- map(datasets, process_dataset, all_datasets = all_datasets,
+             temp_data_folder = temp_data_folder, factor_cols = factor_cols)
   dfs <- dfs %>%
     set_names(datasets)
   save_datasets(dfs)

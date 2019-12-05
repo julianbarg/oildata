@@ -14,22 +14,22 @@
 #' @format A data frame with columns:
 #' \describe{
 #'  \item{DATAFILE_AS_OF}{}
-#'  \item{Year}{Report year.}
+#'  \item{year}{Report year.}
 #'  \item{REPORT_NUMBER}{}
 #'  \item{SUPPLEMENTAL_NUMBER}{}
 #'  \item{ID}{Unique operator ID.}
-#'  \item{Name}{Name of the pipelines operator at the time of the report year.}
+#'  \item{name}{Name of the pipelines operator at the time of the report year.}
 #'  \item{PARTA4STREET}{}
 #'  \item{PARTA4CITY}{}
-#'  \item{PARTA4STATE}{}
+#'  \item{PARTA4STATE}{}p
 #'  \item{PARTA4ZIP}{}
 #'  \item{PARTA4COUNTRY}{}
-#'  \item{PARTA5COMMODITY}{}
+#'  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
 #'  \item{PARTA7INTER}{}
 #'  \item{PARTA7INTRA}{}
-#'  \item{PARTBHCAOFFSHORE}{}
-#'  \item{PARTBHCAONSHORE}{}
-#'  \item{PARTBHCATOTAL}{}
+#'  \item{hca_offshore}{Miles of pipelines offshore in High Consequences Areas.}
+#'  \item{hca_onshore}{Miles of pipelines onshore in High Consequences Areas.}
+#'  \item{hca_total}{Miles of pipelines in High Consequences Areas.}
 #'  \item{PARTCOFFCO2}{}
 #'  \item{PARTCOFFCRUDE}{}
 #'  \item{PARTCOFFETHANOL}{}
@@ -46,21 +46,21 @@
 #'  \item{PARTDONCUC}{}
 #'  \item{PARTDONCUP}{}
 #'  \item{PARTDONCUO}{}
-#'  \item{PARTDONTOTAL}{}
+#'  \item{total_onshore}{Miles of pipelines onshore.}
 #'  \item{PARTDOFFCPB}{}
 #'  \item{PARTDOFFCPC}{}
 #'  \item{PARTDOFFCUB}{}
 #'  \item{PARTDOFFCUC}{}
 #'  \item{PARTDOFFCUP}{}
 #'  \item{PARTDOFFCUO}{}
-#'  \item{PARTDOFFTOTAL}{}
+#'  \item{total_offshore}{Miles of pipelines offshore.}
 #'  \item{PARTDCPBTOTAL}{}
 #'  \item{PARTDCPCTOTAL}{}
 #'  \item{PARTDCUBTOTAL}{}
 #'  \item{PARTDCUCTOTAL}{}
 #'  \item{PARTDCUPTOTAL}{}
 #'  \item{PARTDCUOTOTAL}{}
-#'  \item{PARTDTOTALMILES}{}
+#'  \item{total_miles}{Total miles of pipelines.}
 #'  \item{PARTEUNKNHF}{}
 #'  \item{PARTEUNKNLF}{}
 #'  \item{PARTEUNKNTOTAL}{}

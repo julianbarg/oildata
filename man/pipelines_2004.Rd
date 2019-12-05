@@ -8,12 +8,12 @@
 \describe{
  \item{ORIGINAL}{}
  \item{SUPPLEMENT}{}
- \item{Year}{Report year.}
+ \item{year}{Report year.}
  \item{RPTID}{}
  \item{HL_SUP_ID}{}
- \item{SYSTEM_TYPE}{}
+ \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
  \item{ID}{Unique operator ID.}
- \item{Name}{Name of the pipelines operator at the time of the report year.}
+ \item{name}{Name of the pipelines operator at the time of the report year.}
  \item{PARENT}{}
  \item{OFSTREET}{}
  \item{OFCITY}{}
@@ -37,9 +37,9 @@
  \item{CUCOFFM}{}
  \item{CUCONM}{}
  \item{CUPMT}{}
- \item{HCAMT}{}
- \item{HCAOFFM}{}
- \item{HCAONM}{}
+ \item{hca_total}{Miles of pipelines in High Consequences Areas.}
+ \item{hca_offshore}{Miles of pipelines offshore in High Consequences Areas.}
+ \item{hca_onshore}{Miles of pipelines onshore in High Consequences Areas.}
  \item{STOFFM_1}{}
  \item{STOFFM_2}{}
  \item{STOFFM_3}{}
@@ -86,7 +86,7 @@
  \item{DINSTM_8}{}
  \item{DINSTM_9}{}
  \item{DINSTM_10}{}
- \item{DINSTMT}{}
+ \item{total_miles}{Total miles of pipelines.}
  \item{ERWHM_1}{}
  \item{ERWHM_2}{}
  \item{ERWHM_3}{}
@@ -173,6 +173,8 @@
  \item{PPHONE}{}
  \item{PEMAIL}{}
  \item{PFAX}{}
+ \item{total_onshore}{Miles of pipelines onshore (calculated from part B - miles of steel by location/protection).}
+ \item{total_offshore}{Miles of pipelines offshore (calculated from part B - miles of steel by location/protection).}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and

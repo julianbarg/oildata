@@ -29,11 +29,11 @@
 #'    (right side bar).
 #' @format A data frame with columns:
 #' \describe{
-#'  \item{Year}{Year of the incident report.}
+#'  \item{year}{Year of the incident report.}
 #'  \item{ID}{Unique operator ID.}
 #'  \item{RPTID}{}
 #'  \item{OWNER_OPERATOR_ID}{}
-#'  \item{Name}{Name of the pipelines operator at the time of the incident report.}
+#'  \item{name}{Name of the pipelines operator at the time of the incident report.}
 #'  \item{OPSTREET}{}
 #'  \item{OPCITY}{}
 #'  \item{OPCOUNTY}{}
@@ -64,7 +64,7 @@
 #'  \item{SPILLED}{}
 #'  \item{COMM}{}
 #'  \item{CLASS}{}
-#'  \item{CLASS_TXT}{}
+#'  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
 #'  \item{SPUNIT}{}
 #'  \item{SPUNIT_TXT}{}
 #'  \item{LOSS}{}

@@ -1,8 +1,17 @@
+#!/usr/bin/env Rscript
 library(devtools)
 
 # PHMSA Datsets --------------------------
 
 system("data-raw/util/process_phmsa_data.R")
+
+# PHMSA Merge ----------------------------
+
+load("data/pipelines_2004.rda")
+load("data/pipelines_2010.rda")
+common_cols <- colnames(pipelines_2010)[colnames(pipelines_2010) %in% colnames(pipelines_2004)]
+pipelines <- rbind(pipelines_2004[ , common_cols], pipelines_2010[ , common_cols])
+use_data(pipelines, overwrite = TRUE)
 
 # Company groups -------------------------
 
