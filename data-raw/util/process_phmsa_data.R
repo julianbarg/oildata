@@ -25,11 +25,20 @@ all_datasets <- list(incidents_2004 = list(new_colnames = c("ID" = "OPERATOR_ID"
                                                             "hca_offshore" = "HCAOFFM",
                                                             "hca_total" = "HCAMT",
                                                             "total_miles" = "DINSTMT"),
-                                           new_columns = list("total_onshore" = "CPBONM + CPCONM + CUBONM + CUCONM",
-                                                              "total_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM")),
-                                           # new_columns =
-                                           #   list("name" = "total_onshore",
-                                           #        "formula" = "CPBONM + CPCONM + CUBONM + CUCONM")),
+                                           new_columns =
+                                             list("total_onshore" = "CPBONM + CPCONM + CUBONM + CUCONM",
+                                                  "total_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM"),
+                                           duplicate_consolidation =
+                                             list("group_cols" = vars(ID, year, commodity),
+                                                  "formula" = list(hca_offshore = quo(sum(hca_offshore, na.rm = T)),
+                                                                   hca_onshore = quo(sum(hca_onshore, na.rm = T)),
+                                                                   hca_total = quo(sum(hca_total, na.rm = T)),
+                                                                   total_onshore = quo(sum(total_onshore, na.rm = T)),
+                                                                   total_offshore = quo(sum(total_offshore, na.rm = T)),
+                                                                   total_miles = quo(sum(total_miles, na.rm = T))
+                                                                   )
+                                                  )
+                                           ),
                      pipelines_2010 = list(new_colnames = c("ID" = "OPERATOR_ID",
                                                             "name" = "PARTA2NAMEOFCOMP",
                                                             "year" = "REPORT_YEAR",
@@ -69,6 +78,13 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
     for (new_column in names(all_datasets[[dataset]][["new_columns"]])) {
       df <- create_column(df, new_column, all_datasets[[dataset]][["new_columns"]][[new_column]])
     }
+  }
+
+  if ("duplicate_consolidation" %in% names(all_datasets[[dataset]])) {
+    df <- DataAnalysisTools::consolidate_duplicates(
+      df,
+      summary_parsing = all_datasets[[dataset]][["duplicate_consolidation"]][["formula"]],
+      by_cols = all_datasets[[dataset]][["duplicate_consolidation"]][["group_cols"]])
   }
 
   if ("name" %in% colnames(df)) {
