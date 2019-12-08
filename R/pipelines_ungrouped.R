@@ -5,7 +5,8 @@
 #' Storage (UNGS) Facility Operators. Operators are required to submit annual
 #' reports to PHMSA. Reports include information such as total pipeline mileage,
 #' facilities, commodities transported, mileage by material, and installation
-#' dates. Organizations aggregated according to the M&A dataset in this package.
+#' dates. Organizations not aggregated: some organizations fall within the same
+#' parent company.
 #'
 #' @source United States Department of Transportation (DOT) Pipeline and
 #'   Hazardous Materials Safety Administration (PHMSA).
@@ -26,6 +27,6 @@
 #' }
 #' @examples
 #' \dontrun{
-#'  pipelines
+#'  pipelines_ungrouped
 #' }
-"pipelines"
+"pipelines_ungrouped"

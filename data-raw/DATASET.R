@@ -1,6 +1,11 @@
 #!/usr/bin/env Rscript
 library(devtools)
 
+# Dataset consolidation rules ------------
+
+source("data-raw/util/pipelines_consolidation.R")
+use_data(pipelines_consolidation, overwrite = TRUE)
+
 # PHMSA Datsets --------------------------
 
 system("data-raw/util/process_phmsa_data.R")
@@ -10,8 +15,8 @@ system("data-raw/util/process_phmsa_data.R")
 load("data/pipelines_2004.rda")
 load("data/pipelines_2010.rda")
 common_cols <- colnames(pipelines_2010)[colnames(pipelines_2010) %in% colnames(pipelines_2004)]
-pipelines <- rbind(pipelines_2004[ , common_cols], pipelines_2010[ , common_cols])
-use_data(pipelines, overwrite = TRUE)
+pipelines_ungrouped <- rbind(pipelines_2004[ , common_cols], pipelines_2010[ , common_cols])
+use_data(pipelines_ungrouped, overwrite = TRUE)
 
 # Company groups -------------------------
 
@@ -35,3 +40,9 @@ m_as <- rbind(m_as, groups)
 m_as$type <- as.factor(m_as$type)
 
 use_data(m_as, overwrite = TRUE)
+
+# Pipelines grouped ----------------------
+
+pipelines <- oildata::consolidate_groups(pipelines_ungrouped, pipelines_consolidation,
+                                         groups = m_as, by_cols = dplyr::vars(ID, year, commodity))
+use_data(pipelines, overwrite = TRUE)

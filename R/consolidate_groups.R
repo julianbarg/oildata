@@ -34,20 +34,22 @@ handle_ma <- function(df, summary_parsing, m_as, by_cols = vars(ID, year, commod
 #' Functions first can be used in ... to retain the latest value (e.g., for name),
 #' and sum_na_rm can be used to sum values with NAs being removed by default.
 #'
+#' @param df Dataframe for which to aggregate companies to organizational level.
 #' @param summary_parsing A list of new column names and quoted functions (with quo) to be passed into summarize.
 #' @param ... Column and parsing function, in the format c("col_1" = "func_1", "col_2" = "func_2" ...).
-#' @param df Dataframe for which to aggregate companies to organizational level.
 #' @param groups The m_as dataset from this packge, or equivalent.
 #' @param by_cols Columns by which to aggregate.
 #'
 #' @export
 #'
 #' @examples
-#' consolidate_groups(list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
-consolidate_groups <- function(summary_parsing, ..., df = oildata::pipelines,
+#' consolidate_groups(oildata::pipelines, list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
+consolidate_groups <- function(df, summary_parsing, ...,
                                groups = oildata::m_as, by_cols = vars(ID, year, commodity)) {
   # Todo: check for groups not being in dataset.
   if (length(c(...) >= 1)) {by_cols <- enquos(...)}
+
+  summary_parsing <- summary_parsing[names(summary_parsing) %in% colnames(df)]
 
   groups$group_name <- as.character(groups$group_name)
 

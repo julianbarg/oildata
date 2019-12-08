@@ -5,19 +5,19 @@
 \title{Consolidate company groups in a dataframe}
 \usage{
 consolidate_groups(
+  df,
   summary_parsing,
   ...,
-  df = oildata::pipelines,
   groups = oildata::m_as,
   by_cols = vars(ID, year, commodity)
 )
 }
 \arguments{
+\item{df}{Dataframe for which to aggregate companies to organizational level.}
+
 \item{summary_parsing}{A list of new column names and quoted functions (with quo) to be passed into summarize.}
 
 \item{...}{Column and parsing function, in the format c("col_1" = "func_1", "col_2" = "func_2" ...).}
-
-\item{df}{Dataframe for which to aggregate companies to organizational level.}
 
 \item{groups}{The m_as dataset from this packge, or equivalent.}
 
@@ -28,5 +28,5 @@ Functions first can be used in ... to retain the latest value (e.g., for name),
 and sum_na_rm can be used to sum values with NAs being removed by default.
 }
 \examples{
-consolidate_groups(list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
+consolidate_groups(oildata::pipelines, list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
 }

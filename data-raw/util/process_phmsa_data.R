@@ -30,13 +30,7 @@ all_datasets <- list(incidents_2004 = list(new_colnames = c("ID" = "OPERATOR_ID"
                                                   "total_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM"),
                                            duplicate_consolidation =
                                              list("group_cols" = vars(ID, year, commodity),
-                                                  "formula" = list(hca_offshore = quo(sum(hca_offshore, na.rm = T)),
-                                                                   hca_onshore = quo(sum(hca_onshore, na.rm = T)),
-                                                                   hca_total = quo(sum(hca_total, na.rm = T)),
-                                                                   total_onshore = quo(sum(total_onshore, na.rm = T)),
-                                                                   total_offshore = quo(sum(total_offshore, na.rm = T)),
-                                                                   total_miles = quo(sum(total_miles, na.rm = T))
-                                                                   )
+                                                  "formula" = oildata::pipelines_consolidation
                                                   )
                                            ),
                      pipelines_2010 = list(new_colnames = c("ID" = "OPERATOR_ID",
