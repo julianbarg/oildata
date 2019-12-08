@@ -23,6 +23,9 @@ source("data-raw/util/m_as.R")
 
 # M&As and groups ------------------------
 
+# Groupings are applied before M&As. Therefore, it is very important that companies
+# that are in a group show up in the M&A dataset under their group name.
+
 groups$type <- "group"
 m_as$type <- "m_a"
 groups$start_year <- NA
