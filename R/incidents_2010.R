@@ -617,7 +617,7 @@
 #'  \item{AUTHORIZER_TITLE}{}
 #'  \item{AUTHORIZER_TELEPHONE}{}
 #'  \item{AUTHORIZER_EMAIL}{}
-#'  \item{NARRATIVE}{}
+#'  \item{narrative}{Written description of the incident.}
 #' }
 #' @examples
 #' \dontrun{

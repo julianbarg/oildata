@@ -287,7 +287,7 @@
 #'  \item{PTEL}{}
 #'  \item{PEMAIL}{}
 #'  \item{PFAX}{}
-#'  \item{NARRATIVE}{}
+#'  \item{narrative}{Written description of the incident.}
 #' }
 #' @examples
 #' \dontrun{
