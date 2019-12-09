@@ -43,7 +43,8 @@ handle_ma <- function(df, summary_parsing, m_as, by_cols = vars(ID, year, commod
 #' @export
 #'
 #' @examples
-#' consolidate_groups(oildata::pipelines, list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
+#' consolidate_groups(oildata::pipelines,
+#'                    list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
 consolidate_groups <- function(df, summary_parsing, ...,
                                groups = oildata::m_as, by_cols = vars(ID, year, commodity)) {
   # Todo: check for groups not being in dataset.

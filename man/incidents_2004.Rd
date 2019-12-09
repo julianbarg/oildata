@@ -264,7 +264,7 @@
  \item{PTEL}{}
  \item{PEMAIL}{}
  \item{PFAX}{}
- \item{NARRATIVE}{}
+ \item{narrative}{Written description of the incident.}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and
