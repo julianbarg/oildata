@@ -28,5 +28,6 @@ Functions first can be used in ... to retain the latest value (e.g., for name),
 and sum_na_rm can be used to sum values with NAs being removed by default.
 }
 \examples{
-consolidate_groups(oildata::pipelines, list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
+consolidate_groups(oildata::pipelines,
+                   list(total_miles = dplyr::quo(sum(total_miles, na.rm = TRUE))))
 }
