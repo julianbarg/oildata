@@ -59,6 +59,7 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                      )
 factor_cols <- c("ID", "commodity")
 sentence_case <- c("narrative")
+yes_no <- c("serious", "significant")
 
 # Functions
 download_datasets <- function(datasets) {
@@ -108,12 +109,17 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
     df[ , colnames(df) %in% factor_cols] <- map(df[ , colnames(df) %in% factor_cols], as.factor)
   }
 
-  if (any(sentence_case %in% colnames(df))) {
+  if (any(colnames(df) %in% sentence_case)) {
     df[ , colnames(df) %in% sentence_case] <- map(df[ , colnames(df) %in% sentence_case], stringr::str_to_sentence)
   }
 
   # short_cols <- map_lgl(df, function(x) length(unique(x)) <= 3)
   # df[ , short_cols] <- map(df[ , short_cols], as.factor)
+
+  if (any(colnames(df) %in% yes_no)) {
+    df[ , colnames(df) %in% yes_no] <- map(df[ , colnames(df) %in% yes_no], tolower)
+    df[ , colnames(df) %in% yes_no] <- map(df[ , colnames(df) %in% yes_no], function(x) x == "yes")
+  }
 
   assign(dataset, df)
 }
