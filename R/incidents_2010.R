@@ -30,6 +30,12 @@
 #'    (right side bar).
 #' @format A data frame with columns:
 #' \describe{
+#'  \item{DATAFILE_AS_OF}{}
+#'  \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}}
+#'  \item{serious}{Identify if record meets the SERIOUS criteria or not: If there was fatality or injury then SERIOUS = ‘YES’ else SERIOUS = ’NO’.}
+#'  \item{ipe}{Impacting People or the Environment (IPE) – when commodity (A8) is crude oil, refined petroleum products, of biofuel, if either criterion 1 or 2 below is met, the accident counts as IPE :  1.  Regardless of Location of Accident (B10): Fatality (A12) greater than zero; or Injury requiring in-patient hospitalization (A13) greater than zero; or Ignition (A15) = Yes; or Explosion (A16) = Yes; or Evacuation (A17) greater than zero; or Wildlife impact (D1) = Yes; or Water contamination (D5a) = Ocean/Seawater, Groundwater, or Drinking water; or Public/Non-Operator Private Property Damage (D8a) greater than zero 2.For Location of Accident (B10) not “TOTALLY CONTAINED ON OPERATOR CONTROLLED PROPERTY”: Unintentional Release Volume (A9) greater than or equal to 5 gallons AND HCA (D7) = Yes; or Unintentional Release Volume (A9) greater than or equal to 5 barrels AND HCA (D7) = No; or Water contamination (D5a) = Surface; or Soil contamination (D2) = Yes }
+#'  \item{integrity_assessment_target}{Integrity Assessment Target – accidents Impacting People or the Environment (IPE) and one of these causes: Corrosion, Pipeline/Weld Material Failure, Failure of Previously Damage Pipe – caused by Excavation Damage or Other Outside Force Damage.}
+#'  \item{operations_maintenance_target}{Operation & Maintenance Target - accidents Impacting People or the Environment (IPE) and one of these causes: Equipment Failure, Incorrect Operation, 1st & 2nd Party Excavation Damage, 3rd Party Excavation Damage with Root Cause = Locating Practices Not Sufficient.}
 #'  \item{REPORT_RECEIVED_DATE}{}
 #'  \item{year}{Year of the incident report.}
 #'  \item{REPORT_NUMBER}{}
@@ -192,7 +198,7 @@
 #'  \item{EST_COST_ENVIRONMENTAL}{}
 #'  \item{EST_COST_OTHER}{}
 #'  \item{EST_COST_OTHER_DETAILS}{}
-#'  \item{PRPTY}{}
+#'  \item{total_cost}{Total estimated property damage (sum of above)}
 #'  \item{ACCIDENT_PSIG}{}
 #'  \item{MOP_PSIG}{}
 #'  \item{ACCIDENT_PRESSURE}{}
@@ -357,7 +363,7 @@
 #'  \item{NF_TORNADO_IND}{}
 #'  \item{NF_OTHER_IND}{}
 #'  \item{NF_EXTREME_WEATHER_DETAILS}{}
-#'  \item{EX_PARTY_TYPE}{}
+#'  \item{excavation_damage_type}{Type of damage caused by excavation party.}
 #'  \item{EX_INSPECT_TOOL_COLLECTED_IND}{}
 #'  \item{EX_MAGNETIC_FLUX_LEAKAGE_IND}{}
 #'  \item{EX_MAGNETIC_FLUX_LEAKAGE_YEAR}{}
@@ -618,6 +624,18 @@
 #'  \item{AUTHORIZER_TELEPHONE}{}
 #'  \item{AUTHORIZER_EMAIL}{}
 #'  \item{narrative}{Written description of the incident.}
+#'  \item{NET_LOSS_BBLS}{}
+#'  \item{EST_COST_OPER_PAID_CURRENT}{}
+#'  \item{EST_COST_GAS_RELEASED_CURRENT}{}
+#'  \item{EST_COST_PROP_DAMAGE_CURRENT}{}
+#'  \item{EST_COST_EMERGENCY_CURRENT}{}
+#'  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
+#'  \item{EST_COST_OTHER_CURRENT}{}
+#'  \item{TOTAL_COST_IN84}{}
+#'  \item{TOTAL_COST_CURRENT}{}
+#'  \item{MAP_CAUSE}{}
+#'  \item{MAP_SUBCAUSE}{}
+#'  \item{SPILL_TYPE_CATEGORY}{}
 #' }
 #' @examples
 #' \dontrun{

@@ -9,17 +9,17 @@
 fix_commodities <- function(x) {
   commodities <- c("Crude Oil" = "Crude",
                    "Fuel Grade Ethanol (dedicated system)" = "FGE",
-                   "Refined and/or Petroleum Product (non-HVL)" = "non-HVL",
+                   "Refined and/or Petroleum Product (non-HVL)" = "non_HVL",
                    "CRUDE OIL" = "Crude",
                    "HVLS" = "HVL",
-                   "PETROLEUM & REFINED PRODUCTS" = "non-HVL",
+                   "PETROLEUM & REFINED PRODUCTS" = "non_HVL",
                    "HVLS/OTHER FLAMMABLE OR TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "HVL",
                    "GASOLINE, DIESEL, FUEL OIL OR OTHER PETROLEUM PRODUCT WHICH IS A LIQUID AT AMBIENT CONDITIONS"
-                      = "non-HVL",
+                      = "non_HVL",
                    # "CO2 OR OTHER NON-FLAMMABLE, NON-TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "CO2",
                    "CO2 (CARBON DIOXIDE)" = "CO2",
                    "HVL OR OTHER FLAMMABLE OR TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "HVL",
-                   "REFINED AND/OR PETROLEUM PRODUCT (NON-HVL) WHICH IS A LIQUID AT AMBIENT CONDITIONS" = "non-HVL")
+                   "REFINED AND/OR PETROLEUM PRODUCT (NON-HVL) WHICH IS A LIQUID AT AMBIENT CONDITIONS" = "non_HVL")
 
   return(recode(x, !!! commodities))
 }

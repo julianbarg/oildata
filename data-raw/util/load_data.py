@@ -36,11 +36,11 @@ class PhmsaDownloader:
             },
             'incidents_2010': {
                 'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
-                          '/accident_hazardous_liquid_jan2010_present.zip',
-                'extension': '.txt',
-                'parsing_function': partial(pd.read_csv, sep='\t', encoding='Windows-1252', low_memory=False)
+                          '/PHMSA_Pipeline_Safety_Flagged_Incidents.zip',
+                'extension': 'hl2010toPresent.xlsx',
+                'parsing_function': partial(pd.read_excel, sheet_name=1)
             },
-            'pipelines_2002': {
+            'pipelines_2004': {
                 'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
                           '/annual_hazardous_liquid_2004_2009.zip',
                 'extension': '.xlsx',
@@ -48,9 +48,9 @@ class PhmsaDownloader:
             },
             'incidents_2002': {
                 'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
-                          '/accident_hazardous_liquid_jan2002_dec2009.zip',
-                'extension': '.txt',
-                'parsing_function': partial(pd.read_csv, sep='\t', encoding='Windows-1252', low_memory=False)
+                          '/PHMSA_Pipeline_Safety_Flagged_Incidents.zip',
+                'extension': 'hl2002to2009.xlsx',
+                'parsing_function': partial(pd.read_excel, sheet_name=1)
             }
         }
 

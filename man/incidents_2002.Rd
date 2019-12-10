@@ -6,9 +6,14 @@
 \title{Annual data on oil spills in the US from 2004 to 2010}
 \format{A data frame with columns:
 \describe{
+ \item{DATAFILE_AS_OF}{}
+ \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’.}
+ \item{serious}{Identify if record meets the SERIOUS criteria or not: If there was fatality or injury then SERIOUS = ‘YES’ else SERIOUS = ’NO’.}
+ \item{report_type}{}
  \item{year}{Year of the incident report.}
  \item{ID}{Unique operator ID.}
  \item{RPTID}{}
+ \item{DOR}{}
  \item{OWNER_OPERATOR_ID}{}
  \item{name}{Name of the pipelines operator at the time of the incident report.}
  \item{OPSTREET}{}
@@ -25,7 +30,7 @@
  \item{ACSTATE}{}
  \item{ACZIP}{}
  \item{MPVST}{}
- \item{SURNO}{}
+ \item{SURVNO}{}
  \item{TELRN}{}
  \item{TELDT}{}
  \item{PPPRP}{}
@@ -34,20 +39,17 @@
  \item{OPCPRP}{}
  \item{OPCPRPO}{}
  \item{PRODPRP}{}
- \item{OPPRP}{}
+ \item{OOPRP}{}
  \item{OOPPRP}{}
  \item{OOPPRPO}{}
- \item{PRPTY}{}
+ \item{total_cost}{Total costs ($).}
  \item{SPILLED}{}
  \item{COMM}{}
- \item{CLASS}{}
  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
- \item{SPUNIT}{}
- \item{SPUNIT_TXT}{}
+ \item{SPUNIT_TEXT}{}
  \item{LOSS}{}
  \item{RECOV}{}
- \item{GEN_CAUSE}{}
- \item{GEN_CAUSE_TXT}{}
+ \item{CAUSE}{}
  \item{LINE_SEG}{}
  \item{IFED}{}
  \item{INTER}{}
@@ -60,24 +62,19 @@
  \item{PIPEROW}{}
  \item{HCA}{}
  \item{HCADESC}{}
- \item{SYSPRT}{}
- \item{SYSPRT_TXT}{}
+ \item{SYSPRT_TEXT}{}
  \item{SYSPRTO}{}
- \item{FAIL_OC}{}
- \item{FAIL_OC_TXT}{}
+ \item{FAIL_OC_TEXT}{}
  \item{FAIL_OCO}{}
  \item{PRTYR}{}
  \item{INC_PRS}{}
  \item{MOP}{}
  \item{OPRS}{}
- \item{LRTYPE}{}
- \item{LRTYPE_TXT}{}
+ \item{LRTYPE_TEXT}{}
  \item{LRTYPEO}{}
- \item{LEAK}{}
- \item{LEAK_TXT}{}
+ \item{LEAK_TEXT}{}
  \item{PUNC_DIAM}{}
- \item{RUPTURE}{}
- \item{RUPTURE_TXT}{}
+ \item{RUPTURE_TEXT}{}
  \item{RUPLN}{}
  \item{PROPLN}{}
  \item{UBLKVM}{}
@@ -91,8 +88,7 @@
  \item{SEGISO}{}
  \item{VLVDIST}{}
  \item{SEGCONF}{}
- \item{INLINE}{}
- \item{INLINE_TXT}{}
+ \item{INLINE_TEXT}{}
  \item{DRHRMF}{}
  \item{DRHRMFY}{}
  \item{DRLRMF}{}
@@ -117,8 +113,7 @@
  \item{VALVE}{}
  \item{MANU}{}
  \item{MANYR}{}
- \item{LOCLK }{}
- \item{LOCLK_TXT}{}
+ \item{LOCLK_TEXT}{}
  \item{LOCLKO}{}
  \item{DEPTH_COV}{}
  \item{FATAL}{}
@@ -137,7 +132,6 @@
  \item{EXPLO}{}
  \item{EVAC}{}
  \item{EVACNO}{}
- \item{EVAC_REASON}{}
  \item{EVAC_REASON_TEXT }{}
  \item{STHH}{}
  \item{STMN}{}
@@ -159,23 +153,17 @@
  \item{SURFACE}{}
  \item{GROUNDW}{}
  \item{DRINK}{}
- \item{DRINKSRC }{}
- \item{DRINKSRC_TXT}{}
+ \item{DRINKSRC_TEXT}{}
  \item{COMP_BASED}{}
- \item{DETECTED}{}
- \item{DETECTED_TXT}{}
+ \item{DETECTED_TEXT}{}
  \item{DETECTEDO}{}
  \item{DURLEAK_DAY}{}
- \item{DURLEAK_HR }{}
- \item{CAUSE}{}
- \item{CAUSE_TXT}{}
- \item{PIPE_COAT}{}
- \item{PIPE_COAT_TXT}{}
- \item{VIS_EXAM}{}
- \item{VIS_EXAM_TXT}{}
- \item{VIS_EXAMO }{}
- \item{COR_CAUSE}{}
- \item{COR_CAUSE_TXT}{}
+ \item{DURLEAK_HR}{}
+ \item{CAUSE_DETAILS}{}
+ \item{PIPE_COAT_TEXT}{}
+ \item{VIS_EXAM_TEXT}{}
+ \item{VIS_EXAMO}{}
+ \item{COR_CAUSE_TEXT}{}
  \item{COR_CAUSEO}{}
  \item{PROT}{}
  \item{CPYR}{}
@@ -183,88 +171,79 @@
  \item{PREV_DAM_YR }{}
  \item{PREV_DAM_MO}{}
  \item{PREV_DAM_UK}{}
- \item{EARTH_MOVE}{}
- \item{EARTH_MOVE_TXT}{}
+ \item{EARTH_MOVE_TEXT}{}
  \item{EARTH_MOVEO}{}
- \item{FLOODS}{}
- \item{FLOODS_TXT }{}
+ \item{FLOODS_TEXT }{}
  \item{FLOODSO}{}
- \item{TEMPER}{}
- \item{TEMPER_TXT}{}
+ \item{TEMPER_TEXT}{}
  \item{TEMPERO}{}
- \item{THIRD_PARTY_GRP}{}
- \item{THIRD_PARTY_GRP_TXT}{}
- \item{THIRD_PARTY_TYPE }{}
- \item{THIRD_PARTY_TYPE_TXT}{}
+ \item{THIRD_PARTY_GRP_TEXT}{}
+ \item{THIRD_PARTY_TYPE_TEXT}{}
  \item{THIRD_PARTY_TYPEO}{}
- \item{EXCAV_TYPE}{}
- \item{EXCAV_TYPE_TXT}{}
+ \item{EXCAV_TYPE_TEXT}{}
  \item{EXCAV_ON}{}
  \item{EXCAV_LAST_CONTACT}{}
  \item{NOTIF }{}
  \item{NOTIF_DATE}{}
- \item{NOTIF_RCVD_TXT}{}
+ \item{NOTIF_RCVD_TEXT}{}
  \item{MARKED}{}
- \item{TEMP_MARK}{}
- \item{TEMP_MARK_TXT}{}
+ \item{TEMP_MARK_TEXT}{}
  \item{PERM_MARK}{}
- \item{ACC_MARK }{}
- \item{ACC_MARK_TXT}{}
+ \item{ACC_MARK_TEXT}{}
  \item{MKD_IN_TIME}{}
- \item{FIRE_EXPLO}{}
- \item{FIRE_EXPLO_TXT}{}
- \item{PIPE_BODY}{}
- \item{PIPE_BODY_TXT}{}
+ \item{FIRE_EXPLO_TEXT}{}
+ \item{PIPE_BODY_TEXT}{}
  \item{PIPE_BODYO }{}
- \item{COMPONENT}{}
- \item{COMPONENT_TXT}{}
+ \item{COMPONENT_TEXT}{}
  \item{COMPONENTO}{}
- \item{JOINT}{}
- \item{JOINT_TXT}{}
+ \item{JOINT_TEXT}{}
  \item{JOINTO}{}
- \item{BUTT }{}
- \item{BUTT_TXT}{}
+ \item{BUTT_TEXT}{}
  \item{BUTTO}{}
- \item{FILLET}{}
- \item{FILLET_TXT}{}
+ \item{FILLET_TEXT}{}
  \item{FILLETO}{}
- \item{PIPE_SEAM}{}
- \item{PIPE_SEAM_TXT }{}
+ \item{PIPE_SEAM_TEXT }{}
  \item{PIPE_SEAMO}{}
- \item{FAIL_TYPE}{}
- \item{FAIL_TYPE_TXT}{}
- \item{CONS_DEF}{}
- \item{CONS_DEF_TXT}{}
+ \item{FAIL_TYPE_TEXT}{}
+ \item{CONS_DEF_TEXT}{}
  \item{PIPE_DAMAGE}{}
  \item{PRS_TEST }{}
- \item{TEST_DATE}{}
- \item{TEST_MED}{}
- \item{TEST_MED_TXT}{}
+ \item{TEST_YR}{}
+ \item{TEST_MO}{}
+ \item{TEST_DAY}{}
+ \item{TEST_MED_TEXT}{}
  \item{TEST_MEDO}{}
  \item{TEST_TP}{}
  \item{TEST_PRS}{}
- \item{MALFUNC }{}
- \item{MALFUNC_TXT}{}
+ \item{MALFUNC_TEXT}{}
  \item{MALFUNCO}{}
- \item{THREADS}{}
- \item{THREADS_TXT}{}
+ \item{THREADS_TEXT}{}
  \item{THREADSO}{}
- \item{SEAL}{}
- \item{SEAL_TXT }{}
+ \item{SEAL_TEXT }{}
  \item{SEALO}{}
- \item{IO_TYPE}{}
- \item{IO_TYPE_TXT}{}
+ \item{IO_TYPE_TEXT}{}
  \item{IO_TYPEO}{}
  \item{IO_DRUG}{}
  \item{IO_ALCO}{}
  \item{MISC }{}
- \item{UNKNOWN}{}
- \item{UNKNOWN_TXT}{}
+ \item{UNKNOWN_TEXT}{}
  \item{PNAME}{}
- \item{PTEL}{}
+ \item{PHONE}{}
  \item{PEMAIL}{}
- \item{PFAX}{}
  \item{narrative}{Written description of the incident.}
+ \item{PPPRPCURRENT}{}
+ \item{EMRPRPCURRENT}{}
+ \item{ENVPRPCURRENT}{}
+ \item{OPCPRPCURRENT}{}
+ \item{PRODPRPCURRENT}{}
+ \item{OOPRPCURRENT}{}
+ \item{OOPPRPCURRENT}{}
+ \item{TOTAL_COST_IN84}{}
+ \item{TOTAL_COST_CURRENT}{}
+ \item{MAP_CAUSE}{}
+ \item{MAP_SUBCAUSE}{}
+ \item{SPILL_TYPE_CATEGORY}{}
+
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and
