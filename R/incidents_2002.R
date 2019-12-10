@@ -291,6 +291,6 @@
 #' }
 #' @examples
 #' \dontrun{
-#'  incidents_2004
+#'  incidents_2002
 #' }
-"incidents_2004"
+"incidents_2002"

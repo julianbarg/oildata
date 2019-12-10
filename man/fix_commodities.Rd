@@ -16,5 +16,5 @@ Cleaned up vector as factor.
 Recode a commodity vector to be standardized between the different datasets.
 }
 \examples{
-oildata:::fix_commodities(incidents_2004$commodity)
+oildata:::fix_commodities(incidents_2002$commodity)
 }

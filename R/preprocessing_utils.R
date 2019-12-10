@@ -5,7 +5,7 @@
 #' @return Cleaned up vector as factor.
 #'
 #' @examples
-#' oildata:::fix_commodities(incidents_2004$commodity)
+#' oildata:::fix_commodities(incidents_2002$commodity)
 fix_commodities <- function(x) {
   commodities <- c("Crude Oil" = "Crude",
                    "Fuel Grade Ethanol (dedicated system)" = "FGE",

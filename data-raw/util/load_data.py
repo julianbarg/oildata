@@ -40,13 +40,13 @@ class PhmsaDownloader:
                 'extension': '.txt',
                 'parsing_function': partial(pd.read_csv, sep='\t', encoding='Windows-1252', low_memory=False)
             },
-            'pipelines_2004': {
+            'pipelines_2002': {
                 'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
                           '/annual_hazardous_liquid_2004_2009.zip',
                 'extension': '.xlsx',
                 'parsing_function': partial(pd.read_excel)
             },
-            'incidents_2004': {
+            'incidents_2002': {
                 'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
                           '/accident_hazardous_liquid_jan2002_dec2009.zip',
                 'extension': '.txt',

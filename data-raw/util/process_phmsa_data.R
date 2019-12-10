@@ -9,7 +9,7 @@ redownload <- "--download" %in% dataset_input
 dataset_input <- dataset_input[! startsWith(dataset_input, "--")]
 
 temp_data_folder <- "data-raw/.temp-data"
-all_datasets <- list(incidents_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
+all_datasets <- list(incidents_2002 = list(new_colnames = c("ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
                                                             "year" = "IYEAR",
                                                             "commodity" = "CLASS_TXT",
@@ -123,9 +123,9 @@ save_datasets <- function(dfs){
     use_data(pipelines_2004, overwrite = TRUE)
   }
 
-  if ("incidents_2004" %in% names(dfs)) {
-    incidents_2004 <- dfs[["incidents_2004"]]
-    use_data(incidents_2004, overwrite = TRUE)
+  if ("incidents_2002" %in% names(dfs)) {
+    incidents_2002 <- dfs[["incidents_2002"]]
+    use_data(incidents_2002, overwrite = TRUE)
   }
 }
 
