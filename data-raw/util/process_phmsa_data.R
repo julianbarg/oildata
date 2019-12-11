@@ -57,7 +57,7 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "total_offshore" = "PARTDOFFTOTAL",
                                                             "total_miles" = "PARTDTOTALMILES"))
                      )
-factor_cols <- c("ID", "commodity")
+# factor_cols <- c("ID", "commodity")
 sentence_case <- c("narrative")
 yes_no <- c("serious", "significant")
 
@@ -105,9 +105,9 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
     df$commodity <- oildata:::fix_commodities(df$commodity)
   }
 
-  if (any(colnames(df) %in% factor_cols)) {
-    df[ , colnames(df) %in% factor_cols] <- map(df[ , colnames(df) %in% factor_cols], as.factor)
-  }
+  # if (any(colnames(df) %in% factor_cols)) {
+  #   df[ , colnames(df) %in% factor_cols] <- map(df[ , colnames(df) %in% factor_cols], as.factor)
+  # }
 
   if (any(colnames(df) %in% sentence_case)) {
     df[ , colnames(df) %in% sentence_case] <- map(df[ , colnames(df) %in% sentence_case], stringr::str_to_sentence)
