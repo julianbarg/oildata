@@ -90,9 +90,11 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
   }
 
   if ("duplicate_consolidation" %in% names(all_datasets[[dataset]])) {
+    formula <- all_datasets[[dataset]][["duplicate_consolidation"]][["formula"]]
+    formula <- formula[names(formula) %in% colnames(all_datasets[[dataset]])]
     df <- DataAnalysisTools::consolidate_duplicates(
       df,
-      summary_parsing = all_datasets[[dataset]][["duplicate_consolidation"]][["formula"]],
+      summary_parsing = formula,
       by_cols = all_datasets[[dataset]][["duplicate_consolidation"]][["group_cols"]])
   }
 

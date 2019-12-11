@@ -9,6 +9,7 @@
 #' @param by_cols Columns by which to aggregate.
 handle_ma <- function(df, summary_parsing, m_as, by_cols = vars(ID, year, commodity)) {
   # Todo: Check for m_as not being in dataset.
+  summary_parsing <- summary_parsing[names(summary_parsing) %in% colnames(df)]
   m_as$group_name <- as.character(m_as$group_name)
 
   batch <- m_as[!duplicated(m_as$ID), ]
