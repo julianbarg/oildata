@@ -17,7 +17,16 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "year" = "IYEAR",
                                                             "total_cost" = "TOTAL_COST",
                                                             "commodity" = "CLASS_TEXT",
-                                                            "narrative" = "NARRATIVE")),
+                                                            "cause" = "CAUSE",
+                                                            "narrative" = "NARRATIVE"),
+                                           recode = list(cause = c("CORROSION" = "corrosion",
+                                                                   "EQUIPMENT" = "equipment",
+                                                                   "EXCAVATION DAMAGE" = "damage",
+                                                                   "INCORRECT OPERATION" = "operation",
+                                                                   "MATERIAL AND/OR WELD FAILURES" = "material",
+                                                                   "NATURAL FORCES" = "natural forces",
+                                                                   "OTHER" = "other",
+                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside"))),
                      incidents_2010 = list(new_colnames = c("significant" = "SIGNIFICANT",
                                                             "serious" = "SERIOUS",
                                                             "ipe" = "IPE",
@@ -29,7 +38,19 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "commodity" = "COMMODITY_RELEASED_TYPE",
                                                             "total_cost" = "TOTAL_COST",
                                                             "excavation_damage_type" = "PARTY_TYPE",
-                                                            "narrative" = "NARRATIVE")),
+                                                            "cause" = "CAUSE",
+                                                            "narrative" = "NARRATIVE"),
+                                           recode = list(cause = c("CORROSION FAILURE" = "corrosion",
+                                                                   "EQUIPMENT FAILURE" = "equipment",
+                                                                   "EXCAVATION DAMAGE" = "damage",
+                                                                   "INCORRECT OPERATION" = "operation",
+                                                                   "MATERIAL FAILURE OF PIPE OR WELD" = "material",
+                                                                   "NATURAL FORCE DAMAGE" = "natural forces",
+                                                                   "OTHER INCIDENT CAUSE" = "other",
+                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside"
+                                                                   )
+                                                         )
+                                           ),
                      pipelines_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
                                                             "year" = "YR",
@@ -86,6 +107,17 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
   if ("new_columns" %in% names(all_datasets[[dataset]])) {
     for (new_column in names(all_datasets[[dataset]][["new_columns"]])) {
       df <- create_column(df, new_column, all_datasets[[dataset]][["new_columns"]][[new_column]])
+    }
+  }
+
+  if ("recode" %in% names(all_datasets[[dataset]])) {
+    recode_passthrough <- function(x, codes) {
+      return(recode(x, !!! codes))
+    }
+    for (column in names(all_datasets[[dataset]][["recode"]]))
+    {
+      recode_info <- all_datasets[[dataset]][["recode"]][[column]]
+      df[[column]] <- recode_passthrough(df[[column]], recode_info)
     }
   }
 

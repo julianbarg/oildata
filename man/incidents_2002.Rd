@@ -49,7 +49,7 @@
  \item{SPUNIT_TEXT}{}
  \item{LOSS}{}
  \item{RECOV}{}
- \item{CAUSE}{}
+ \item{cause}{Apparent Cause of the Incident (self-reported).}
  \item{LINE_SEG}{}
  \item{IFED}{}
  \item{INTER}{}

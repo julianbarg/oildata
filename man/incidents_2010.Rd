@@ -234,7 +234,7 @@
  \item{NUM_EMPLOYEES_FAILED}{}
  \item{NUM_CONTRACTORS_TESTED}{}
  \item{NUM_CONTRACTORS_FAILED}{}
- \item{CAUSE}{}
+ \item{cause}{Apparent Cause of the Incident (self-reported).}
  \item{CAUSE_DETAILS}{}
  \item{INTERNAL_EXTERNAL}{}
  \item{VISUAL_EXAM_RESULTS}{}
