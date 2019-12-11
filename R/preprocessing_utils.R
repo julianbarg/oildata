@@ -20,7 +20,7 @@ fix_commodities <- function(x) {
                    "CO2 (CARBON DIOXIDE)" = "co2",
                    "HVL OR OTHER FLAMMABLE OR TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "hvl",
                    "REFINED AND/OR PETROLEUM PRODUCT (NON-HVL) WHICH IS A LIQUID AT AMBIENT CONDITIONS" = "non_hvl",
-                   "HVL" = "HVL")
+                   "HVL" = "hvl")
 
   return(recode(x, !!! commodities))
 }
