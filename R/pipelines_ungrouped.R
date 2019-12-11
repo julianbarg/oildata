@@ -24,6 +24,8 @@
 #'  \item{total_onshore}{Miles of pipelines onshore.}
 #'  \item{total_offshore}{Miles of pipelines offshore.}
 #'  \item{total_miles}{Miles of pipelines onshore.}
+#'  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
+#'  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
 #' }
 #' @examples
 #' \dontrun{
