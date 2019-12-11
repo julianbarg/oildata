@@ -21,16 +21,16 @@ pipelines_ungrouped <- rbind(pipelines_2004[ , common_cols], pipelines_2010[ , c
 load("data/incidents_2002.rda")
 load("data/incidents_2010.rda")
 
-incidents <- rbind(select(incidents_2002, year, ID, commodity, significant, serious),
-                   select(incidents_2010, year, ID, commodity, significant, serious))
+incidents_count <- rbind(select(incidents_2002, year, ID, commodity, significant, serious),
+                         select(incidents_2010, year, ID, commodity, significant, serious))
 
-significant <- incidents %>%
+significant <- incidents_count %>%
   filter(significant == TRUE) %>%
   filter(commodity %in% c("crude", "hvl", "non_hvl")) %>%
   group_by(year, ID, commodity) %>%
   summarize(significant_incidents = n())
 
-serious <- incidents %>%
+serious <- incidents_count %>%
   filter(serious == TRUE) %>%
   filter(commodity %in% c("crude", "hvl", "non_hvl")) %>%
   group_by(year, ID, commodity) %>%
@@ -42,6 +42,12 @@ pipelines_ungrouped[is.na(pipelines_ungrouped$significant_incidents), ]$signific
 pipelines_ungrouped[is.na(pipelines_ungrouped$serious_incidents), ]$serious_incidents <- 0
 
 use_data(pipelines_ungrouped, overwrite = TRUE)
+
+# Incidents merge ------------------------
+
+incidents <- rbind(select(incidents_2002, year, ID, commodity, significant, serious, cause),
+                   select(incidents_2010, year, ID, commodity, significant, serious, cause))
+use_data(incidents, overwrite = TRUE)
 
 # Company groups -------------------------
 
