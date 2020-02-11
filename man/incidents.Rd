@@ -11,6 +11,7 @@
   \item{commodity}{}
   \item{significant}{}
   \item{serious}{}
+  \item{installation_year}{Year item installed that involved in accident.}
   \item{cause}{}
   ...
 }}

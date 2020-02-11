@@ -45,8 +45,8 @@ use_data(pipelines_ungrouped, overwrite = TRUE)
 
 # Incidents merge ------------------------
 
-incidents <- rbind(select(incidents_2002, year, ID, commodity, significant, serious, cause),
-                   select(incidents_2010, year, ID, commodity, significant, serious, cause))
+incidents <- rbind(select(incidents_2002, year, ID, commodity, significant, serious, installation_year, cause),
+                   select(incidents_2010, year, ID, commodity, significant, serious, installation_year, cause))
 use_data(incidents, overwrite = TRUE)
 
 # Company groups -------------------------

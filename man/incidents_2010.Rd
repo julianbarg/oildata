@@ -121,7 +121,7 @@
  \item{TANK_VESSEL_SUBTYPE}{}
  \item{ITEM_INVOLVED_DETAILS}{}
  \item{TANK_VESSEL_DETAILS}{}
- \item{INSTALLATION_YEAR}{}
+ \item{installation_year}{Year item installed that involved in accident.}
  \item{MATERIAL_INVOLVED}{}
  \item{MATERIAL_DETAILS}{}
  \item{RELEASE_TYPE}{}

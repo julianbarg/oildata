@@ -66,7 +66,7 @@
  \item{SYSPRTO}{}
  \item{FAIL_OC_TEXT}{}
  \item{FAIL_OCO}{}
- \item{PRTYR}{}
+ \item{installation_year}{Year item installed that involved in accident.}
  \item{INC_PRS}{}
  \item{MOP}{}
  \item{OPRS}{}
