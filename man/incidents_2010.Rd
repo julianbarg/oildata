@@ -33,7 +33,7 @@
  \item{COMMODITY_DETAILS}{}
  \item{BLEND_DETAILS}{}
  \item{BIO_DIESEL_DETAILS}{}
- \item{UNINTENTIONAL_RELEASE_BBLS}{}
+ \item{volume}{Volume of the spill.}
  \item{INTENTIONAL_RELEASE_BBLS}{}
  \item{RECOVERED_BBLS}{}
  \item{FATALITY_IND}{}
@@ -174,7 +174,7 @@
  \item{EST_COST_ENVIRONMENTAL}{}
  \item{EST_COST_OTHER}{}
  \item{EST_COST_OTHER_DETAILS}{}
- \item{total_cost}{Total estimated property damage (sum of above)}
+ \item{cost}{Total estimated property damage (sum of above)}
  \item{ACCIDENT_PSIG}{}
  \item{MOP_PSIG}{}
  \item{ACCIDENT_PRESSURE}{}

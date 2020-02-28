@@ -15,7 +15,7 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
                                                             "year" = "IYEAR",
-                                                            "total_cost" = "TOTAL_COST",
+                                                            "cost" = "TOTAL_COST",
                                                             "commodity" = "CLASS_TEXT",
                                                             "installation_year" = "PRTYR",
                                                             "cause" = "CAUSE",
@@ -27,7 +27,10 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                                    "MATERIAL AND/OR WELD FAILURES" = "material",
                                                                    "NATURAL FORCES" = "natural forces",
                                                                    "OTHER" = "other",
-                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside"))),
+                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside")),
+                                           mutate_columns = c(function(x) x %>%
+                                                                mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
+                                                                                       LOSS, LOSS / 31.5)))),
                      incidents_2010 = list(new_colnames = c("significant" = "SIGNIFICANT",
                                                             "serious" = "SERIOUS",
                                                             "ipe" = "IPE",
@@ -37,8 +40,9 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "name" = "NAME",
                                                             "year" = "IYEAR",
                                                             "commodity" = "COMMODITY_RELEASED_TYPE",
+                                                            "volume" = "UNINTENTIONAL_RELEASE_BBLS",
                                                             "installation_year" = "INSTALLATION_YEAR",
-                                                            "total_cost" = "TOTAL_COST",
+                                                            "cost" = "TOTAL_COST",
                                                             "excavation_damage_type" = "PARTY_TYPE",
                                                             "cause" = "CAUSE",
                                                             "narrative" = "NARRATIVE"),
@@ -109,6 +113,12 @@ process_dataset <- function(dataset, all_datasets, temp_data_folder, factor_cols
   if ("new_columns" %in% names(all_datasets[[dataset]])) {
     for (new_column in names(all_datasets[[dataset]][["new_columns"]])) {
       df <- create_column(df, new_column, all_datasets[[dataset]][["new_columns"]][[new_column]])
+    }
+  }
+
+  if ("mutate_columns" %in% names(all_datasets[[dataset]])) {
+    for (new_column in all_datasets[[dataset]][["mutate_columns"]]) {
+      df <- new_column(df)
     }
   }
 

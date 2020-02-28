@@ -14,17 +14,22 @@
 #' @format A data frame with columns:
 #' \describe{
 #'  \item{year}{Report year.}
+#'  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
 #'  \item{ID}{Unique operator ID.}
 #'  \item{name}{Name of the pipelines operator at the time of the report year.}
-#'  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
+#'  \item{hca_total}{Miles of pipelines in High Consequences Areas.}
 #'  \item{hca_offshore}{Miles of pipelines offshore in High Consequences Areas.}
 #'  \item{hca_onshore}{Miles of pipelines onshore in High Consequences Areas.}
-#'  \item{hca_total}{Miles of pipelines in High Consequences Areas.}
+#'  \item{total_miles}{Miles of pipelines onshore.}
 #'  \item{total_onshore}{Miles of pipelines onshore.}
 #'  \item{total_offshore}{Miles of pipelines offshore.}
-#'  \item{total_miles}{Miles of pipelines onshore.}
+#'  \item{incidents}{Total number of incidents (both significant and non-significant).}
 #'  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
 #'  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
+#'  \item{incidents_volume}{Total number of gallons spilled across all incidents.}
+#'  \item{significant_incidents_volume}{Total number of gallons spilled across all significant incidents.}
+#'  \item{incidents_cost}{Combined cost of all incidents.}
+#'  \item{significant_incidents_cost}{Combined cost of all significant incidents.}
 #' }
 #' @examples
 #' \dontrun{

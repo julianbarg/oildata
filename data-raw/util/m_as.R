@@ -49,11 +49,6 @@ m_as <- rbind(data.frame(group_name = "Enterprise Products (Group)",
                          members =  "31554",
                          start_year = 2002,
                          end_year = 2014),
-              # Accidental duplicate in the original source.
-              # data.frame(group_name = "BP (Group)",
-              #            members =  "30781",
-              #            start_year = 2001,
-              #            end_year = 2006),
               data.frame(group_name = "Valero (Group)",
                          members =  "31742",
                          start_year = 2005,
@@ -75,3 +70,5 @@ m_as <- rbind(data.frame(group_name = "Enterprise Products (Group)",
                          start_year = 2011,
                          end_year = NA)
 )
+
+m_as$type <- "m_a"

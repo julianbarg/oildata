@@ -80,3 +80,7 @@ groups <- rbind(data.frame(group_name = "Teppco (Group)",
                 data.frame(group_name = "Glass Mountain (Group)",
                            members = c("39080", "39774"))
 )
+
+groups$type <- "group"
+groups$start_year <- NA
+groups$end_year <- NA

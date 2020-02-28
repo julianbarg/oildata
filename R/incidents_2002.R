@@ -65,7 +65,7 @@
 #'  \item{OOPRP}{}
 #'  \item{OOPPRP}{}
 #'  \item{OOPPRPO}{}
-#'  \item{total_cost}{Total costs ($).}
+#'  \item{cost}{Total costs ($).}
 #'  \item{SPILLED}{}
 #'  \item{COMM}{}
 #'  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
@@ -266,7 +266,7 @@
 #'  \item{MAP_CAUSE}{}
 #'  \item{MAP_SUBCAUSE}{}
 #'  \item{SPILL_TYPE_CATEGORY}{}
-#'
+#'  \item{volume}{Volume of oil spilled (in gallons)}
 #' }
 #' @examples
 #' \dontrun{
