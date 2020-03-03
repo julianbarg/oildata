@@ -24,8 +24,8 @@
  \item{OPERATOR_STATE_ABBREVIATION}{}
  \item{OPERATOR_POSTAL_CODE}{}
  \item{LOCAL_DATETIME}{}
- \item{LOCATION_LATITUDE}{}
- \item{LOCATION_LONGITUDE}{}
+ \item{lat}{Accident location latitude.}
+ \item{long}{Accident location longitude.}
  \item{NRC_RPT_NUM}{}
  \item{NRC_RPT_DATETIME}{}
  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
@@ -612,6 +612,7 @@
  \item{MAP_CAUSE}{}
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
+ \item{date}{Date of the spill.}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and

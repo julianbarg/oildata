@@ -15,6 +15,8 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
                                                             "year" = "IYEAR",
+                                                            "lat" = "LATITUDE",
+                                                            "long" = "LONGITUDE",
                                                             "cost" = "TOTAL_COST",
                                                             "commodity" = "CLASS_TEXT",
                                                             "installation_year" = "PRTYR",
@@ -34,7 +36,10 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                                          "NO" = "onshore")),
                                            mutate_columns = c(function(x) x %>%
                                                                 mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
-                                                                                       LOSS, LOSS / 31.5)))),
+                                                                                       LOSS, LOSS / 31.5),
+                                                                       date = lubridate::date(IDATE))
+                                                              )
+                                           ),
                      incidents_2010 = list(new_colnames = c("significant" = "SIGNIFICANT",
                                                             "serious" = "SERIOUS",
                                                             "ipe" = "IPE",
@@ -43,6 +48,8 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
                                                             "year" = "IYEAR",
+                                                            "lat" = "LOCATION_LATITUDE",
+                                                            "long" = "LOCATION_LONGITUDE",
                                                             "commodity" = "COMMODITY_RELEASED_TYPE",
                                                             "volume" = "UNINTENTIONAL_RELEASE_BBLS",
                                                             "on_offshore" = "ON_OFF_SHORE",
@@ -63,7 +70,12 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                                    ),
                                                          on_offshore = c("OFFSHORE" = "offshore",
                                                                          "ONSHORE" = "onshore")
-                                                         )
+                                                         ),
+                                           mutate_columns = c(function(x) x %>%
+                                                                mutate(date = lubridate::date(LOCAL_DATETIME),
+                                                                       lat = as.character(lat),
+                                                                       long = as.character(long))
+                                                              )
                                            ),
                      pipelines_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
                                                             "name" = "NAME",
@@ -104,6 +116,8 @@ download_datasets <- function(datasets) {
 }
 
 create_column <- function(df, col_name, formula){
+  # This function is for straightforward transformation (e.g., add two columns)
+  # whereas mutate_columns can handle more complex transformations
   df <- df %>%
     mutate(!! col_name := !! parse_expr(formula))
   return(df)

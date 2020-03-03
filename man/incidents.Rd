@@ -12,6 +12,8 @@
   \item{ID}{}
   \item{name}{}
   \item{year}{}
+  \item{lat}{Accident location latitude.}
+  \item{long}{Accident location longitude.}
   \item{cost}{}
   \item{cost_1984}{}
   \item{TOTAL_COST_CURRENT}{}
@@ -27,6 +29,7 @@
   \item{SPILL_TYPE_CATEGORY}{}
   \item{narrative}{}
   \item{volume}{}
+  \item{date}{Date of the spill.}
 }}
 \usage{
 incidents

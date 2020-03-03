@@ -46,8 +46,8 @@
 #'  \item{OPZIP}{}
 #'  \item{IHOUR}{}
 #'  \item{IDATE}{}
-#'  \item{LATITUDE}{}
-#'  \item{LONGITUDE}{}
+#'  \item{lat}{Accident location latitude.}
+#'  \item{long}{Accident location longitude.}
 #'  \item{ACCITY}{}
 #'  \item{ACCOUNTY}{}
 #'  \item{ACSTATE}{}
@@ -267,6 +267,7 @@
 #'  \item{MAP_SUBCAUSE}{}
 #'  \item{SPILL_TYPE_CATEGORY}{}
 #'  \item{volume}{Volume of oil spilled (in gallons)}
+#'  \item{date}{Date of the spill.}
 #' }
 #' @examples
 #' \dontrun{
