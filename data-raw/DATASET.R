@@ -32,7 +32,7 @@ pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
                                 incidents = quo(sum(incidents, na.rm = T)),
                                 significant_incidents = quo(sum(significant_incidents, na.rm = T)),
                                 serious_incidents = quo(sum(serious_incidents, na.rm = T)),
-                                incident_volume = quo(sum(incident_volume, na.rm = T)),
+                                incidents_volume = quo(sum(incidents_volume, na.rm = T)),
                                 significant_incident_volume = quo(sum(significant_incident_volume, na.rm = T)),
                                 incidents_cost = quo(sum(incidents_cost, na.rm = T)),
                                 significant_incidents_cost = quo(sum(significant_incidents_cost, na.rm = T))
