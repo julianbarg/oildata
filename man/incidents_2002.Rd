@@ -238,7 +238,7 @@
  \item{PRODPRPCURRENT}{}
  \item{OOPRPCURRENT}{}
  \item{OOPPRPCURRENT}{}
- \item{TOTAL_COST_IN84}{}
+ \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
  \item{TOTAL_COST_CURRENT}{}
  \item{MAP_CAUSE}{}
  \item{MAP_SUBCAUSE}{}

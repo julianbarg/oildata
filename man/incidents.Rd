@@ -13,7 +13,7 @@
   \item{name}{}
   \item{year}{}
   \item{cost}{}
-  \item{TOTAL_COST_IN84}{}
+  \item{cost_1984}{}
   \item{TOTAL_COST_CURRENT}{}
   \item{commodity}{}
   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}

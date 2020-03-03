@@ -23,8 +23,8 @@ mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
                     serious_incidents = list(filter_col=quo(serious), aggregate_col=NULL),
                     incidents_volume = list(filter_col=NULL, aggregate_col=quo(volume)),
                     significant_incidents_volume = list(filter_col=quo(significant), aggregate_col=quo(volume)),
-                    incidents_cost = list(filter_col=NULL, aggregate_col=quo(cost)),
-                    significant_incidents_cost = list(filter_col=quo(significant), aggregate_col = quo(cost))
+                    incidents_cost = list(filter_col=NULL, aggregate_col=quo(cost_1984)),
+                    significant_incidents_cost = list(filter_col=quo(significant), aggregate_col = quo(cost_1984))
                     )
 
 pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),

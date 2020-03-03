@@ -631,7 +631,7 @@
 #'  \item{EST_COST_EMERGENCY_CURRENT}{}
 #'  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
 #'  \item{EST_COST_OTHER_CURRENT}{}
-#'  \item{TOTAL_COST_IN84}{}
+#'  \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
 #'  \item{TOTAL_COST_CURRENT}{}
 #'  \item{MAP_CAUSE}{}
 #'  \item{MAP_SUBCAUSE}{}
