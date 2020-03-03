@@ -27,9 +27,8 @@ mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
                     significant_incidents_cost = list(filter_col=quo(significant), aggregate_col = quo(cost))
                     )
 
-pipelines_consolidation <- list(offshore = quo(sum(offshore, na.rm = T)),
-                                onshore = quo(sum(onshore, na.rm = T)),
-                                total = quo(sum(total, na.rm = T)),
+pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
+                                miles = quo(sum(miles, na.rm = T)),
                                 incidents = quo(sum(incidents, na.rm = T)),
                                 significant_incidents = quo(sum(significant_incidents, na.rm = T)),
                                 serious_incidents = quo(sum(serious_incidents, na.rm = T)),
@@ -100,7 +99,6 @@ make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=groupi
 
 # Ingest datasets to mutate. Datasets are created by process_phmsa_data.R,
 # which does not greatly alter the original dataset.
-source("data-raw/util/pipelines_consolidation.R")
 load("data/pipelines_2004.rda")
 load("data/pipelines_2010.rda")
 load("data/incidents_2002.rda")
