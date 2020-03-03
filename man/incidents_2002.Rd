@@ -53,7 +53,7 @@
  \item{LINE_SEG}{}
  \item{IFED}{}
  \item{INTER}{}
- \item{OFFSHORE}{}
+ \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
  \item{OFFAREA}{}
  \item{BNUMB}{}
  \item{OFFST}{}

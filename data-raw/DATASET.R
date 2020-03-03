@@ -16,6 +16,8 @@ if (isTRUE(redownload)) {system("data-raw/util/process_phmsa_data.R --download")
 # Set up arguments
 observation_period <- c(2004:2019)
 
+grouping_cols <- vars(ID, year, commodity, on_offshore)
+
 mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
                     significant_incidents = list(filter_col=quo(significant), aggregate_col=NULL),
                     serious_incidents = list(filter_col=quo(serious), aggregate_col=NULL),
@@ -25,12 +27,9 @@ mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
                     significant_incidents_cost = list(filter_col=quo(significant), aggregate_col = quo(cost))
                     )
 
-pipelines_consolidation <- list(hca_offshore = quo(sum(hca_offshore, na.rm = T)),
-                                hca_onshore = quo(sum(hca_onshore, na.rm = T)),
-                                hca_total = quo(sum(hca_total, na.rm = T)),
-                                total_onshore = quo(sum(total_onshore, na.rm = T)),
-                                total_offshore = quo(sum(total_offshore, na.rm = T)),
-                                total_miles = quo(sum(total_miles, na.rm = T)),
+pipelines_consolidation <- list(offshore = quo(sum(offshore, na.rm = T)),
+                                onshore = quo(sum(onshore, na.rm = T)),
+                                total = quo(sum(total, na.rm = T)),
                                 incidents = quo(sum(incidents, na.rm = T)),
                                 significant_incidents = quo(sum(significant_incidents, na.rm = T)),
                                 serious_incidents = quo(sum(serious_incidents, na.rm = T)),
@@ -50,7 +49,7 @@ col_union <- function(dfs) {
   map_dfr(dfs, ~select(.x, !! quo(common_cols)))
 }
 
-extract_count <- function(df, colname, filter_col=NULL, aggregate_col=NULL) {
+extract_count <- function(df, colname, grouping_cols=grouping_cols, filter_col=NULL, aggregate_col=NULL) {
   # Extract the count of the number of accidents per organization and commodity based on filters and returns them
   # with a sensible column name.
   filter_if <- function(df, filter_col){
@@ -75,21 +74,22 @@ extract_count <- function(df, colname, filter_col=NULL, aggregate_col=NULL) {
   df %>%
     filter_if(filter_col) %>%
     filter(commodity %in% c("crude", "hvl", "non_hvl")) %>%
-    group_by(year, ID, commodity) %>%
+    group_by(!!! unlist(grouping_cols)) %>%
     aggregate_if(aggregate_col, colname)
 }
 
-make_dataset <- function(pipelines, incidents, mutate_cols) {
+make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols) {
   for (colname in names(mutate_cols)) {
     filter_col = mutate_cols[[colname]][["filter_col"]]
     aggregate_col = mutate_cols[[colname]][["aggregate_col"]]
     column <- extract_count(incidents,
                             colname,
+                            grouping_cols = grouping_cols,
                             filter_col = filter_col,
                             aggregate_col = aggregate_col)
 
-      pipelines <- left_join(pipelines, column, by = c("year", "ID", "commodity"))
-      pipelines[is.na(pipelines[[colname]]), ][[colname]] <- 0
+    pipelines <- left_join(pipelines, column, by = map_chr(grouping_cols, quo_name))
+    pipelines[is.na(pipelines[[colname]]), ][[colname]] <- 0
   }
   pipelines
 }
@@ -121,15 +121,20 @@ use_data(m_as, overwrite = TRUE)
 use_data(incidents, overwrite = TRUE)
 
 # Create important datasets
-pipelines_ungrouped <- col_union(pipeline_datasets)
+pipelines_ungrouped <- col_union(pipeline_datasets) %>%
+  select(-matches("total$")) %>%
+  pivot_longer(matches("offshore$|onshore$"),
+               names_to = c(".value", "on_offshore"),
+               names_pattern = "(.*)_(.*)")
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
                                     incidents = incidents,
-                                    mutate_cols = mutate_cols)
+                                    mutate_cols = mutate_cols,
+                                    grouping_cols = grouping_cols)
 pipelines_ungrouped <- subset(pipelines_ungrouped, year %in% observation_period)
 pipelines <- oildata::consolidate_groups(pipelines_ungrouped,
                                          pipelines_consolidation,
                                          groups = m_as,
-                                         by_cols = vars(ID, year, commodity))
+                                         by_cols = grouping_cols)
 
 # Provide important datasets in package
 use_data(pipelines_ungrouped, overwrite = T)

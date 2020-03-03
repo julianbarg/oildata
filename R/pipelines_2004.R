@@ -93,7 +93,7 @@
 #'  \item{DINSTM_8}{}
 #'  \item{DINSTM_9}{}
 #'  \item{DINSTM_10}{}
-#'  \item{total_miles}{Total miles of pipelines.}
+#'  \item{miles_total}{Total miles of pipelines.}
 #'  \item{ERWHM_1}{}
 #'  \item{ERWHM_2}{}
 #'  \item{ERWHM_3}{}
@@ -180,8 +180,8 @@
 #'  \item{PPHONE}{}
 #'  \item{PEMAIL}{}
 #'  \item{PFAX}{}
-#'  \item{total_onshore}{Miles of pipelines onshore (calculated from part B - miles of steel by location/protection).}
-#'  \item{total_offshore}{Miles of pipelines offshore (calculated from part B - miles of steel by location/protection).}
+#'  \item{miles_onshore}{Miles of pipelines onshore (calculated from part B - miles of steel by location/protection).}
+#'  \item{miles_offshore}{Miles of pipelines offshore (calculated from part B - miles of steel by location/protection).}
 #' }
 #' @examples
 #' \dontrun{

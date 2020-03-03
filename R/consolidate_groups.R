@@ -64,7 +64,7 @@ consolidate_groups <- function(df, summary_parsing, ...,
     select(-c(type))
 
   df <- left_join(df, groups_, by = "ID") # %>% # Stop here and remane column?
-  if (max(duplicated(select(df, ID, year, commodity))) == 1) warning("Some duplicates detected. Is a company erroneously in multiple groups?")
+  if (max(duplicated(select(df, !!! by_cols))) == 1) warning("Some duplicates detected. Is a company erroneously in multiple groups?")
 
   df$ID <- ifelse(is.na(df$group_name), df$ID, df$group_name)
   df <- select(df, -group_name)

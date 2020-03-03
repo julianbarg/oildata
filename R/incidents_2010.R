@@ -84,7 +84,7 @@
 #'  \item{NUM_PUB_EVACUATED}{}
 #'  \item{INCIDENT_IDENTIFIED_DATETIME}{}
 #'  \item{ON_SITE_DATETIME}{}
-#'  \item{ON_OFF_SHORE}{}
+#'  \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
 #'  \item{ONSHORE_STATE_ABBREVIATION}{}
 #'  \item{ONSHORE_POSTAL_CODE}{}
 #'  \item{ONSHORE_CITY_NAME}{}

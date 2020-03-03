@@ -19,6 +19,7 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "commodity" = "CLASS_TEXT",
                                                             "installation_year" = "PRTYR",
                                                             "cause" = "CAUSE",
+                                                            "on_offshore" = "OFFSHORE",
                                                             "narrative" = "NARRATIVE"),
                                            recode = list(cause = c("CORROSION" = "corrosion",
                                                                    "EQUIPMENT" = "equipment",
@@ -27,7 +28,9 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                                    "MATERIAL AND/OR WELD FAILURES" = "material",
                                                                    "NATURAL FORCES" = "natural forces",
                                                                    "OTHER" = "other",
-                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside")),
+                                                                   "OTHER OUTSIDE FORCE DAMAGE" = "other outside"),
+                                                         on_offshore = c("YES" = "offshore",
+                                                                         "NO" = "onshore")),
                                            mutate_columns = c(function(x) x %>%
                                                                 mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
                                                                                        LOSS, LOSS / 31.5)))),
@@ -41,6 +44,7 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "year" = "IYEAR",
                                                             "commodity" = "COMMODITY_RELEASED_TYPE",
                                                             "volume" = "UNINTENTIONAL_RELEASE_BBLS",
+                                                            "on_offshore" = "ON_OFF_SHORE",
                                                             "installation_year" = "INSTALLATION_YEAR",
                                                             "cost" = "TOTAL_COST",
                                                             "excavation_damage_type" = "PARTY_TYPE",
@@ -54,7 +58,9 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                                    "NATURAL FORCE DAMAGE" = "natural forces",
                                                                    "OTHER INCIDENT CAUSE" = "other",
                                                                    "OTHER OUTSIDE FORCE DAMAGE" = "other outside"
-                                                                   )
+                                                                   ),
+                                                         on_offshore = c("OFFSHORE" = "offshore",
+                                                                         "ONSHORE" = "onshore")
                                                          )
                                            ),
                      pipelines_2004 = list(new_colnames = c("ID" = "OPERATOR_ID",
@@ -64,10 +70,10 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "hca_onshore" = "HCAONM",
                                                             "hca_offshore" = "HCAOFFM",
                                                             "hca_total" = "HCAMT",
-                                                            "total_miles" = "DINSTMT"),
+                                                            "miles_total" = "DINSTMT"),
                                            new_columns =
-                                             list("total_onshore" = "CPBONM + CPCONM + CUBONM + CUCONM",
-                                                  "total_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM"),
+                                             list("miles_onshore" = "CPBONM + CPCONM + CUBONM + CUCONM",
+                                                  "miles_offshore" = "CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM"),
                                            duplicate_consolidation =
                                              list("group_cols" = vars(ID, year, commodity),
                                                   "formula" = oildata::pipelines_consolidation
@@ -80,9 +86,9 @@ all_datasets <- list(incidents_2002 = list(new_colnames = c("significant" = "SIG
                                                             "hca_onshore" = "PARTBHCAONSHORE",
                                                             "hca_offshore" = "PARTBHCAOFFSHORE",
                                                             "hca_total" = "PARTBHCATOTAL",
-                                                            "total_onshore" = "PARTDONTOTAL",
-                                                            "total_offshore" = "PARTDOFFTOTAL",
-                                                            "total_miles" = "PARTDTOTALMILES"))
+                                                            "miles_onshore" = "PARTDONTOTAL",
+                                                            "miles_offshore" = "PARTDOFFTOTAL",
+                                                            "miles_total" = "PARTDTOTALMILES"))
                      )
 # factor_cols <- c("ID", "commodity")
 sentence_case <- c("narrative")

@@ -46,21 +46,21 @@
 #'  \item{PARTDONCUC}{}
 #'  \item{PARTDONCUP}{}
 #'  \item{PARTDONCUO}{}
-#'  \item{total_onshore}{Miles of pipelines onshore.}
+#'  \item{miles_onshore}{Miles of pipelines onshore.}
 #'  \item{PARTDOFFCPB}{}
 #'  \item{PARTDOFFCPC}{}
 #'  \item{PARTDOFFCUB}{}
 #'  \item{PARTDOFFCUC}{}
 #'  \item{PARTDOFFCUP}{}
 #'  \item{PARTDOFFCUO}{}
-#'  \item{total_offshore}{Miles of pipelines offshore.}
+#'  \item{miles_offshore}{Miles of pipelines offshore.}
 #'  \item{PARTDCPBTOTAL}{}
 #'  \item{PARTDCPCTOTAL}{}
 #'  \item{PARTDCUBTOTAL}{}
 #'  \item{PARTDCUCTOTAL}{}
 #'  \item{PARTDCUPTOTAL}{}
 #'  \item{PARTDCUOTOTAL}{}
-#'  \item{total_miles}{Total miles of pipelines.}
+#'  \item{miles_total}{Total miles of pipelines.}
 #'  \item{PARTEUNKNHF}{}
 #'  \item{PARTEUNKNLF}{}
 #'  \item{PARTEUNKNTOTAL}{}

@@ -16,6 +16,7 @@
   \item{TOTAL_COST_IN84}{}
   \item{TOTAL_COST_CURRENT}{}
   \item{commodity}{}
+  \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
   \item{installation_year}{Year item installed that involved in accident.}
   \item{FATAL}{}
   \item{INJURE}{}
