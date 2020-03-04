@@ -120,8 +120,7 @@ use_data(incidents, overwrite = TRUE)
 
 # Create important datasets
 pipelines_ungrouped <- col_union(pipeline_datasets) %>%
-  select(-matches("total$")) %>%
-  pivot_longer(matches("offshore$|onshore$"),
+  pivot_longer(matches("offshore$|onshore$|total$"),
                names_to = c(".value", "on_offshore"),
                names_pattern = "(.*)_(.*)")
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
