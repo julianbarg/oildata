@@ -72,7 +72,7 @@ extract_count <- function(df, colname, grouping_cols=grouping_cols, filter_col=N
 
   df %>%
     filter_if(filter_col) %>%
-    filter(commodity %in% c("crude", "hvl", "non_hvl")) %>%
+    filter(commodity %in% c("crude", "hvl", "rpp")) %>%
     group_by(!!! unlist(grouping_cols)) %>%
     aggregate_if(aggregate_col, colname)
 }
