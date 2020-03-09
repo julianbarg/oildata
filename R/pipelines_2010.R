@@ -21,7 +21,7 @@
 #'  \item{name}{Name of the pipelines operator at the time of the report year.}
 #'  \item{PARTA4STREET}{}
 #'  \item{PARTA4CITY}{}
-#'  \item{PARTA4STATE}{}p
+#'  \item{PARTA4STATE}{}
 #'  \item{PARTA4ZIP}{}
 #'  \item{PARTA4COUNTRY}{}
 #'  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
@@ -30,16 +30,16 @@
 #'  \item{hca_offshore}{Miles of pipelines offshore in High Consequences Areas.}
 #'  \item{hca_onshore}{Miles of pipelines onshore in High Consequences Areas.}
 #'  \item{hca_total}{Miles of pipelines in High Consequences Areas.}
-#'  \item{PARTCOFFCO2}{}
-#'  \item{PARTCOFFCRUDE}{}
-#'  \item{PARTCOFFETHANOL}{}
-#'  \item{PARTCOFFHVL}{}
-#'  \item{PARTCOFFRPP}{}
-#'  \item{PARTCONCO2}{}
-#'  \item{PARTCONCRUDE}{}
-#'  \item{PARTCONETHANOL}{}
-#'  \item{PARTCONHVL}{}
-#'  \item{PARTCONRPP}{}
+#'  \item{volume_co2_offshore}{Volume of co2 transported offshore (in barrel-miles).}
+#'  \item{volume_crude_offshore}{Volume of crude oil transported offshore (in barrel-miles).}
+#'  \item{volume_fge_offshore}{Volume of biofuel transported offshore (in barrel-miles).}
+#'  \item{volume_hvl_offshore}{Volume of highly volatile liquid transported offshore (in barrel-miles).}
+#'  \item{volume_rpp_offshore}{Volume of refined petroleum products transported offshore (in barrel-miles).}
+#'  \item{volume_co2_onshore}{Volume of co2 transported onshore (in barrel-miles).}
+#'  \item{volume_crude_onshore}{Volume of crude oil transported onshore (in barrel-miles).}
+#'  \item{volume_fge_onshore}{Volume of biofuel transported onshore (in barrel-miles).}
+#'  \item{volume_hvl_onshore}{Volume of highly volatile liquid transported onshore (in barrel-miles).}
+#'  \item{volume_rpp_onshore}{Volume of refined petroleum products transported onshore (in barrel-miles).}
 #'  \item{PARTDONCPB}{}
 #'  \item{PARTDONCPC}{}
 #'  \item{PARTDONCUB}{}
@@ -98,6 +98,18 @@
 #'  \item{REPORT_DATE}{}
 #'  \item{FILING_DATE}{}
 #'  \item{FORM_REV}{}
+#'  \item{volume_co2_total}{Total volume of co2 transported on- and offshore (in barrel-miles).}
+#'  \item{volume_crude_total}{Total volume of crude oil transported on- and offshore (in barrel-miles).}
+#'  \item{volume_fge_total}{Total volume of biofuel transported on- and offshore (in barrel-miles).}
+#'  \item{volume_hvl_total}{Total volume of highly volatile liquid transported on- and offshore (in barrel-miles).}
+#'  \item{volume_rpp_total}{Total volume of refined petroleum products transported on- and offshore (in barrel-miles).}
+#'  \item{estimate_volume_crude_offshore}{Estimated volume of crude oil transported offshore. Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_hvl_offshore}{Estimated volume of highly volatile liquid transported offshore. Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_rpp_offshore}{Estimated volume of refined petroleum products transported offshore. Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_crude_onshore}{Estimated volume of crude oil transported onshore. Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_hvl_onshore}{Estimated volume of highly volatile liquid transported onshore. Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum prloducts transported onshore Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
 #' }
 #' @examples
 #' \dontrun{

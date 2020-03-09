@@ -132,10 +132,10 @@
  \item{BT2NUM3}{}
  \item{BT2NUM4}{}
  \item{BT2NUMT}{}
- \item{VTM_1}{}
- \item{VTM_2}{}
+ \item{volume_crude_total}{Total volume of crude oil transported on- and offshore (in barrel-miles).}
+ \item{volume_hvl_total}{Total volume of highly volatile liquid transported on- and offshore (in barrel-miles).}
  \item{VTM_3}{}
- \item{VTM_4}{}
+ \item{volume_rpp_total}{Total volume of refined petroleum products transported on- and offshore (in barrel-miles).}
  \item{VTM_5}{}
  \item{VTM_6}{}
  \item{II1_1}{}
@@ -175,6 +175,19 @@
  \item{PFAX}{}
  \item{miles_onshore}{Miles of pipelines onshore (calculated from part B - miles of steel by location/protection).}
  \item{miles_offshore}{Miles of pipelines offshore (calculated from part B - miles of steel by location/protection).}
+ \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
+ \item{volume_crude_offshore}{Volume of crude oil transported offshore (in barrel-miles).}
+ \item{volume_crude_onshore}{Volume of crude oil transported onshore (in barrel-miles).}
+ \item{volume_hvl_offshore}{Volume of highly volatile liquid transported offshore (in barrel-miles).}
+ \item{volume_hvl_onshore}{Volume of highly volatile liquid transported onshore (in barrel-miles).}
+ \item{volume_rpp_offshore}{Volume of refined petroleum products transported offshore (in barrel-miles).}
+ \item{volume_rpp_onshore}{Volume of refined petroleum products transported onshore (in barrel-miles).}
+ \item{estimate_volume_crude_offshore}{Estimated volume of crude oil transported offshore (in barrel-miles).}
+ \item{estimate_volume_crude_onshore}{Estimated volume of crude oil transported onshore (in barrel-miles).}
+ \item{estimate_volume_hvl_offshore}{Estimated volume of highly volatile liquid transported offshore (in barrel-miles).}
+ \item{estimate_volume_hvl_onshore}{Estimated volume of highly volatile liquid transported onshore (in barrel-miles).}
+ \item{estimate_volume_rpp_offshore}{Estimated volume of refined petroleum products transported offshore (in barrel-miles).}
+ \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum products transported onshore (in barrel-miles).}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and
@@ -192,6 +205,16 @@ Storage (UNGS) Facility Operators. Operators are required to submit annual
 reports to PHMSA. Reports include information such as total pipeline mileage,
 facilities, commodities transported, mileage by material, and installation
 dates.
+}
+\details{
+The volume transported on- and offshore is created from reporting of total
+transported. Where the share of offshore pipeline miles is 0%, the original
+value of total volume transported is provided for onshore, and 0 is reported
+for offshore. If an organization also operates offshore pipelines, NA is
+recorded. Estimate_volume provides an estimate that is calculated as share
+offshore multiplied by total volume for offshore; and 1 - share offshore
+multiplied by total volume is used to calculate the estimate for the onshore
+volume.
 }
 \examples{
 \dontrun{

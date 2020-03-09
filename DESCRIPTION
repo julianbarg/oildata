@@ -1,7 +1,7 @@
 Package: oildata
 Type: Package
 Title: Access data on the American oil pipeline system and oil spills
-Version: 0.10.9
+Version: 1.0.0
 Authors@R: person("Julian", "Barg", email = "barg.julian@gmail.com", role = c("aut", "cre"))
 Description: Data accessed through https://www.phmsa.dot.gov/data-and-statistics/pipeline/source-data.
 Depends: R (>= 2.10)

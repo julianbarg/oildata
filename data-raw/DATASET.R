@@ -10,8 +10,8 @@ arguments <- commandArgs(trailingOnly = TRUE)
 redownload <- "--download" %in% arguments
 
 # Downloads and saves the original datasets
-if (isTRUE(redownload)) {system("data-raw/util/process_phmsa_data.R --download")
-} else system("data-raw/util/process_phmsa_data.R")
+if (isTRUE(redownload)) {system("data-raw/util/preprocess_phmsa_data.R --download")
+} else system("data-raw/util/preprocess_phmsa_data.R")
 
 # Set up arguments
 observation_period <- c(2004:2019)

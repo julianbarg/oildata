@@ -10,9 +10,16 @@
  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
  \item{ID}{Unique operator ID.}
  \item{name}{Name of the pipelines operator at the time of the report year.}
+ \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
  \item{on_offshore}{Observation describes offshore or onshroe pipelines.}
  \item{hca}{Miles of pipelines in High Consequences Areas.}
  \item{miles}{Total number of pipeline miles.}
+ \item{volume_crude}{Volume of crude oil transported (in barrel-miles).}
+ \item{volume_hvl}{Volume of highly volatile liquid transported (in barrel-miles).}
+ \item{volume_rpp}{Volume of refined petroleum products transported (in barrel-miles).}
+ \item{estimate_volume_crude}{Estimated volume of crude oil transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
+ \item{estimate_volume_hvl}{Estimated volume of highly volatile liquid transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
+ \item{estimate_volume_rpp}{Estimated volume of refined petroleum products transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
  \item{incidents}{Total number of incidents (both significant and non-significant).}
  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
