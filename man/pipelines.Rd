@@ -3,7 +3,7 @@
 \docType{data}
 \name{pipelines}
 \alias{pipelines}
-\title{Annual data on pipelines in the US from 2004 to 2018}
+\title{Annual data on pipelines in the US from 2004 to 2019}
 \format{A data frame with columns:
 \describe{
  \item{year}{Report year.}
@@ -17,9 +17,11 @@
  \item{volume_crude}{Volume of crude oil transported (in barrel-miles).}
  \item{volume_hvl}{Volume of highly volatile liquid transported (in barrel-miles).}
  \item{volume_rpp}{Volume of refined petroleum products transported (in barrel-miles).}
+ \item{volume_other}{Volume of substance other than crude, rpp, and hvl transported (in barrel-miles).}
  \item{estimate_volume_crude}{Estimated volume of crude oil transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
  \item{estimate_volume_hvl}{Estimated volume of highly volatile liquid transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
  \item{estimate_volume_rpp}{Estimated volume of refined petroleum products transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
+ \item{estimate_volume_other}{Estimated volume of substance other than crude, rpp, and hvl transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines in the pipeline network.}
  \item{incidents}{Total number of incidents (both significant and non-significant).}
  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}

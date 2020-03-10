@@ -136,7 +136,7 @@
  \item{volume_hvl_total}{Total volume of highly volatile liquid transported on- and offshore (in barrel-miles).}
  \item{VTM_3}{}
  \item{volume_rpp_total}{Total volume of refined petroleum products transported on- and offshore (in barrel-miles).}
- \item{VTM_5}{}
+ \item{volume_other_total}{Total volume of co2 and other products transported on- and offshore (in barrel-miles).}
  \item{VTM_6}{}
  \item{II1_1}{}
  \item{II1_2}{}
@@ -182,12 +182,16 @@
  \item{volume_hvl_onshore}{Volume of highly volatile liquid transported onshore (in barrel-miles).}
  \item{volume_rpp_offshore}{Volume of refined petroleum products transported offshore (in barrel-miles).}
  \item{volume_rpp_onshore}{Volume of refined petroleum products transported onshore (in barrel-miles).}
+ \item{volume_other_offshore}{Volume of co2 and other products transported offshore (in barrel-miles).}
+ \item{volume_other_onshore}{Volume of co2 and other products transported onshore (in barrel-miles).}
  \item{estimate_volume_crude_offshore}{Estimated volume of crude oil transported offshore (in barrel-miles).}
  \item{estimate_volume_crude_onshore}{Estimated volume of crude oil transported onshore (in barrel-miles).}
  \item{estimate_volume_hvl_offshore}{Estimated volume of highly volatile liquid transported offshore (in barrel-miles).}
  \item{estimate_volume_hvl_onshore}{Estimated volume of highly volatile liquid transported onshore (in barrel-miles).}
  \item{estimate_volume_rpp_offshore}{Estimated volume of refined petroleum products transported offshore (in barrel-miles).}
  \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum products transported onshore (in barrel-miles).}
+ \item{estimate_volume_other_offshore}{Estimated volume of co2 and other products transported offshore (in barrel-miles).}
+ \item{estimate_volume_other_onshore}{Estimated volume of co2 and other products transported onshore (in barrel-miles).}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and

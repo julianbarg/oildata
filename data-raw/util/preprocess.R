@@ -77,7 +77,8 @@ input <-
                  miles_total = DINSTMT,
                  volume_crude_total = VTM_1,
                  volume_hvl_total = VTM_2,
-                 volume_rpp_total = VTM_4)
+                 volume_rpp_total = VTM_4,
+                 volume_other_total = VTM_5)
       },
       duplicate_consolidation = function(x) {
         consolidation_rules = preprocess_consolidation[
@@ -88,21 +89,25 @@ input <-
         x
       },
       column_creation = function(x) {x %>%
-          mutate(miles_onshore = sum(CPBONM, CPCONM, CUBONM, CUCONM, na.rm = TRUE),
-                 miles_offshore = sum(CPBOFFM, CPCOFFM, CUBOFFM, CUCOFFM, na.rm = TRUE)) %>%
+          mutate(miles_onshore = (CPBONM + CPCONM + CUBONM + CUCONM),
+                 miles_offshore = (CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM)) %>%
           mutate(offshore_share = miles_offshore/(miles_onshore + miles_offshore)) %>%
-          mutate(volume_crude_offshore = ifelse(offshore_share == 0, volume_crude_total, NA),
-                 volume_crude_onshore = ifelse(offshore_share == 0, 0, NA),
-                 volume_hvl_offshore = ifelse(offshore_share == 0, volume_hvl_total, NA),
-                 volume_hvl_onshore = ifelse(offshore_share == 0, 0 , NA),
-                 volume_rpp_offshore = ifelse(offshore_share == 0, volume_rpp_total, NA),
-                 volume_rpp_onshore = ifelse(offshore_share == 0, 0, NA)) %>%
+          mutate(volume_crude_offshore = ifelse(offshore_share == 0, 0, NA),
+                 volume_crude_onshore = ifelse(offshore_share == 0, volume_crude_total, NA),
+                 volume_hvl_offshore = ifelse(offshore_share == 0, 0, NA),
+                 volume_hvl_onshore = ifelse(offshore_share == 0, volume_hvl_total, NA),
+                 volume_rpp_offshore = ifelse(offshore_share == 0, 0, NA),
+                 volume_rpp_onshore = ifelse(offshore_share == 0, volume_rpp_total, NA),
+                 volume_other_offshore = ifelse(offshore_share == 0, 0, NA),
+                 volume_other_onshore = ifelse(offshore_share == 0, volume_other_total, NA)) %>%
           mutate(estimate_volume_crude_offshore = volume_crude_total * offshore_share,
                  estimate_volume_crude_onshore = volume_crude_total * (1 - offshore_share),
                  estimate_volume_hvl_offshore = volume_hvl_total * offshore_share,
                  estimate_volume_hvl_onshore = volume_hvl_total * (1 - offshore_share),
                  estimate_volume_rpp_offshore = volume_rpp_total * offshore_share,
-                 estimate_volume_rpp_onshore = volume_rpp_total * (1 - offshore_share))
+                 estimate_volume_rpp_onshore = volume_rpp_total * (1 - offshore_share),
+                 estimate_volume_other_offshore = volume_other_total * offshore_share,
+                 estimate_volume_other_onshore = volume_other_total * (1 - offshore_share))
       },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity))
@@ -141,6 +146,7 @@ input <-
       },
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
+          rowwise() %>%
           mutate(volume_co2_total = sum(volume_co2_offshore, volume_co2_onshore, na.rm = T),
                  volume_crude_total = sum(volume_crude_offshore, volume_crude_onshore, na.rm = T),
                  volume_fge_total = sum(volume_fge_offshore, volume_fge_onshore, na.rm = T),
@@ -152,8 +158,13 @@ input <-
                  estimate_volume_crude_onshore = volume_crude_onshore,
                  estimate_volume_hvl_onshore = volume_hvl_onshore,
                  estimate_volume_rpp_onshore = volume_rpp_onshore,
-                 offshore_share = miles_offshore/ (miles_offshore + miles_onshore)
-          )
+                 offshore_share = miles_offshore/ (miles_offshore + miles_onshore)) %>%
+          mutate(volume_other_total = sum(volume_co2_total, volume_fge_total, na.rm = T),
+                 volume_other_offshore = sum(volume_co2_offshore, volume_fge_offshore, na.rm = T),
+                 volume_other_onshore = sum(volume_co2_onshore, volume_fge_onshore, na.rm = T)) %>%
+          mutate(estimate_volume_other_offshore = volume_other_offshore,
+                 estimate_volume_other_onshore = volume_other_onshore) %>%
+          ungroup()
       },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity))

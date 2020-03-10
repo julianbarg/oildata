@@ -103,13 +103,18 @@
 #'  \item{volume_fge_total}{Total volume of biofuel transported on- and offshore (in barrel-miles).}
 #'  \item{volume_hvl_total}{Total volume of highly volatile liquid transported on- and offshore (in barrel-miles).}
 #'  \item{volume_rpp_total}{Total volume of refined petroleum products transported on- and offshore (in barrel-miles).}
-#'  \item{estimate_volume_crude_offshore}{Estimated volume of crude oil transported offshore. Placeholder - for this dataset, the column holds the actual value.}
-#'  \item{estimate_volume_hvl_offshore}{Estimated volume of highly volatile liquid transported offshore. Placeholder - for this dataset, the column holds the actual value.}
-#'  \item{estimate_volume_rpp_offshore}{Estimated volume of refined petroleum products transported offshore. Placeholder - for this dataset, the column holds the actual value.}
-#'  \item{estimate_volume_crude_onshore}{Estimated volume of crude oil transported onshore. Placeholder - for this dataset, the column holds the actual value.}
-#'  \item{estimate_volume_hvl_onshore}{Estimated volume of highly volatile liquid transported onshore. Placeholder - for this dataset, the column holds the actual value.}
-#'  \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum prloducts transported onshore Placeholder - for this dataset, the column holds the actual value.}
+#'  \item{estimate_volume_crude_offshore}{Estimated volume of crude oil transported offshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_hvl_offshore}{Estimated volume of highly volatile liquid transported offshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_rpp_offshore}{Estimated volume of refined petroleum products transported offshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_crude_onshore}{Estimated volume of crude oil transported onshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_hvl_onshore}{Estimated volume of highly volatile liquid transported onshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum prloducts transported onshore. Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
 #'  \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
+#'  \item{volume_other_total}{Total volume of substance other than crude, rpp, and hvl transported (in barrel-miles).}
+#'  \item{volume_other_offshore}{Total volume of substance other than crude, rpp, and hvl transported offshore (in barrel-miles).}
+#'  \item{volume_other_onshore}{Total volume of substance other than crude, rpp, and hvl transported onshore (in barrel-miles).}
+#'  \item{estimate_volume_other_offshore}{Estimated volume of substance other than crude, rpp, and hvl transported offshore (in barrel-miles) Placeholder - for this dataset, the column holds the actual value (in barrel-miles)..}
+#'  \item{estimate_volume_other_onshore}{Estimated volume of substance other than crude, rpp, and hvl transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
 #' }
 #' @examples
 #' \dontrun{

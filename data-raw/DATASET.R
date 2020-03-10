@@ -10,8 +10,8 @@ arguments <- commandArgs(trailingOnly = TRUE)
 redownload <- "--download" %in% arguments
 
 # Downloads and saves the original datasets
-if (isTRUE(redownload)) {system("data-raw/util/preprocess_phmsa_data.R --download")
-} else system("data-raw/util/preprocess_phmsa_data.R")
+if (isTRUE(redownload)) {system("data-raw/util/proprocess.R --download")
+} else system("data-raw/util/preprocess.R")
 
 # Set up arguments
 observation_period <- c(2004:2019)
@@ -77,6 +77,11 @@ extract_count <- function(df, colname, grouping_cols=grouping_cols, filter_col=N
     aggregate_if(aggregate_col, colname)
 }
 
+# create_additional_volume_cols <- function(df) {
+#   df %>%
+#     mutate(volume_total = sum())
+# }
+
 make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols) {
   for (colname in names(mutate_cols)) {
     filter_col = mutate_cols[[colname]][["filter_col"]]
@@ -122,6 +127,7 @@ use_data(incidents, overwrite = TRUE)
 pipelines_ungrouped <- col_union(pipeline_datasets) %>%
   pivot_longer(matches("offshore$|onshore$|total$"),
                names_to = c(".value", "on_offshore"),
+               # Fortunately, goes to the last underscore bc. greedy first .* but could be more explicit, i.e., ""(.*)_([^_]*)"
                names_pattern = "(.*)_(.*)")
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
                                     incidents = incidents,
