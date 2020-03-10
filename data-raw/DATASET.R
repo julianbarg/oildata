@@ -30,6 +30,16 @@ mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
 pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
                                 miles = quo(sum(miles, na.rm = T)),
                                 incidents = quo(sum(incidents, na.rm = T)),
+                                volume_crude = quo(sum(volume_crude)),
+                                volume_hvl = quo(sum(volume_hvl)),
+                                volume_rpp = quo(sum(volume_rpp)),
+                                volum_other = quo(sum(volume_other)),
+                                estimate_volume_crude = quo(sum(estimate_volume_crude)),
+                                estimate_volume_hvl = quo(sum(estimate_volume_hvl)),
+                                estimate_volume_rpp = quo(sum(estimate_volume_rpp)),
+                                estimate_volume_other = quo(sum(estimate_volume_other)),
+                                volume_all = quo(sum(volume_all)),
+                                estimate_volume_all = quo(sum(estimate_volume_all)),
                                 significant_incidents = quo(sum(significant_incidents, na.rm = T)),
                                 serious_incidents = quo(sum(serious_incidents, na.rm = T)),
                                 incidents_volume = quo(sum(incidents_volume, na.rm = T)),
@@ -77,10 +87,16 @@ extract_count <- function(df, colname, grouping_cols=grouping_cols, filter_col=N
     aggregate_if(aggregate_col, colname)
 }
 
-# create_additional_volume_cols <- function(df) {
-#   df %>%
-#     mutate(volume_total = sum())
-# }
+create_additional_volume_cols <- function(df) {
+ df %>%
+   mutate(volume_specific = ifelse(commodity == "crude", volume_crude,
+                                   ifelse(commodity == "hvl", volume_hvl,
+                                          ifelse(commodity == "rpp", volume_rpp, NA))),
+          estimate_volume_specific = ifelse(commodity == "crude", estimate_volume_crude,
+                                            ifelse(commodity == "hvl", estimate_volume_hvl,
+                                                   ifelse(commodity == "rpp", estimate_volume_rpp, NA)))
+          )
+}
 
 make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols) {
   for (colname in names(mutate_cols)) {
@@ -91,7 +107,6 @@ make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=groupi
                             grouping_cols = grouping_cols,
                             filter_col = filter_col,
                             aggregate_col = aggregate_col)
-
     pipelines <- left_join(pipelines, column, by = map_chr(grouping_cols, quo_name))
     pipelines[is.na(pipelines[[colname]]), ][[colname]] <- 0
   }
@@ -129,6 +144,7 @@ pipelines_ungrouped <- col_union(pipeline_datasets) %>%
                names_to = c(".value", "on_offshore"),
                # Fortunately, goes to the last underscore bc. greedy first .* but could be more explicit, i.e., ""(.*)_([^_]*)"
                names_pattern = "(.*)_(.*)")
+pipelines_ungrouped <- create_additional_volume_cols(pipelines_ungrouped)
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
                                     incidents = incidents,
                                     mutate_cols = mutate_cols,

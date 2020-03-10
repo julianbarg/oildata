@@ -108,6 +108,11 @@
  \item{volume_other_onshore}{Total volume of substance other than crude, rpp, and hvl transported onshore (in barrel-miles).}
  \item{estimate_volume_other_offshore}{Estimated volume of substance other than crude, rpp, and hvl transported offshore (in barrel-miles) Placeholder - for this dataset, the column holds the actual value (in barrel-miles)..}
  \item{estimate_volume_other_onshore}{Estimated volume of substance other than crude, rpp, and hvl transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+ \item{volume_all_total}{Combined volume of all substances transported (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+ \item{volume_all_offshore}{Combined volume of all substances transported offshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+ \item{volume_all_onshore}{combined volume of all substances transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+ \item{estimate_volume_all_offshore}{Estimated volume of all substances transported offshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+ \item{estimate_volume_all_onshore}{Estimated volume of all substances transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and
