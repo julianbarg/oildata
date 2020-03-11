@@ -109,7 +109,11 @@ input <-
                  estimate_volume_rpp_offshore = volume_rpp_total * offshore_share,
                  estimate_volume_rpp_onshore = volume_rpp_total * (1 - offshore_share),
                  estimate_volume_other_offshore = volume_other_total * offshore_share,
-                 estimate_volume_other_onshore = volume_other_total * (1 - offshore_share)) %>%
+                 estimate_volume_other_onshore = volume_other_total * (1 - offshore_share),
+                 estimate_volume_crude_total = volume_crude_total,
+                 estimate_volume_hvl_total = volume_hvl_total,
+                 estimate_volume_rpp_total = volume_rpp_total,
+                 estimate_volume_other_total = volume_other_total) %>%
           mutate(volume_all_total =
                    (volume_crude_total + volume_hvl_total + volume_rpp_total + volume_other_total),
                  volume_all_offshore = (
@@ -208,7 +212,11 @@ input <-
                  estimate_volume_all_onshore = (
                    estimate_volume_crude_onshore + estimate_volume_hvl_onshore +
                      estimate_volume_rpp_onshore + estimate_volume_other_onshore)) %>%
-          mutate(estimate_volume_all_total = volume_all_total) %>%
+          mutate(estimate_volume_all_total = volume_all_total,
+                 estimate_volume_crude_total = volume_crude_total,
+                 estimate_volume_hvl_total = volume_hvl_total,
+                 estimate_volume_rpp_total = volume_rpp_total,
+                 estimate_volume_other_total = volume_other_total) %>%
           ungroup()
       },
       refactor = function(x) {x %>%
