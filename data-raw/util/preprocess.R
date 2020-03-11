@@ -12,15 +12,16 @@ library(devtools)
 # 3. Pipeline incidents 2002-2009
 # 4. Pipeline incidents 2010-today
 
-# The dataset is cleaned in 8 steps
+# The dataset is cleaned in 6 steps
 #   a. Rename columns
-#   b. Consolidate observations that use the same ID (for pipline datasets before 2010)
-#   c. Create new columns (by transforming existing columns)
-#   d. Recode factor variables
+#   b. Fill in missing values as zero where appropriate
+#   c. Consolidate observations that use the same ID (for pipline datasets before 2010)
+#   d. Create new columns (by transforming existing columns)
+#   e. Recode factor variables
 #     - By using provided list
 #     - Using oildata:::fix_commodities for commodities
 #     - Yes/no to bool
-#   e. Clean strings
+#   f. Clean strings
 #     - Clean company names
 #     - Sentence case where applicable
 
@@ -80,6 +81,7 @@ input <-
                  volume_rpp_total = VTM_4,
                  volume_other_total = VTM_5)
       },
+      # fill_missing_values <- function(x) {},
       duplicate_consolidation = function(x) {
         consolidation_rules = preprocess_consolidation[
           names(preprocess_consolidation) %in% colnames(x)]
@@ -119,7 +121,8 @@ input <-
                      estimate_volume_rpp_offshore + estimate_volume_other_offshore),
                  estimate_volume_all_onshore = (
                    estimate_volume_crude_onshore + estimate_volume_hvl_onshore +
-                     estimate_volume_rpp_onshore + estimate_volume_other_onshore))
+                     estimate_volume_rpp_onshore + estimate_volume_other_onshore)) %>%
+          mutate(estimate_volume_all_total = volume_all_total)
       },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity))
@@ -156,6 +159,23 @@ input <-
                  volume_rpp_onshore = PARTCONRPP
                  )
       },
+      fill_missing_values <- function(x) {x %>%
+          # This dataset has many empty cells, presumably because the operators' personnel did
+          # ignore fields that are not applicable, and PHMSA did not fill in these values as 0.
+          replace_na(list(hca_onshore = 0,
+                          hca_offshore = 0,
+                          volume_co2_offshore = 0,
+                          volume_crude_offshore = 0,
+                          volume_fge_offshore = 0,
+                          volume_hvl_offshore = 0,
+                          volume_rpp_offshore = 0,
+                          volume_co2_onshore = 0,
+                          volume_crude_onshore = 0,
+                          volume_fge_onshore = 0,
+                          volume_hvl_onshore = 0,
+                          volume_rpp_onshore = 0
+                          ))
+      },
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
           rowwise() %>%
@@ -188,6 +208,7 @@ input <-
                  estimate_volume_all_onshore = (
                    estimate_volume_crude_onshore + estimate_volume_hvl_onshore +
                      estimate_volume_rpp_onshore + estimate_volume_other_onshore)) %>%
+          mutate(estimate_volume_all_total = volume_all_total) %>%
           ungroup()
       },
       refactor = function(x) {x %>%
@@ -219,6 +240,7 @@ input <-
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
+      # fill_missing_values <- function(x) {},
       # duplicate_consolidation = function(x) {},
       colume_creation = function(x) {x %>%
           mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
@@ -276,6 +298,7 @@ input <-
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
+      # fill_missing_values <- function(x) {},
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
                            mutate(date = lubridate::date(LOCAL_DATETIME),

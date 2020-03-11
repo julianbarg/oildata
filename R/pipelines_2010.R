@@ -120,6 +120,7 @@
 #'  \item{volume_all_onshore}{combined volume of all substances transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
 #'  \item{estimate_volume_all_offshore}{Estimated volume of all substances transported offshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
 #'  \item{estimate_volume_all_onshore}{Estimated volume of all substances transported onshore (in barrel-miles). Placeholder - for this dataset, the column holds the actual value (in barrel-miles).}
+#'  \item{estimate_volume_all_total}{Estimated of volume of all substances transporte (in barrel-miles). Placeholder - contains the actual value as found in volume_all_total.}
 #' }
 #' @examples
 #' \dontrun{

@@ -23,7 +23,7 @@
 #'  \item{miles}{Total number of pipeline miles.}
 #'  \item{volume_crude}{Volume of crude oil transported (in barrel-miles).}
 #'  \item{volume_hvl}{Volume of highly volatile liquid transported (in barrel-miles).}
-#'  \item{volume_rpp}{Volume of refined petroleum products transported (in barrel-miles).}
+#'  \item{volume_rpp}{Volume of refined petroleum products transported (in barrel-miles). Before 2010, this value also contains the amount of fge transported, which is only separated out from 2010 on. The actual amount of fge transported is negligable though.}
 #'  \item{volume_other}{Volume of substance other than crude, rpp, and hvl transported (in barrel-miles).}
 #'  \item{estimate_volume_crude}{Estimated volume of crude oil transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines/onshore in the pipeline network.}
 #'  \item{estimate_volume_hvl}{Estimated volume of highly volatile liquid transported (in barrel-miles). Contains the actual value transported where available from volume_hvl column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
