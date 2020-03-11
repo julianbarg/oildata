@@ -18,6 +18,8 @@ observation_period <- c(2004:2019)
 
 grouping_cols <- vars(ID, year, commodity, on_offshore)
 
+total_cols <- vars(ID, year, commodity)
+
 mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
                     significant_incidents = list(filter_col=quo(significant), aggregate_col=NULL),
                     serious_incidents = list(filter_col=quo(serious), aggregate_col=NULL),
@@ -98,7 +100,8 @@ create_additional_volume_cols <- function(df) {
           )
 }
 
-make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols) {
+make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols,
+                         total_cols = NULL) {
   for (colname in names(mutate_cols)) {
     filter_col = mutate_cols[[colname]][["filter_col"]]
     aggregate_col = mutate_cols[[colname]][["aggregate_col"]]
@@ -107,6 +110,14 @@ make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=groupi
                             grouping_cols = grouping_cols,
                             filter_col = filter_col,
                             aggregate_col = aggregate_col)
+    if (! is.null(total_cols)) {
+      column <- column %>%
+        group_by(!!! total_cols) %>%
+        summarize(!! colname := sum(!! rlang::sym(colname))) %>%
+        mutate(on_offshore = "total") %>%
+        bind_rows(column)
+    }
+
     pipelines <- left_join(pipelines, column, by = map_chr(grouping_cols, quo_name))
     pipelines[is.na(pipelines[[colname]]), ][[colname]] <- 0
   }
@@ -148,7 +159,8 @@ pipelines_ungrouped <- create_additional_volume_cols(pipelines_ungrouped)
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
                                     incidents = incidents,
                                     mutate_cols = mutate_cols,
-                                    grouping_cols = grouping_cols)
+                                    grouping_cols = grouping_cols,
+                                    total_cols = total_cols)
 pipelines_ungrouped <- subset(pipelines_ungrouped, year %in% observation_period)
 pipelines <- oildata::consolidate_groups(pipelines_ungrouped,
                                          pipelines_consolidation,
