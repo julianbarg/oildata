@@ -36,7 +36,8 @@ dataset_input <- dataset_input[! startsWith(dataset_input, "--")]
 temp_data_folder <- "data-raw/.temp-data"
 
 # Aim - list as many columns that could be encountered as possible.
-preprocess_consolidation = list(hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
+preprocess_consolidation = list(name =                  quo(first(name)),
+                                hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
                                 hca_onshore =           quo(sum(hca_onshore,           na.rm = T)),
                                 hca_total =             quo(sum(hca_total,             na.rm = T)),
                                 miles_onshore =         quo(sum(miles_onshore,         na.rm = T)),
