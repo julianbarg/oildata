@@ -15,13 +15,14 @@ library(devtools)
 # The dataset is cleaned in 6 steps
 #   a. Rename columns
 #   b. Fill in missing values as zero where appropriate
-#   c. Consolidate observations that use the same ID (for pipline datasets before 2010)
-#   d. Create new columns (by transforming existing columns)
-#   e. Recode factor variables
+#   c. Exclude observations
+#   d. Consolidate observations that use the same ID (for pipline datasets before 2010)
+#   e. Create new columns (by transforming existing columns)
+#   f. Recode factor variables
 #     - By using provided list
 #     - Using oildata:::fix_commodities for commodities
 #     - Yes/no to bool
-#   f. Clean strings
+#   g. Clean strings
 #     - Clean company names
 #     - Sentence case where applicable
 
@@ -36,32 +37,32 @@ dataset_input <- dataset_input[! startsWith(dataset_input, "--")]
 temp_data_folder <- "data-raw/.temp-data"
 
 # Aim - list as many columns that could be encountered as possible.
-preprocess_consolidation = list(name =                  quo(first(name)),
-                                hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
-                                hca_onshore =           quo(sum(hca_onshore,           na.rm = T)),
-                                hca_total =             quo(sum(hca_total,             na.rm = T)),
-                                miles_onshore =         quo(sum(miles_onshore,         na.rm = T)),
-                                miles_offshore =        quo(sum(miles_offshore,        na.rm = T)),
-                                miles_total =           quo(sum(miles_total,           na.rm = T)),
-                                volume_crude_offshore = quo(sum(volume_crude_offshore, na.rm = T)),
-                                volume_hvl_offshore =   quo(sum(volume_hvl_offshore,   na.rm = T)),
-                                volume_rpp_offshore =   quo(sum(volume_rpp_offshore,   na.rm = T)),
-                                volume_crude_onshore =  quo(sum(volume_crude_onshore,  na.rm = T)),
-                                volume_hvl_onshore =    quo(sum(volume_hvl_onshore,    na.rm = T)),
-                                volume_rpp_onshore =    quo(sum(volume_rpp_onshore,    na.rm = T)),
-                                volume_crude_total =    quo(sum(volume_crude_total,    na.rm = T)),
-                                volume_hvl_total =      quo(sum(volume_hvl_total,      na.rm = T)),
-                                volume_rpp_total =      quo(sum(volume_rpp_total,      na.rm = T)),
-                                volume_other_total =    quo(sum(volume_other_total,    na.rm = T)),
-                                CPBONM =                quo(sum(CPBONM,                na.rm = T)),
-                                CPCONM =                quo(sum(CPCONM,                na.rm = T)),
-                                CUBONM =                quo(sum(CUBONM,                na.rm = T)),
-                                CUCONM =                quo(sum(CUCONM,                na.rm = T)),
-                                CPBOFFM =               quo(sum(CPBOFFM,               na.rm = T)),
-                                CPCOFFM =               quo(sum(CPCOFFM,               na.rm = T)),
-                                CUBOFFM =               quo(sum(CUBOFFM,               na.rm = T)),
-                                CUCOFFM =               quo(sum(CUCOFFM,               na.rm = T))
-                                )
+preprocess_consolidation <- list(name =                  quo(first(name)),
+                                 hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
+                                 hca_onshore =           quo(sum(hca_onshore,           na.rm = T)),
+                                 hca_total =             quo(sum(hca_total,             na.rm = T)),
+                                 miles_onshore =         quo(sum(miles_onshore,         na.rm = T)),
+                                 miles_offshore =        quo(sum(miles_offshore,        na.rm = T)),
+                                 miles_total =           quo(sum(miles_total,           na.rm = T)),
+                                 volume_crude_offshore = quo(sum(volume_crude_offshore, na.rm = T)),
+                                 volume_hvl_offshore =   quo(sum(volume_hvl_offshore,   na.rm = T)),
+                                 volume_rpp_offshore =   quo(sum(volume_rpp_offshore,   na.rm = T)),
+                                 volume_crude_onshore =  quo(sum(volume_crude_onshore,  na.rm = T)),
+                                 volume_hvl_onshore =    quo(sum(volume_hvl_onshore,    na.rm = T)),
+                                 volume_rpp_onshore =    quo(sum(volume_rpp_onshore,    na.rm = T)),
+                                 volume_crude_total =    quo(sum(volume_crude_total,    na.rm = T)),
+                                 volume_hvl_total =      quo(sum(volume_hvl_total,      na.rm = T)),
+                                 volume_rpp_total =      quo(sum(volume_rpp_total,      na.rm = T)),
+                                 volume_other_total =    quo(sum(volume_other_total,    na.rm = T)),
+                                 CPBONM =                quo(sum(CPBONM,                na.rm = T)),
+                                 CPCONM =                quo(sum(CPCONM,                na.rm = T)),
+                                 CUBONM =                quo(sum(CUBONM,                na.rm = T)),
+                                 CUCONM =                quo(sum(CUCONM,                na.rm = T)),
+                                 CPBOFFM =               quo(sum(CPBOFFM,               na.rm = T)),
+                                 CPCOFFM =               quo(sum(CPCOFFM,               na.rm = T)),
+                                 CUBOFFM =               quo(sum(CUBOFFM,               na.rm = T)),
+                                 CUCOFFM =               quo(sum(CUCOFFM,               na.rm = T))
+                                 )
 
 input <-
   list(
@@ -83,7 +84,18 @@ input <-
                  volume_rpp_total = VTM_4,
                  volume_other_total = VTM_5)
       },
-      # fill_missing_values <- function(x) {},
+      # fill_missing_values = function(x) {},
+      exclude_empty =
+        function(x) DataAnalysisTools::exclude_empty_observations(x,
+                                                                  c("hca_onshore",
+                                                                    "hca_offshore",
+                                                                    "hca_total",
+                                                                    "miles_total",
+                                                                    "volume_crude_total",
+                                                                    "volume_hvl_total",
+                                                                    "volume_rpp_total",
+                                                                    "volume_other_total")
+                                                                  ),
       duplicate_consolidation = function(x) {
         consolidation_rules = preprocess_consolidation[
           names(preprocess_consolidation) %in% colnames(x)]
@@ -165,7 +177,7 @@ input <-
                  volume_rpp_onshore = PARTCONRPP
                  )
       },
-      fill_missing_values <- function(x) {x %>%
+      fill_missing_values = function(x) {x %>%
           # This dataset has many empty cells, presumably because the operators' personnel did
           # ignore fields that are not applicable, and PHMSA did not fill in these values as 0.
           replace_na(list(hca_onshore = 0,
@@ -182,6 +194,7 @@ input <-
                           volume_rpp_onshore = 0
                           ))
       },
+      # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
           rowwise() %>%
@@ -251,6 +264,7 @@ input <-
                  cost_1984 = TOTAL_COST_IN84)
       },
       # fill_missing_values <- function(x) {},
+      # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       colume_creation = function(x) {x %>%
           mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
@@ -309,6 +323,7 @@ input <-
                  cost_1984 = TOTAL_COST_IN84)
       },
       # fill_missing_values <- function(x) {},
+      # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
                            mutate(date = lubridate::date(LOCAL_DATETIME),
