@@ -208,6 +208,10 @@
 #'  \item{estimate_volume_rpp_onshore}{Estimated volume of refined petroleum products transported onshore (in barrel-miles).}
 #'  \item{estimate_volume_other_offshore}{Estimated volume of co2 and other products transported offshore (in barrel-miles).}
 #'  \item{estimate_volume_other_onshore}{Estimated volume of co2 and other products transported onshore (in barrel-miles).}
+#'  \item{estimate_volume_crude_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
+#'  \item{estimate_volume_hvl_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
+#'  \item{estimate_volume_rpp_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
+#'  \item{estimate_volume_other_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
 #'  \item{volume_all_total}{Combined volume of all substances transported (in barrel-miles).}
 #'  \item{volume_all_offshore}{Combined volume of all substances transported offshore (in barrel-miles).}
 #'  \item{volume_all_onshore}{combined volume of all substances transported onshore (in barrel-miles).}
