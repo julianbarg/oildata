@@ -36,6 +36,8 @@ redownload <- "--download" %in% dataset_input
 dataset_input <- dataset_input[! startsWith(dataset_input, "--")]
 temp_data_folder <- "data-raw/.temp-data"
 
+miles_cutoff = 0
+
 # Aim - list as many columns that could be encountered as possible.
 preprocess_consolidation <- list(name =                  quo(first(name)),
                                  hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
@@ -86,16 +88,9 @@ input <-
       },
       # fill_missing_values = function(x) {},
       exclude_empty =
-        function(x) DataAnalysisTools::exclude_empty_observations(x,
-                                                                  c("hca_onshore",
-                                                                    "hca_offshore",
-                                                                    "hca_total",
-                                                                    "miles_total",
-                                                                    "volume_crude_total",
-                                                                    "volume_hvl_total",
-                                                                    "volume_rpp_total",
-                                                                    "volume_other_total")
-                                                                  ),
+        function(x) {x %>%
+            filter(miles_total > miles_cutoff)
+        },
       duplicate_consolidation = function(x) {
         consolidation_rules = preprocess_consolidation[
           names(preprocess_consolidation) %in% colnames(x)]
@@ -194,7 +189,7 @@ input <-
                           volume_rpp_onshore = 0
                           ))
       },
-      # exclude_empty = function(x) {},
+      # exclude_empty = function(x) {}
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
           rowwise() %>%
