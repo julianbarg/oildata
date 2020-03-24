@@ -26,5 +26,6 @@
 #'   \item{narrative}{}
 #'   \item{volume}{}
 #'   \item{date}{Date of the spill.}
+#'   \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
 #' }
 "incidents"

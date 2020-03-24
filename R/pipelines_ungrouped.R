@@ -38,6 +38,7 @@
 #'  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
 #'  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
 #'  \item{incidents_volume}{Total number of gallons spilled across all incidents.}
+#'  \item{net_loss_volume}{Sum of volume of substance unintentionally released (in barrels) minus volume recovered.}
 #'  \item{significant_incidents_volume}{Total number of gallons spilled across all significant incidents.}
 #'  \item{incidents_cost}{Combined cost of all incidents (in 1984 dollars).}
 #'  \item{significant_incidents_cost}{Combined cost of all significant incidents (in 1984 dollars).}

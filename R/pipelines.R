@@ -28,16 +28,17 @@
 #'  \item{estimate_volume_crude}{Estimated volume of crude oil transported (in barrel-miles). Contains the actual value transported where available from volume_crude column. Missing values are approximated as total volume multiplied by the share of offshore pipelines/onshore in the pipeline network.}
 #'  \item{estimate_volume_hvl}{Estimated volume of highly volatile liquid transported (in barrel-miles). Contains the actual value transported where available from volume_hvl column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
 #'  \item{estimate_volume_rpp}{Estimated volume of refined petroleum products transported (in barrel-miles). Contains the actual value transported where available from volume_rpp column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
-#'  \item{estimate_volume_other}{Estimated volume of substance other than crude, rpp, and hvl transported (in barrel-miles). Contains the actual value transported where available from volume_other column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
-#'  \item{volume_all}{Combined volume of all substances transported (in barrel-miles).}
-#'  \item{estimate_volume_all}{Estimated combined volume of all substances transported (in barrel-miles). Contains the actual value transported where available from the volume_all column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
-#'  \item{volume_specific}{Volume transported of the substance that the pipeline is designated for (in barrel-miles).}
-#'  \item{estimate_volume_specific}{Estimated volume transported of the substance that the pipeline is designated for (in barrel-miles).  Contains the actual value transported where available from the volume_specific column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
+#'  \item{estimate_volume_other}{Estimated volume of commodity other than crude, rpp, and hvl transported (in barrel-miles). Contains the actual value transported where available from volume_other column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
+#'  \item{volume_all}{Combined volume of all commodities transported (in barrel-miles).}
+#'  \item{estimate_volume_all}{Estimated combined volume of all commodities transported (in barrel-miles). Contains the actual value transported where available from the volume_all column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
+#'  \item{volume_specific}{Volume transported of the commodity that the pipeline is designated for (in barrel-miles).}
+#'  \item{estimate_volume_specific}{Estimated volume transported of the commodity that the pipeline is designated for (in barrel-miles).  Contains the actual value transported where available from the volume_specific column. Missing values are approximated as total volume multiplied by the share of offshore/onshore pipelines in the pipeline network.}
 #'  \item{incidents}{Total number of incidents (both significant and non-significant).}
 #'  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
 #'  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
-#'  \item{incidents_volume}{Total number of gallons spilled across all incidents.}
-#'  \item{significant_incidents_volume}{Total number of gallons spilled across all significant incidents.}
+#'  \item{incidents_volume}{Total number of barrels spilled across all incidents.}
+#'  \item{net_loss_volume}{Sum of volume of commodity unintentionally released (in barrels) minus volume recovered.}
+#'  \item{significant_incidents_volume}{Total number of barrels spilled across all significant incidents.}
 #'  \item{incidents_cost}{Combined cost of all incidents (in 1984 dollars).}
 #'  \item{significant_incidents_cost}{Combined cost of all significant incidents (in 1984 dollars).}
 #' }

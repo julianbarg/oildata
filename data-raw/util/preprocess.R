@@ -264,8 +264,11 @@ input <-
       colume_creation = function(x) {x %>%
           mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
                                  LOSS, LOSS / 31.5),
+                 recovered = ifelse(SPUNIT_TEXT == "BARRELS",
+                                    RECOV, RECOV / 31.5),
                  date = lubridate::date(IDATE)
-          )
+          ) %>%
+          mutate(net_loss = volume - recovered)
       },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity),
@@ -309,6 +312,7 @@ input <-
                  long = LOCATION_LONGITUDE,
                  commodity = COMMODITY_RELEASED_TYPE,
                  volume = UNINTENTIONAL_RELEASE_BBLS,
+                 net_loss = NET_LOSS_BBLS,
                  on_offshore = ON_OFF_SHORE,
                  installation_year = INSTALLATION_YEAR,
                  cost = TOTAL_COST,

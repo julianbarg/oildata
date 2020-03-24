@@ -7,7 +7,7 @@
 \format{A data frame with columns:
 \describe{
  \item{DATAFILE_AS_OF}{}
- \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}}
+ \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}.}
  \item{serious}{Identify if record meets the SERIOUS criteria or not: If there was fatality or injury then SERIOUS = ‘YES’ else SERIOUS = ’NO’.}
  \item{report_type}{}
  \item{year}{Year of the incident report.}
@@ -243,8 +243,10 @@
  \item{MAP_CAUSE}{}
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
- \item{volume}{Volume of oil spilled (in gallons)}
+ \item{volume}{Volume of oil spilled (in barrels).}
+ \item{recovered}{Estimated volume of commodity recovered (in barrels).}
  \item{date}{Date of the spill.}
+ \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
 }}
 \source{
 United States Department of Transportation (DOT) Pipeline and
