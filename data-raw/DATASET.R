@@ -52,7 +52,7 @@ pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
                                 significant_incidents_volume = quo(sum(significant_incidents_volume, na.rm = T)),
                                 incidents_cost = quo(sum(incidents_cost, na.rm = T)),
                                 significant_incidents_cost = quo(sum(significant_incidents_cost, na.rm = T)),
-                                net_loss = quo(sum(net_loss, na.rm = T))
+                                net_loss_volume = quo(sum(net_loss_volume, na.rm = T))
                                 )
 
 ##################################################################
