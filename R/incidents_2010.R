@@ -41,8 +41,8 @@
 #'  \item{REPORT_RECEIVED_DATE}{}
 #'  \item{REPORT_TYPE}{}
 #'  \item{ID}{Unique operator ID.}
-#'  \item{name}{Name of the pipelines operator at the time of the report year.}
-#'  \item{year}{Year of the incident report.}
+#'  \item{name}{Name of the pipelines operator at the time of the incident (year).}
+#'  \item{year}{Year accident occurred, derived from accident date.}
 #'  \item{OPERATOR_STREET_ADDRESS}{}
 #'  \item{OPERATOR_CITY_NAME}{}
 #'  \item{OPERATOR_STATE_ABBREVIATION}{}
@@ -199,7 +199,9 @@
 #'  \item{EST_COST_ENVIRONMENTAL}{}
 #'  \item{EST_COST_OTHER}{}
 #'  \item{EST_COST_OTHER_DETAILS}{}
-#'  \item{cost}{Total estimated property damage (sum of above)}
+#'  \item{cost}{Total estimated property damage (sum of above).}
+#'  \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
+#'  \item{TOTAL_COST_CURRENT}{}
 #'  \item{ACCIDENT_PSIG}{}
 #'  \item{MOP_PSIG}{}
 #'  \item{ACCIDENT_PRESSURE}{}
@@ -631,8 +633,6 @@
 #'  \item{EST_COST_EMERGENCY_CURRENT}{}
 #'  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
 #'  \item{EST_COST_OTHER_CURRENT}{}
-#'  \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
-#'  \item{TOTAL_COST_CURRENT}{}
 #'  \item{MAP_CAUSE}{}
 #'  \item{MAP_SUBCAUSE}{}
 #'  \item{SPILL_TYPE_CATEGORY}{}

@@ -7,16 +7,16 @@
 \format{A data frame with 53940 rows and 10 variables:
 \describe{
   \item{DATAFILE_AS_OF}{}
-  \item{significant}{}
-  \item{serious}{}
+  \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}.}
+  \item{serious}{Identify if record meets the SERIOUS criteria or not: If there was fatality or injury then SERIOUS = ‘YES’ else SERIOUS = ’NO’.}
   \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
-  \item{ID}{}
-  \item{name}{}
-  \item{year}{}
+  \item{ID}{Unique operator ID.}
+  \item{name}{Name of the pipelines operator at the time of the incident (year).}
+  \item{year}{Year accident occurred, derived from accident date.}
   \item{lat}{Accident location latitude.}
   \item{long}{Accident location longitude.}
-  \item{cost}{}
-  \item{cost_1984}{}
+  \item{cost}{Total costs (in US$).}
+  \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
   \item{TOTAL_COST_CURRENT}{}
   \item{commodity}{}
   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}

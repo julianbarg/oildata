@@ -14,7 +14,7 @@
  \item{report_type}{}
  \item{ID}{Unique operator ID.}
  \item{OWNER_OPERATOR_ID}{}
- \item{name}{Name of the pipelines operator at the time of the incident report.}
+ \item{name}{Name of the pipelines operator at the time of the incident (year).}
  \item{OPSTREET}{}
  \item{OPCITY}{}
  \item{OPCOUNTY}{}
@@ -22,7 +22,7 @@
  \item{OPZIP}{}
  \item{IHOUR}{}
  \item{IDATE}{}
- \item{year}{Year of the incident report.}
+ \item{year}{Year accident occurred, derived from accident date.}
  \item{lat}{Accident location latitude.}
  \item{long}{Accident location longitude.}
  \item{ACCITY}{}
@@ -42,7 +42,8 @@
  \item{OOPRP}{}
  \item{OOPPRP}{}
  \item{OOPPRPO}{}
- \item{cost}{Total costs ($).}
+ \item{cost}{Total costs (in US$).}
+ \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
  \item{SPILLED}{}
  \item{COMM}{}
  \item{commodity}{The type of commodity being spilled (Crude, HVL, etc.).}
@@ -230,7 +231,6 @@
  \item{PNAME}{}
  \item{PHONE}{}
  \item{PEMAIL}{}
- \item{narrative}{Written description of the incident.}
  \item{PPPRPCURRENT}{}
  \item{EMRPRPCURRENT}{}
  \item{ENVPRPCURRENT}{}
@@ -238,11 +238,11 @@
  \item{PRODPRPCURRENT}{}
  \item{OOPRPCURRENT}{}
  \item{OOPPRPCURRENT}{}
- \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
  \item{TOTAL_COST_CURRENT}{}
  \item{MAP_CAUSE}{}
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
+ \item{narrative}{Written description of the incident.}
  \item{volume}{Volume of oil spilled (in barrels).}
  \item{recovered}{Estimated volume of commodity recovered (in barrels).}
  \item{date}{Date of the spill.}
