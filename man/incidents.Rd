@@ -9,6 +9,7 @@
   \item{DATAFILE_AS_OF}{}
   \item{significant}{}
   \item{serious}{}
+  \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
   \item{ID}{}
   \item{name}{}
   \item{year}{}

@@ -36,13 +36,13 @@
 #'  \item{ipe}{Impacting People or the Environment (IPE) – when commodity (A8) is crude oil, refined petroleum products, of biofuel, if either criterion 1 or 2 below is met, the accident counts as IPE :  1.  Regardless of Location of Accident (B10): Fatality (A12) greater than zero; or Injury requiring in-patient hospitalization (A13) greater than zero; or Ignition (A15) = Yes; or Explosion (A16) = Yes; or Evacuation (A17) greater than zero; or Wildlife impact (D1) = Yes; or Water contamination (D5a) = Ocean/Seawater, Groundwater, or Drinking water; or Public/Non-Operator Private Property Damage (D8a) greater than zero 2.For Location of Accident (B10) not “TOTALLY CONTAINED ON OPERATOR CONTROLLED PROPERTY”: Unintentional Release Volume (A9) greater than or equal to 5 gallons AND HCA (D7) = Yes; or Unintentional Release Volume (A9) greater than or equal to 5 barrels AND HCA (D7) = No; or Water contamination (D5a) = Surface; or Soil contamination (D2) = Yes.}
 #'  \item{integrity_assessment_target}{Integrity Assessment Target – accidents Impacting People or the Environment (IPE) and one of these causes: Corrosion, Pipeline/Weld Material Failure, Failure of Previously Damage Pipe – caused by Excavation Damage or Other Outside Force Damage.}
 #'  \item{operations_maintenance_target}{Operation & Maintenance Target - accidents Impacting People or the Environment (IPE) and one of these causes: Equipment Failure, Incorrect Operation, 1st & 2nd Party Excavation Damage, 3rd Party Excavation Damage with Root Cause = Locating Practices Not Sufficient.}
-#'  \item{REPORT_RECEIVED_DATE}{}
-#'  \item{year}{Year of the incident report.}
-#'  \item{REPORT_NUMBER}{}
+#'  \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
 #'  \item{SUPPLEMENTAL_NUMBER}{}
+#'  \item{REPORT_RECEIVED_DATE}{}
 #'  \item{REPORT_TYPE}{}
 #'  \item{ID}{Unique operator ID.}
 #'  \item{name}{Name of the pipelines operator at the time of the report year.}
+#'  \item{year}{Year of the incident report.}
 #'  \item{OPERATOR_STREET_ADDRESS}{}
 #'  \item{OPERATOR_CITY_NAME}{}
 #'  \item{OPERATOR_STATE_ABBREVIATION}{}

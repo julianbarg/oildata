@@ -32,11 +32,10 @@
 #'  \item{DATAFILE_AS_OF}{}
 #'  \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}.}
 #'  \item{serious}{Identify if record meets the SERIOUS criteria or not: If there was fatality or injury then SERIOUS = ‘YES’ else SERIOUS = ’NO’.}
-#'  \item{report_type}{}
-#'  \item{year}{Year of the incident report.}
-#'  \item{ID}{Unique operator ID.}
-#'  \item{RPTID}{}
+#'  \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
 #'  \item{DOR}{}
+#'  \item{report_type}{}
+#'  \item{ID}{Unique operator ID.}
 #'  \item{OWNER_OPERATOR_ID}{}
 #'  \item{name}{Name of the pipelines operator at the time of the incident report.}
 #'  \item{OPSTREET}{}
@@ -46,6 +45,7 @@
 #'  \item{OPZIP}{}
 #'  \item{IHOUR}{}
 #'  \item{IDATE}{}
+#'  \item{year}{Year of the incident report.}
 #'  \item{lat}{Accident location latitude.}
 #'  \item{long}{Accident location longitude.}
 #'  \item{ACCITY}{}
