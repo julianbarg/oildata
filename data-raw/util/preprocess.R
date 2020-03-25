@@ -242,7 +242,8 @@ input <-
     ##################################################################
     incidents_2002 = list(
       rename_colnames = function(x) {x %>%
-          rename(significant = SIGNIFICANT,
+          rename(incident_ID = RPTID,
+                 significant = SIGNIFICANT,
                  serious = SERIOUS,
                  report_type = REPORT_TYPE,
                  ID = OPERATOR_ID,
@@ -300,7 +301,8 @@ input <-
     ##################################################################
     incidents_2010 = list(
       rename_colnames = function(x) {x %>%
-          rename(significant = SIGNIFICANT,
+          rename(incident_ID = REPORT_NUMBER,
+                 significant = SIGNIFICANT,
                  serious = SERIOUS,
                  ipe = IPE,
                  integrity_assessment_target = IA_IPE,
