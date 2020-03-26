@@ -314,6 +314,7 @@ input <-
                  long = LOCATION_LONGITUDE,
                  commodity = COMMODITY_RELEASED_TYPE,
                  volume = UNINTENTIONAL_RELEASE_BBLS,
+                 recovered = RECOVERED_BBLS,
                  net_loss = NET_LOSS_BBLS,
                  on_offshore = ON_OFF_SHORE,
                  installation_year = INSTALLATION_YEAR,

@@ -35,7 +35,7 @@
  \item{BIO_DIESEL_DETAILS}{}
  \item{volume}{Volume of the spill.}
  \item{INTENTIONAL_RELEASE_BBLS}{}
- \item{RECOVERED_BBLS}{}
+ \item{recovered}{Estimated volume of commodity recovered (barrels).}
  \item{net_loss}{Volume of commodity unintentionally released (in barrels) minus volume recovered.}
  \item{FATALITY_IND}{}
  \item{NUM_EMP_FATALITIES}{}

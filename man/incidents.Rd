@@ -30,6 +30,7 @@
   \item{SPILL_TYPE_CATEGORY}{}
   \item{narrative}{}
   \item{volume}{}
+  \item{recovered}{Estimated volume of commodity recovered (barrels).}
   \item{date}{Date of the spill.}
   \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
 }}
