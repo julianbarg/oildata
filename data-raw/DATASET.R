@@ -20,14 +20,17 @@ grouping_cols <- vars(ID, year, commodity, on_offshore)
 
 total_cols <- vars(ID, year, commodity)
 
-mutate_cols <- list(incidents = list(filter_col=NULL, aggregate_col=NULL),
-                    significant_incidents = list(filter_col=quo(significant), aggregate_col=NULL),
-                    serious_incidents = list(filter_col=quo(serious), aggregate_col=NULL),
-                    incidents_volume = list(filter_col=NULL, aggregate_col=quo(volume)),
-                    net_loss_volume = list(filter_col=NULL, aggregate_col=quo(net_loss)),
-                    significant_incidents_volume = list(filter_col=quo(significant), aggregate_col=quo(volume)),
-                    incidents_cost = list(filter_col=NULL, aggregate_col=quo(cost_1984)),
-                    significant_incidents_cost = list(filter_col=quo(significant), aggregate_col = quo(cost_1984))
+mutate_cols <- list(incidents = list(filter_col = NULL, aggregate_col = NULL),
+                    significant_incidents = list(filter_col = quo(significant), aggregate_col = NULL),
+                    serious_incidents = list(filter_col = quo(serious), aggregate_col = NULL),
+                    incidents_volume = list(filter_col = NULL, aggregate_col = quo(volume)),
+                    recovered = list(filter_col = NULL, aggregate_col = quo(recovered)),
+                    net_loss_volume = list(filter_col = NULL, aggregate_col = quo(net_loss)),
+                    significant_incidents_volume = list(filter_col = quo(significant),
+                                                        aggregate_col = quo(volume)),
+                    incidents_cost = list(filter_col = NULL, aggregate_col = quo(cost_1984)),
+                    significant_incidents_cost = list(filter_col = quo(significant),
+                                                      aggregate_col = quo(cost_1984))
                     )
 
 pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
@@ -52,6 +55,7 @@ pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
                                 significant_incidents_volume = quo(sum(significant_incidents_volume, na.rm = T)),
                                 incidents_cost = quo(sum(incidents_cost, na.rm = T)),
                                 significant_incidents_cost = quo(sum(significant_incidents_cost, na.rm = T)),
+                                recovered = quo(sum(recovered, na.rm = T)),
                                 net_loss_volume = quo(sum(net_loss_volume, na.rm = T))
                                 )
 

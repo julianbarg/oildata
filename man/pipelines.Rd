@@ -30,6 +30,7 @@
  \item{significant_incidents}{Count of significant incidents. Obtained from the incident datasets.}
  \item{serious_incidents}{Count of serious incidents. Obtained from the incident datasets.}
  \item{incidents_volume}{Total number of barrels spilled across all incidents.}
+ \item{recovered}{The volume of commodity recovered after all incidents (in barrels).}
  \item{net_loss_volume}{Sum of volume of commodity unintentionally released (in barrels) minus volume recovered.}
  \item{significant_incidents_volume}{Total number of barrels spilled across all significant incidents.}
  \item{incidents_cost}{Combined cost of all incidents (in 1984 dollars).}
