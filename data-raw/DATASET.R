@@ -10,7 +10,7 @@ arguments <- commandArgs(trailingOnly = TRUE)
 redownload <- "--download" %in% arguments
 
 # Downloads and saves the original datasets
-if (isTRUE(redownload)) {system("data-raw/util/proprocess.R --download")
+if (isTRUE(redownload)) {system("data-raw/util/preprocess.R --download")
 } else system("data-raw/util/preprocess.R")
 
 # Set up arguments
