@@ -51,6 +51,12 @@ class PhmsaDownloader:
                           '/PHMSA_Pipeline_Safety_Flagged_Incidents.zip',
                 'extension': 'hl2002to2009.xlsx',
                 'parsing_function': partial(pd.read_excel, sheet_name=1)
+            },
+            'incidents_1986': {
+                'source': 'https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/data_statistics/pipeline'
+                          '/PHMSA_Pipeline_Safety_Flagged_Incidents.zip',
+                'extension': 'hl1986to2001.xlsx',
+                'parsing_function': partial(pd.read_excel, sheet_name=1)
             }
         }
 

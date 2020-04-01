@@ -50,7 +50,7 @@
  \item{SPUNIT_TEXT}{}
  \item{LOSS}{}
  \item{RECOV}{}
- \item{cause}{Apparent Cause of the Incident (self-reported).}
+ \item{CAUSE}{Apparent Cause of the Incident (self-reported).}
  \item{LINE_SEG}{}
  \item{IFED}{}
  \item{INTER}{}
@@ -117,11 +117,11 @@
  \item{LOCLK_TEXT}{}
  \item{LOCLKO}{}
  \item{DEPTH_COV}{}
- \item{FATAL}{}
+ \item{fatalities}{Total number of fatalities.}
  \item{EFAT}{}
  \item{NFAT}{}
- \item{GPFAT }{}
- \item{INJURE}{}
+ \item{GPFAT}{}
+ \item{injuries}{Total number of injured}
  \item{EINJ}{}
  \item{NINJ}{}
  \item{GPINJ}{}
@@ -239,7 +239,7 @@
  \item{OOPRPCURRENT}{}
  \item{OOPPRPCURRENT}{}
  \item{TOTAL_COST_CURRENT}{}
- \item{MAP_CAUSE}{}
+ \item{cause}{Cause of the incident, curated by PHMSA.}
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{narrative}{Written description of the incident.}

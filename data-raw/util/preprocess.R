@@ -9,6 +9,7 @@ library(devtools)
 # Preprocesses 4 raw datasets
 # 1. Pipelines 2004-2009
 # 2. Pipelines 2010-today
+# 3. Pipeline incidents 1986-2001
 # 3. Pipeline incidents 2002-2009
 # 4. Pipeline incidents 2010-today
 
@@ -238,6 +239,56 @@ input <-
       }
     ),
     ##################################################################
+    ###     Incidents 1986    ########################################
+    ##################################################################
+    incidents_1986 = list(
+      rename_colnames = function(x) {x %>%
+          rename(incident_ID = RPTID,
+                 significant = SIGNIFICANT,
+                 serious = SERIOUS,
+                 ID = OPID,
+                 name = NAME,
+                 on_offshore = OFFSHORE,
+                 installation_year = ITMYR,
+                 cause = MAP_CAUSE,
+                 cost = TOTAL_COST,
+                 fatalities = NFAT,
+                 injuries = NINJ,
+                 cost_1984 = TOTAL_COST_IN84,
+                 commodity = COMM,
+                 volume = LOSS,
+                 recovered = RECOV,
+                 narrative = NARRATIVE
+          )
+      },
+      # fill_missing_values <- function(x) {},
+      # exclude_empty = function(x) {},
+      # duplicate_consolidation = function(x) {},
+      column_creation = function(x) {x %>%
+          mutate(net_loss = volume - recovered,
+                 year = lubridate::year(IDATE),
+                 date = lubridate::date(IDATE),
+                 long = NA,
+                 lat = NA,
+
+                 )
+      },
+      refactor = function(x) {x %>%
+          mutate(on_offshore = recode(on_offshore,
+                               YES = "offshore",
+                               NO = "onshore")
+          )
+      },
+      string_cleaning = function(x) {x %>%
+          mutate(name = str_to_title(name)) %>%
+          mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
+          mutate(narrative = str_to_sentence(narrative),
+                 serious = serious == "YES",
+                 significant = significant == "YES"
+          )
+      }
+    ),
+    ##################################################################
     ###     Incidents 2002    ########################################
     ##################################################################
     incidents_2002 = list(
@@ -254,7 +305,9 @@ input <-
                  cost = TOTAL_COST,
                  commodity = CLASS_TEXT,
                  installation_year = PRTYR,
-                 cause = CAUSE,
+                 fatalities = FATAL,
+                 injuries = INJURE,
+                 cause = MAP_CAUSE,
                  on_offshore = OFFSHORE,
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
@@ -316,11 +369,13 @@ input <-
                  volume = UNINTENTIONAL_RELEASE_BBLS,
                  recovered = RECOVERED_BBLS,
                  net_loss = NET_LOSS_BBLS,
+                 fatalities = FATAL,
+                 injuries = INJURE,
                  on_offshore = ON_OFF_SHORE,
                  installation_year = INSTALLATION_YEAR,
                  cost = TOTAL_COST,
                  excavation_damage_type = PARTY_TYPE,
-                 cause = CAUSE,
+                 cause = MAP_CAUSE,
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
@@ -371,7 +426,7 @@ download_datasets <- function(datasets) {
 process_dataset <- function(dataset, input) {
   df <- feather::read_feather(paste0(temp_data_folder, "/", dataset, ".feather"))
   df[ , map_lgl(df, is.character)] <-
-    sapply(df[ , map_lgl(df, is.character)], function(x) ifelse(x == "nan", NA, x))
+    sapply(df[ , map_lgl(df, is.character)], function(x) ifelse(x %in% c("nan", "NULL"), NA, x))
   functions <- input[[dataset]]
   for (f in functions) {
     df <- f(df)
@@ -402,6 +457,11 @@ if ("pipelines_2004" %in% names(dfs)) {
 if ("pipelines_2010" %in% names(dfs)) {
   pipelines_2010 <- dfs[["pipelines_2010"]]
   use_data(pipelines_2010, overwrite = TRUE)
+}
+
+if ("incidents_1986" %in% names(dfs)) {
+  incidents_1986 <- dfs[["incidents_1986"]]
+  use_data(incidents_1986, overwrite = TRUE)
 }
 
 if ("incidents_2002" %in% names(dfs)) {

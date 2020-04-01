@@ -1,0 +1,110 @@
+#' Annual data on oil spills in the US from 1986 to 2001
+#'
+#' Distribution, Transmission & Gathering, LNG, and Liquid Accident and Incident Data.
+#'
+#' Title 49 of the Code of Federal Regulations (49 CFR Parts 191, 195) requires
+#' pipeline operators to submit incident reports within 30 days of a pipeline
+#' incident or accident. The CFR defines accidents and incidents, as well as
+#' criteria for submitting reports to the Office of Pipeline Safety. The
+#' following kinds of information are collected:
+#' * Key report information
+#' * In-depth location information
+#' * Facility information
+#' * Operating information
+#' * Drug and Alcohol information
+#' * Cause of the accident/incident
+#' Specific information includes the time and location of the incident(s),
+#' number of any injuries and/ or fatalities, commodity spilled/gas released,
+#' causes of failure and evacuation procedures. The reports are used for
+#' identifying long- and short-term trends at the national, state and
+#' operator-specific levels. The frequency, causes, and consequences of the
+#' incidents provide insight into the safety metrics currently used by PHMSA,
+#' state partners, and other pipeline safety stakeholders, including the
+#' pipeline industry and general public. PHMSA also uses the data for inspection
+#' planning and risk assessment.
+#'
+#' @source United States Department of Transportation (DOT) Pipeline and
+#'   Hazardous Materials Safety Administration (PHMSA).
+#'   \url{https://www.phmsa.dot.gov/data-and-statistics/pipeline/distribution-transmission-gathering-lng-and-liquid-accident-and-incident-data}
+#'    (right side bar).
+#' @format A data frame with columns:
+#' \describe{
+#'  \item{DATAFILE_AS_OF}{}
+#'  \item{significant}{}
+#'  \item{serious}{}
+#'  \item{incident_ID}{}
+#'  \item{DOR}{}
+#'  \item{ID}{}
+#'  \item{name}{}
+#'  \item{INTER}{}
+#'  \item{IDATE}{}
+#'  \item{DTHH}{}
+#'  \item{ACSTATE}{}
+#'  \item{ACCOUNTY}{}
+#'  \item{ACCITY}{}
+#'  \item{on_offshore}{}
+#'  \item{COOR}{}
+#'  \item{IFED}{}
+#'  \item{SPLOC}{}
+#'  \item{TELRN}{}
+#'  \item{CSYS}{}
+#'  \item{ORGLK}{}
+#'  \item{ORGLO}{}
+#'  \item{installation_year}{Year item installed.}
+#'  \item{CAUSE}{}
+#'  \item{CAUSO}{}
+#'  \item{cause}{}
+#'  \item{MAP_SUBCAUSE}{}
+#'  \item{TFAT}{}
+#'  \item{EFAT}{}
+#'  \item{TINJ}{}
+#'  \item{EINJ}{}
+#'  \item{fatalities}{Total number of fatalities.}
+#'  \item{injuries}{Total number of injuries}
+#'  \item{cost}{}
+#'  \item{cost_1984}{}
+#'  \item{TOTAL_COST_CURRENT}{}
+#'  \item{commodity}{}
+#'  \item{CLASS}{}
+#'  \item{volume}{}
+#'  \item{recovered}{}
+#'  \item{FIRE}{}
+#'  \item{EXP}{}
+#'  \item{NMDIA}{}
+#'  \item{THK}{}
+#'  \item{SMYS}{}
+#'  \item{JNT}{}
+#'  \item{GRND}{}
+#'  \item{DSPRS}{}
+#'  \item{ACPRS}{}
+#'  \item{PRTST}{}
+#'  \item{DUR}{}
+#'  \item{MXPRS}{}
+#'  \item{TSTMM}{}
+#'  \item{TSTYY}{}
+#'  \item{CORLC}{}
+#'  \item{FACTD}{}
+#'  \item{FACAT}{}
+#'  \item{CORR}{}
+#'  \item{CORRO}{}
+#'  \item{CAULK}{}
+#'  \item{CAULO}{}
+#'  \item{PREVT}{}
+#'  \item{ONECL}{}
+#'  \item{ONEOT}{}
+#'  \item{EXCAL}{}
+#'  \item{TMPMK}{}
+#'  \item{PNAME}{}
+#'  \item{PHONE}{}
+#'  \item{narrative}{}
+#'  \item{net_loss}{}
+#'  \item{year}{}
+#'  \item{date}{}
+#'  \item{lat}{}
+#'  \item{long}{}
+#' }
+#' @examples
+#' \dontrun{
+#'  incidents_1986
+#' }
+"incidents_1986"

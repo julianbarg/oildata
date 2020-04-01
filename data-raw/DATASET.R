@@ -141,12 +141,13 @@ make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=groupi
 # which does not greatly alter the original dataset.
 load("data/pipelines_2004.rda")
 load("data/pipelines_2010.rda")
+load("data/incidents_1986.rda")
 load("data/incidents_2002.rda")
 load("data/incidents_2010.rda")
 source("data-raw/util/groups.R")
 source("data-raw/util/m_as.R")
 pipeline_datasets <- list(pipelines_2004, pipelines_2010)
-incidents_datasets <- list(incidents_2002, incidents_2010)
+incidents_datasets <- list(incidents_1986, incidents_2002, incidents_2010)
 
 # Some basic housekeeping
 m_as <- rbind(m_as, groups)

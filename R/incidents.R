@@ -8,26 +8,24 @@
 #'   \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
 #'   \item{ID}{Unique operator ID.}
 #'   \item{name}{Name of the pipelines operator at the time of the incident (year).}
-#'   \item{year}{Year accident occurred, derived from accident date.}
-#'   \item{lat}{Accident location latitude.}
-#'   \item{long}{Accident location longitude.}
+#'   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
+#'   \item{installation_year}{Year item installed that involved in accident.}
+#'   \item{CAUSE}{Cause, self-selected from available options.}
+#'   \item{cause}{Coded, by PHMSA to be consistent between different versions of form accross time.}
+#'   \item{MAP_SUBCAUSE}{}
+#'   \item{fatalities}{Total number of Fatalities.}
+#'   \item{injuries}{Total number of Injuries.}
 #'   \item{cost}{Total costs (in US$).}
 #'   \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
 #'   \item{TOTAL_COST_CURRENT}{}
 #'   \item{commodity}{}
-#'   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
-#'   \item{installation_year}{Year item installed that involved in accident.}
-#'   \item{FATAL}{}
-#'   \item{INJURE}{}
-#'   \item{cause}{}
-#'   \item{CAUSE_DETAILS}{}
-#'   \item{MAP_CAUSE}{}
-#'   \item{MAP_SUBCAUSE}{}
-#'   \item{SPILL_TYPE_CATEGORY}{}
-#'   \item{narrative}{}
 #'   \item{volume}{}
 #'   \item{recovered}{Estimated volume of commodity recovered (barrels).}
-#'   \item{date}{Date of the spill.}
+#'   \item{narrative}{}
 #'   \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
+#'   \item{year}{Year accident occurred, derived from accident date.}
+#'   \item{date}{Date of the spill.}
+#'   \item{lat}{Accident location latitude.}
+#'   \item{long}{Accident location longitude.}
 #' }
 "incidents"

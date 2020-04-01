@@ -43,14 +43,14 @@
  \item{NUM_ER_FATALITIES}{}
  \item{NUM_WORKER_FATALITIES}{}
  \item{NUM_GP_FATALITIES}{}
- \item{FATAL}{}
+ \item{fatalities}{Total number of Fatalities.}
  \item{INJURY_IND}{}
  \item{NUM_EMP_INJURIES}{}
  \item{NUM_CONTR_INJURIES}{}
  \item{NUM_ER_INJURIES}{}
  \item{NUM_WORKER_INJURIES}{}
  \item{NUM_GP_INJURIES}{}
- \item{INJURE}{}
+ \item{injuries}{Total number of Injuries.}
  \item{SHUTDOWN_DUE_ACCIDENT_IND}{}
  \item{SHUTDOWN_EXPLAIN}{}
  \item{SHUTDOWN_DATETIME}{}
@@ -237,7 +237,7 @@
  \item{NUM_EMPLOYEES_FAILED}{}
  \item{NUM_CONTRACTORS_TESTED}{}
  \item{NUM_CONTRACTORS_FAILED}{}
- \item{cause}{Apparent Cause of the Incident (self-reported).}
+ \item{CAUSE}{Apparent Cause of the Incident (self-reported).}
  \item{CAUSE_DETAILS}{}
  \item{INTERNAL_EXTERNAL}{}
  \item{VISUAL_EXAM_RESULTS}{}
@@ -609,7 +609,7 @@
  \item{EST_COST_EMERGENCY_CURRENT}{}
  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
  \item{EST_COST_OTHER_CURRENT}{}
- \item{MAP_CAUSE}{}
+ \item{cause}{Cause of the incident, curated by PHMSA.}
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{date}{Date of the spill.}
