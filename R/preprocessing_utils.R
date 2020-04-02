@@ -53,3 +53,17 @@ fix_commodities <- function(x) {
 #'  pipelines_consolidation
 #' }
 "pipelines_consolidation"
+
+#' Rules for adding together different incidents when aggregating by organization and/or year etc.
+#'
+#' @source Wirtten for the purpose of handling operations in this package. Source of the processed data:
+#'   \url{https://www.phmsa.dot.gov/data-and-statistics/pipeline/distribution-transmission-gathering-lng-and-liquid-accident-and-incident-data}
+#' @format A list with the rowname, and the summary operation.
+#' \describe{
+#'   \item{incident_consolidation}{List that holds entry for each column as separate object.}
+#' }
+#' @examples
+#' \dontrun{
+#'  incident_consolidation
+#' }
+"incident_consolidation"

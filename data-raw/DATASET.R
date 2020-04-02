@@ -20,18 +20,18 @@ grouping_cols <- vars(ID, year, commodity, on_offshore)
 
 total_cols <- vars(ID, year, commodity)
 
-mutate_cols <- list(incidents = list(filter_col = NULL, aggregate_col = NULL),
-                    significant_incidents = list(filter_col = quo(significant), aggregate_col = NULL),
-                    serious_incidents = list(filter_col = quo(serious), aggregate_col = NULL),
-                    incidents_volume = list(filter_col = NULL, aggregate_col = quo(volume)),
-                    recovered = list(filter_col = NULL, aggregate_col = quo(recovered)),
-                    net_loss_volume = list(filter_col = NULL, aggregate_col = quo(net_loss)),
-                    significant_incidents_volume = list(filter_col = quo(significant),
-                                                        aggregate_col = quo(volume)),
-                    incidents_cost = list(filter_col = NULL, aggregate_col = quo(cost_1984)),
-                    significant_incidents_cost = list(filter_col = quo(significant),
-                                                      aggregate_col = quo(cost_1984))
-                    )
+incident_consolidation <- list(incidents = list(filter_col = NULL, aggregate_col = NULL),
+                               significant_incidents = list(filter_col = quo(significant), aggregate_col = NULL),
+                               serious_incidents = list(filter_col = quo(serious), aggregate_col = NULL),
+                               incidents_volume = list(filter_col = NULL, aggregate_col = quo(volume)),
+                               recovered = list(filter_col = NULL, aggregate_col = quo(recovered)),
+                               net_loss_volume = list(filter_col = NULL, aggregate_col = quo(net_loss)),
+                               significant_incidents_volume = list(filter_col = quo(significant),
+                                                                   aggregate_col = quo(volume)),
+                               incidents_cost = list(filter_col = NULL, aggregate_col = quo(cost_1984)),
+                               significant_incidents_cost = list(filter_col = quo(significant),
+                                                                 aggregate_col = quo(cost_1984))
+                               )
 
 pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
                                 miles = quo(sum(miles, na.rm = T)),
@@ -109,11 +109,11 @@ create_additional_volume_cols <- function(df) {
           )
 }
 
-make_dataset <- function(pipelines, incidents, mutate_cols, grouping_cols=grouping_cols,
+make_dataset <- function(pipelines, incidents, incident_consolidation, grouping_cols=grouping_cols,
                          total_cols = NULL) {
-  for (colname in names(mutate_cols)) {
-    filter_col = mutate_cols[[colname]][["filter_col"]]
-    aggregate_col = mutate_cols[[colname]][["aggregate_col"]]
+  for (colname in names(incident_consolidation)) {
+    filter_col = incident_consolidation[[colname]][["filter_col"]]
+    aggregate_col = incident_consolidation[[colname]][["aggregate_col"]]
     column <- extract_count(incidents,
                             colname,
                             grouping_cols = grouping_cols,
@@ -156,6 +156,7 @@ incidents <- col_union(incidents_datasets)
 
 # Provide datasets in package
 use_data(pipelines_consolidation, overwrite = TRUE)
+use_data(incident_consolidation, overwrite = TRUE)
 use_data(m_as, overwrite = TRUE)
 use_data(incidents, overwrite = TRUE)
 
@@ -168,7 +169,7 @@ pipelines_ungrouped <- col_union(pipeline_datasets) %>%
 pipelines_ungrouped <- create_additional_volume_cols(pipelines_ungrouped)
 pipelines_ungrouped <- make_dataset(pipelines = pipelines_ungrouped,
                                     incidents = incidents,
-                                    mutate_cols = mutate_cols,
+                                    incident_consolidation = incident_consolidation,
                                     grouping_cols = grouping_cols,
                                     total_cols = total_cols)
 pipelines_ungrouped <- subset(pipelines_ungrouped, year %in% observation_period)
