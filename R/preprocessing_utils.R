@@ -20,7 +20,22 @@ fix_commodities <- function(x) {
                    "CO2 (CARBON DIOXIDE)" = "co2",
                    "HVL OR OTHER FLAMMABLE OR TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "hvl",
                    "REFINED AND/OR PETROLEUM PRODUCT (NON-HVL) WHICH IS A LIQUID AT AMBIENT CONDITIONS" = "rpp",
-                   "HVL" = "hvl")
+                   "HVL" = "hvl",
+                   "CRUDE OIL" = "crude",
+                   "GASOLINE" = "rpp",
+                   "NATURAL GAS LIQUID" = "ngl",
+                   "FUEL OIL" = "rpp",
+                   "DIESEL FUEL" = "rpp",
+                   "L. P. G." = "hvl",
+                   "JET FUEL" = "rpp",
+                   "ANHYDROUS AMMONIA" = "hvl",
+                   "OIL AND GASOLINE" = "rpp",
+                   "BUTANE" = "hvl",
+                   "TURBINE FUEL" = "rpp",
+                   "TRANSMIX (PART. REFINED PETRO)" = "rpp",
+                   "PROPANE" = "hvl",
+                   "KEROSENE" = "rpp",
+                   "GASOLINE AND FUEL OIL" = "rpp")
 
   return(recode(x, !!! commodities))
 }

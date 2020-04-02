@@ -270,7 +270,7 @@ input <-
                  date = lubridate::date(IDATE),
                  long = NA,
                  lat = NA,
-
+                 commodity = oildata:::fix_commodities(commodity)
                  )
       },
       refactor = function(x) {x %>%
