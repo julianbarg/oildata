@@ -35,7 +35,8 @@ fix_commodities <- function(x) {
                    "TRANSMIX (PART. REFINED PETRO)" = "rpp",
                    "PROPANE" = "hvl",
                    "KEROSENE" = "rpp",
-                   "GASOLINE AND FUEL OIL" = "rpp")
+                   "GASOLINE AND FUEL OIL" = "rpp",
+                   "CO2/N2 OR OTHER NON-FLAMMABLE, NON-TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "co2")
 
   return(recode(x, !!! commodities))
 }

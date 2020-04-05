@@ -284,7 +284,8 @@ input <-
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
-                 significant = significant == "YES"
+                 significant = significant == "YES",
+                 cause = tolower(cause)
           )
       }
     ),
@@ -312,7 +313,11 @@ input <-
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
-      # fill_missing_values <- function(x) {},
+      fill_missing_values <- function(x) {
+        x[x$FATALITY_IND == "NO", ]$fatalities <- 0
+        x[x$INJURY_IND == "NO", ]$injuries <- 0
+        x
+      },
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       colume_creation = function(x) {x %>%
@@ -345,7 +350,8 @@ input <-
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
-                 significant = significant == "YES"
+                 significant = significant == "YES",
+                 cause = tolower(cause)
                  )
       }
     ),
@@ -379,7 +385,11 @@ input <-
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
-      # fill_missing_values <- function(x) {},
+      fill_missing_values <- function(x) {
+        x[x$FATALITY_IND == "NO", ]$fatalities <- 0
+        x[x$INJURY_IND == "NO", ]$injuries <- 0
+        x
+      },
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       column_creation = function(x) {x %>%
@@ -407,7 +417,8 @@ input <-
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
-                 significant = significant == "YES"
+                 significant = significant == "YES",
+                 cause = tolower(cause)
           )
       }
     )
