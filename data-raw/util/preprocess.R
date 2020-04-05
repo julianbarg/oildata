@@ -313,11 +313,7 @@ input <-
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
-      fill_missing_values <- function(x) {
-        x[x$FATALITY_IND == "NO", ]$fatalities <- 0
-        x[x$INJURY_IND == "NO", ]$injuries <- 0
-        x
-      },
+      # fill_missing_values <- function(x) {},
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
       colume_creation = function(x) {x %>%
