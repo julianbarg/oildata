@@ -66,7 +66,7 @@ pipelines_consolidation <- list(hca = quo(sum(hca, na.rm = T)),
 col_union <- function(dfs) {
   # Rowbinds a list of dataframes, but only retains the columns that they have in common
   common_cols <- Reduce(intersect, (map(dfs, ~ colnames(.x))))
-  map_dfr(dfs, ~select(.x, !! quo(common_cols)))
+  map_dfr(dfs, ~select(.x, !! quo(common_cols))) # Posbbily change to !!! all_of(common_cols)
 }
 
 extract_count <- function(df, colname, grouping_cols=grouping_cols, filter_col=NULL, aggregate_col=NULL) {

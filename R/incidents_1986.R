@@ -35,11 +35,11 @@
 #'  \item{incident_ID}{}
 #'  \item{DOR}{}
 #'  \item{ID}{}
-#'  \item{name}{}
+#'  \item{name}{State of incidents (for offshore, the state of nearby coast).}
 #'  \item{INTER}{}
 #'  \item{IDATE}{}
 #'  \item{DTHH}{}
-#'  \item{ACSTATE}{}
+#'  \item{state}{}
 #'  \item{ACCOUNTY}{}
 #'  \item{ACCITY}{}
 #'  \item{on_offshore}{}
@@ -57,9 +57,9 @@
 #'  \item{MAP_SUBCAUSE}{}
 #'  \item{TFAT}{}
 #'  \item{EFAT}{}
+#'  \item{fatalities}{Total number of fatalities.}
 #'  \item{TINJ}{}
 #'  \item{EINJ}{}
-#'  \item{fatalities}{Total number of fatalities.}
 #'  \item{injuries}{Total number of injuries}
 #'  \item{cost}{}
 #'  \item{cost_1984}{}
@@ -68,8 +68,8 @@
 #'  \item{CLASS}{}
 #'  \item{volume}{}
 #'  \item{recovered}{}
-#'  \item{FIRE}{}
-#'  \item{EXP}{}
+#'  \item{fire}{Was there a Fire?}
+#'  \item{explosion}{Was there an explosion?}
 #'  \item{NMDIA}{}
 #'  \item{THK}{}
 #'  \item{SMYS}{}
@@ -100,8 +100,9 @@
 #'  \item{net_loss}{}
 #'  \item{year}{}
 #'  \item{date}{}
-#'  \item{lat}{}
-#'  \item{long}{}
+#'  \item{lat}{Latitude (placeholer, all NA).}
+#'  \item{long}{Longitude (placeholder, all NA).}
+#'  \item{water_contamination}{Water contamination indicator (placeholder, all NA).}
 #' }
 #' @examples
 #' \dontrun{

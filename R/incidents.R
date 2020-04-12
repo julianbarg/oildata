@@ -8,6 +8,7 @@
 #'   \item{incident_ID}{Unique incident ID. Also called report ID or report number.}
 #'   \item{ID}{Unique operator ID.}
 #'   \item{name}{Name of the pipelines operator at the time of the incident (year).}
+#'   \item{state}{State of incidents (for offshore, the state of nearby coast).}
 #'   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
 #'   \item{installation_year}{Year item installed that involved in accident.}
 #'   \item{CAUSE}{Cause, self-selected from available options.}
@@ -21,11 +22,14 @@
 #'   \item{commodity}{}
 #'   \item{volume}{}
 #'   \item{recovered}{Estimated volume of commodity recovered (barrels).}
+#'   \item{fire}{Did a fire occur?}
+#'   \item{explosion}{Did an explosion occur?}
 #'   \item{narrative}{}
 #'   \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
 #'   \item{year}{Year accident occurred, derived from accident date.}
 #'   \item{date}{Date of the spill.}
 #'   \item{lat}{Accident location latitude.}
 #'   \item{long}{Accident location longitude.}
+#'   \item{water_contamination}{Water Contamination.}
 #' }
 "incidents"

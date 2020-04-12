@@ -4,7 +4,8 @@
 \name{incidents_2002}
 \alias{incidents_2002}
 \title{Annual data on oil spills in the US from 2004 to 2010}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{DATAFILE_AS_OF}{}
  \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}.}
@@ -148,7 +149,7 @@
  \item{RSOIL}{}
  \item{RVEG}{}
  \item{RWILD }{}
- \item{WATER}{}
+ \item{water_contamination}{Water contaminated?}
  \item{AMT_IN_WATER}{}
  \item{OCEAN}{}
  \item{SURFACE}{}
@@ -246,8 +247,10 @@
  \item{volume}{Volume of oil spilled (in barrels).}
  \item{recovered}{Estimated volume of commodity recovered (in barrels).}
  \item{date}{Date of the spill.}
+ \item{state}{State of incidents (for offshore, the state of nearby coast).}
  \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
-}}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).

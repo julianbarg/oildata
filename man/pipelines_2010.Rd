@@ -4,7 +4,8 @@
 \name{pipelines_2010}
 \alias{pipelines_2010}
 \title{Annual data on pipelines in the US from 2010 onward}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{DATAFILE_AS_OF}{}
  \item{year}{Report year.}
@@ -118,7 +119,8 @@
  \item{estimate_volume_hvl_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
  \item{estimate_volume_rpp_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
  \item{estimate_volume_other_total}{Placeholder - contains the actual value - used for transformation for the pipelines dataset.}
-}}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).

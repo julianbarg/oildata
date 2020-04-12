@@ -4,7 +4,8 @@
 \name{incidents_2010}
 \alias{incidents_2010}
 \title{Annual data on oil spills in the US from 2010 onward}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{DATAFILE_AS_OF}{}
  \item{significant}{Identify if record meets the significant criteria or not: If there was fatality, injury, fire, explosion, total property damage $50K or more in 1984 dollars, non-HVL loss >= 50bbls, HVL loss >= 5bbls, then SIGNIFICANT=’YES’, else SIGNIFICANT=’NO’. See also: \url{https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/pdmpublic_incident_page_allrpt.pdf}.}
@@ -147,7 +148,7 @@
  \item{SOIL_REMED_IND}{}
  \item{VEGETATION_REMED_IND}{}
  \item{WILDLIFE_REMED_IND}{}
- \item{WATER_CONTAM_IND}{}
+ \item{water_contamination}{Water Contamination.}
  \item{OCEAN_SEAWATER_IND}{}
  \item{SURFACE_CONTAM_IND}{}
  \item{GROUNDWATER_CONTAM_IND}{}
@@ -613,7 +614,9 @@
  \item{MAP_SUBCAUSE}{}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{date}{Date of the spill.}
-}}
+ \item{state}{State of incidents (for offshore, the state of nearby coast).}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).

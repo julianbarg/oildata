@@ -152,8 +152,8 @@
 #'  \item{SHUTDAY}{}
 #'  \item{SHUTHR }{}
 #'  \item{SHUTMIN}{}
-#'  \item{IGNITE}{}
-#'  \item{EXPLO}{}
+#'  \item{fire}{Gas ignite (TRUE/FALSE).}
+#'  \item{explosion}{Explosion (TRUE/FALSE).}
 #'  \item{EVAC}{}
 #'  \item{EVACNO}{}
 #'  \item{EVAC_REASON_TEXT }{}
@@ -171,7 +171,7 @@
 #'  \item{RSOIL}{}
 #'  \item{RVEG}{}
 #'  \item{RWILD }{}
-#'  \item{WATER}{}
+#'  \item{water_contamination}{Water contaminated?}
 #'  \item{AMT_IN_WATER}{}
 #'  \item{OCEAN}{}
 #'  \item{SURFACE}{}
@@ -269,6 +269,7 @@
 #'  \item{volume}{Volume of oil spilled (in barrels).}
 #'  \item{recovered}{Estimated volume of commodity recovered (in barrels).}
 #'  \item{date}{Date of the spill.}
+#'  \item{state}{State of incidents (for offshore, the state of nearby coast).}
 #'  \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
 #' }
 #' @examples

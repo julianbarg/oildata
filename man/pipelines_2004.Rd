@@ -4,7 +4,8 @@
 \name{pipelines_2004}
 \alias{pipelines_2004}
 \title{Annual data on pipelines in the US from 2004 to 2010}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{ORIGINAL}{}
  \item{SUPPLEMENT}{}
@@ -202,7 +203,8 @@
  \item{estimate_volume_all_offshore}{Estimated volume of all substances transported offshore (in barrel-miles).}
  \item{estimate_volume_all_onshore}{Estimated volume of all substances transported onshore (in barrel-miles).}
  \item{estimate_volume_all_total}{Estimated of volume of all substances transporte (in barrel-miles). Placeholder - contains the actual value as found in volume_all_total.}
-}}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).

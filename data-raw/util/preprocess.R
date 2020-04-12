@@ -18,11 +18,11 @@ library(devtools)
 #   b. Fill in missing values as zero where appropriate
 #   c. Exclude observations
 #   d. Consolidate observations that use the same ID (for pipline datasets before 2010)
-#   e. Create new columns (by transforming existing columns)
-#   f. Recode factor variables
+#   e. Recode factor variables
 #     - By using provided list
 #     - Using oildata:::fix_commodities for commodities
 #     - Yes/no to bool
+#   f. Create new columns (by transforming existing columns)
 #   g. Clean strings
 #     - Clean company names
 #     - Sentence case where applicable
@@ -100,6 +100,9 @@ input <-
                                                        by_cols = vars(ID, year, commodity))
         x
       },
+      refactor = function(x) {x %>%
+          mutate(commodity = oildata:::fix_commodities(commodity))
+      },
       column_creation = function(x) {x %>%
           mutate(miles_onshore = (CPBONM + CPCONM + CUBONM + CUCONM),
                  miles_offshore = (CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM)) %>%
@@ -137,9 +140,6 @@ input <-
                    estimate_volume_crude_onshore + estimate_volume_hvl_onshore +
                      estimate_volume_rpp_onshore + estimate_volume_other_onshore)) %>%
           mutate(estimate_volume_all_total = volume_all_total)
-      },
-      refactor = function(x) {x %>%
-          mutate(commodity = oildata:::fix_commodities(commodity))
       },
       string_cleaning = function(x) {x %>%
           mutate(name = str_to_title(name)) %>%
@@ -192,6 +192,9 @@ input <-
       },
       # exclude_empty = function(x) {}
       # duplicate_consolidation = function(x) {},
+      refactor = function(x) {x %>%
+          mutate(commodity = oildata:::fix_commodities(commodity))
+      },
       column_creation = function(x) {x %>%
           rowwise() %>%
           mutate(volume_co2_total = sum(volume_co2_offshore, volume_co2_onshore, na.rm = T),
@@ -230,9 +233,6 @@ input <-
                  estimate_volume_other_total = volume_other_total) %>%
           ungroup()
       },
-      refactor = function(x) {x %>%
-          mutate(commodity = oildata:::fix_commodities(commodity))
-      },
       string_cleaning = function(x) {x %>%
           mutate(name = str_to_title(name)) %>%
           mutate(name = DataAnalysisTools::remove_company_suffixes(name))
@@ -248,6 +248,7 @@ input <-
                  serious = SERIOUS,
                  ID = OPID,
                  name = NAME,
+                 state = ACSTATE,
                  on_offshore = OFFSHORE,
                  installation_year = ITMYR,
                  cause = MAP_CAUSE,
@@ -257,6 +258,8 @@ input <-
                  cost_1984 = TOTAL_COST_IN84,
                  commodity = COMM,
                  volume = LOSS,
+                 fire = FIRE,
+                 explosion = EXP,
                  recovered = RECOV,
                  narrative = NARRATIVE
           )
@@ -264,20 +267,21 @@ input <-
       # fill_missing_values <- function(x) {},
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
+      refactor = function(x) {x %>%
+          mutate(on_offshore = recode(on_offshore,
+                                      YES = "offshore",
+                                      NO = "onshore")
+          )
+      },
       column_creation = function(x) {x %>%
           mutate(net_loss = volume - recovered,
                  year = lubridate::year(IDATE),
                  date = lubridate::date(IDATE),
                  long = NA,
                  lat = NA,
+                 water_contamination = NA,
                  commodity = oildata:::fix_commodities(commodity)
                  )
-      },
-      refactor = function(x) {x %>%
-          mutate(on_offshore = recode(on_offshore,
-                               YES = "offshore",
-                               NO = "onshore")
-          )
       },
       string_cleaning = function(x) {x %>%
           mutate(name = str_to_title(name)) %>%
@@ -285,6 +289,8 @@ input <-
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
                  significant = significant == "YES",
+                 fire = fire == "YES",
+                 explosion = explosion == "YES",
                  cause = tolower(cause)
           )
       }
@@ -308,6 +314,9 @@ input <-
                  installation_year = PRTYR,
                  fatalities = FATAL,
                  injuries = INJURE,
+                 fire = IGNITE,
+                 explosion = EXPLO,
+                 water_contamination = WATER,
                  cause = MAP_CAUSE,
                  on_offshore = OFFSHORE,
                  narrative = NARRATIVE,
@@ -316,15 +325,6 @@ input <-
       # fill_missing_values <- function(x) {},
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
-      colume_creation = function(x) {x %>%
-          mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
-                                 LOSS, LOSS / 31.5),
-                 recovered = ifelse(SPUNIT_TEXT == "BARRELS",
-                                    RECOV, RECOV / 31.5),
-                 date = lubridate::date(IDATE)
-          ) %>%
-          mutate(net_loss = volume - recovered)
-      },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity),
                  cause = recode(cause,
@@ -339,7 +339,19 @@ input <-
                  on_offshore = recode(on_offshore,
                                       YES = "offshore",
                                       NO = "onshore")
-                 )
+          )
+      },
+      colume_creation = function(x) {x %>%
+          mutate(volume = ifelse(SPUNIT_TEXT == "BARRELS",
+                                 LOSS, LOSS / 31.5),
+                 recovered = ifelse(SPUNIT_TEXT == "BARRELS",
+                                    RECOV, RECOV / 31.5),
+                 date = lubridate::date(IDATE),
+                 state = ifelse(on_offshore == "onshore",
+                                ACSTATE,
+                                OFFST)
+          ) %>%
+          mutate(net_loss = volume - recovered)
       },
       string_cleaning = function(x) {x %>%
           mutate(name = str_to_title(name)) %>%
@@ -347,6 +359,8 @@ input <-
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
                  significant = significant == "YES",
+                 fire = fire == "YES",
+                 explosion = explosion == "YES",
                  cause = tolower(cause)
                  )
       }
@@ -373,8 +387,11 @@ input <-
                  net_loss = NET_LOSS_BBLS,
                  fatalities = FATAL,
                  injuries = INJURE,
+                 fire = IGNITE_IND,
+                 explosion = EXPLODE_IND,
                  on_offshore = ON_OFF_SHORE,
                  installation_year = INSTALLATION_YEAR,
+                 water_contamination = WATER_CONTAM_IND,
                  cost = TOTAL_COST,
                  excavation_damage_type = PARTY_TYPE,
                  cause = MAP_CAUSE,
@@ -388,11 +405,6 @@ input <-
       },
       # exclude_empty = function(x) {},
       # duplicate_consolidation = function(x) {},
-      column_creation = function(x) {x %>%
-                           mutate(date = lubridate::date(LOCAL_DATETIME),
-                                  lat = as.character(lat),
-                                  long = as.character(long))
-      },
       refactor = function(x) {x %>%
           mutate(commodity = oildata:::fix_commodities(commodity),
                  cause = recode(cause,
@@ -408,12 +420,22 @@ input <-
                                       OFFSHORE = "offshore",
                                       ONSHORE = "onshore"))
       },
+      column_creation = function(x) {x %>%
+                           mutate(date = lubridate::date(LOCAL_DATETIME),
+                                  lat = as.character(lat),
+                                  long = as.character(long),
+                                  state = ifelse(on_offshore == "offshore",
+                                                OFFSHORE_STATE_ABBREVIATION,
+                                                ONSHORE_STATE_ABBREVIATION))
+      },
       string_cleaning = function(x) {x %>%
           mutate(name = str_to_title(name)) %>%
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
           mutate(narrative = str_to_sentence(narrative),
                  serious = serious == "YES",
                  significant = significant == "YES",
+                 fire = fire == "YES",
+                 explosion = explosion == "YES",
                  cause = tolower(cause)
           )
       }
@@ -432,8 +454,7 @@ download_datasets <- function(datasets) {
 
 process_dataset <- function(dataset, input) {
   df <- feather::read_feather(paste0(temp_data_folder, "/", dataset, ".feather"))
-  df[ , map_lgl(df, is.character)] <-
-    sapply(df[ , map_lgl(df, is.character)], function(x) ifelse(x %in% c("nan", "NULL"), NA, x))
+  df <- mutate_if(df, is.character, function(x) ifelse(x %in% c("nan", "NULL"), NA, x))
   functions <- input[[dataset]]
   for (f in functions) {
     df <- f(df)
@@ -480,3 +501,4 @@ if ("incidents_2010" %in% names(dfs)) {
   incidents_2010 <- dfs[["incidents_2010"]]
   use_data(incidents_2010, overwrite = TRUE)
 }
+

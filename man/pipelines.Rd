@@ -4,7 +4,8 @@
 \name{pipelines}
 \alias{pipelines}
 \title{Annual data on pipelines in the US from 2004 to 2019}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{year}{Report year.}
  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
@@ -35,7 +36,8 @@
  \item{significant_incidents_volume}{Total number of barrels spilled across all significant incidents.}
  \item{incidents_cost}{Combined cost of all incidents (in 1984 dollars).}
  \item{significant_incidents_cost}{Combined cost of all significant incidents (in 1984 dollars).}
-}}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).

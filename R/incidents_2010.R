@@ -80,8 +80,8 @@
 #'  \item{SHUTDOWN_DATETIME}{}
 #'  \item{RESTART_DATETIME}{}
 #'  \item{STILL_SHUTDOWN_IND}{}
-#'  \item{IGNITE_IND}{}
-#'  \item{EXPLODE_IND}{}
+#'  \item{fire}{Commodity ignite (TRUE/FALSE).}
+#'  \item{explosion}{Commodity explode (TRUE/FALSE).}
 #'  \item{NUM_PUB_EVACUATED}{}
 #'  \item{INCIDENT_IDENTIFIED_DATETIME}{}
 #'  \item{ON_SITE_DATETIME}{}
@@ -171,7 +171,7 @@
 #'  \item{SOIL_REMED_IND}{}
 #'  \item{VEGETATION_REMED_IND}{}
 #'  \item{WILDLIFE_REMED_IND}{}
-#'  \item{WATER_CONTAM_IND}{}
+#'  \item{water_contamination}{Water Contamination.}
 #'  \item{OCEAN_SEAWATER_IND}{}
 #'  \item{SURFACE_CONTAM_IND}{}
 #'  \item{GROUNDWATER_CONTAM_IND}{}
@@ -637,6 +637,7 @@
 #'  \item{MAP_SUBCAUSE}{}
 #'  \item{SPILL_TYPE_CATEGORY}{}
 #'  \item{date}{Date of the spill.}
+#'  \item{state}{State of incidents (for offshore, the state of nearby coast).}
 #' }
 #' @examples
 #' \dontrun{

@@ -4,10 +4,12 @@
 \name{pipelines_consolidation}
 \alias{pipelines_consolidation}
 \title{Rules for consolidating the different columns in the pipelines datasets when companies merge}
-\format{A list with the rowname, and the summary operation.
+\format{
+A list with the rowname, and the summary operation.
 \describe{
   \item{pipelines_consolidation}{List that holds entry for each column as separate object.}
-}}
+}
+}
 \source{
 Wirtten for the purpose of handling operations in this package. Source of the processed data:
   \url{https://www.phmsa.dot.gov/data-and-statistics/pipeline/gas-distribution-gas-gathering-gas-transmission-hazardous-liquids}

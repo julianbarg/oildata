@@ -4,7 +4,8 @@
 \name{incidents_1986}
 \alias{incidents_1986}
 \title{Annual data on oil spills in the US from 1986 to 2001}
-\format{A data frame with columns:
+\format{
+A data frame with columns:
 \describe{
  \item{DATAFILE_AS_OF}{}
  \item{significant}{}
@@ -12,11 +13,11 @@
  \item{incident_ID}{}
  \item{DOR}{}
  \item{ID}{}
- \item{name}{}
+ \item{name}{State of incidents (for offshore, the state of nearby coast).}
  \item{INTER}{}
  \item{IDATE}{}
  \item{DTHH}{}
- \item{ACSTATE}{}
+ \item{state}{}
  \item{ACCOUNTY}{}
  \item{ACCITY}{}
  \item{on_offshore}{}
@@ -77,9 +78,11 @@
  \item{net_loss}{}
  \item{year}{}
  \item{date}{}
- \item{lat}{}
- \item{long}{}
-}}
+ \item{lat}{Latitude (placeholer, all NA).}
+ \item{long}{Longitude (placeholder, all NA).}
+ \item{water_contamination}{Water contamination indicator (placeholder, all NA).}
+}
+}
 \source{
 United States Department of Transportation (DOT) Pipeline and
   Hazardous Materials Safety Administration (PHMSA).
