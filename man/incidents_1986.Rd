@@ -25,19 +25,19 @@ A data frame with columns:
  \item{IFED}{}
  \item{SPLOC}{}
  \item{TELRN}{}
- \item{CSYS}{}
- \item{ORGLK}{}
+ \item{system}{Part of system involved; Line Pipe, Tank Farm, Pump Station.}
+ \item{item}{Item involved; Pipe, Valve, Scraper Trap, Pump, Welding Fitting, Girth, Tank, Bolted Fitting, Longitudinal Weld, Other.}
  \item{ORGLO}{}
  \item{installation_year}{Year item installed.}
  \item{CAUSE}{}
  \item{CAUSO}{}
- \item{cause}{}
- \item{MAP_SUBCAUSE}{}
+ \item{cause}{Cause of the incident, coded by PHMSA.}
+ \item{subcause}{Subcause of the incident, coded by PHMSA.}
  \item{TFAT}{}
  \item{EFAT}{}
+ \item{fatalities}{Total number of fatalities.}
  \item{TINJ}{}
  \item{EINJ}{}
- \item{fatalities}{Total number of fatalities.}
  \item{injuries}{Total number of injuries}
  \item{cost}{}
  \item{cost_1984}{}
@@ -46,8 +46,8 @@ A data frame with columns:
  \item{CLASS}{}
  \item{volume}{}
  \item{recovered}{}
- \item{FIRE}{}
- \item{EXP}{}
+ \item{fire}{Was there a Fire?}
+ \item{explosion}{Was there an explosion?}
  \item{NMDIA}{}
  \item{THK}{}
  \item{SMYS}{}
@@ -81,6 +81,12 @@ A data frame with columns:
  \item{lat}{Latitude (placeholer, all NA).}
  \item{long}{Longitude (placeholder, all NA).}
  \item{water_contamination}{Water contamination indicator (placeholder, all NA).}
+ \item{manufacture_year}{Year failed item was manufactured (placeholder, all NA).}
+ \item{surface_water_remediation}{Anticipated remediation - Surface water (placeholder, all NA).}
+ \item{groundwater_remediation}{Anticipated remediation - Ground water (placeholder, all NA).}
+ \item{soil_remediation}{Anticipated remediation - Soil (placeholder, all NA).}
+ \item{vegetation_remediation}{Anticipated remediation - Vegetation (placeholder, all NA).}
+ \item{wildlife_remediation}{Anticipated remediation - Wildlife (placeholder, all NA).}
 }
 }
 \source{

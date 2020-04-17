@@ -64,11 +64,11 @@ A data frame with columns:
  \item{PIPEROW}{}
  \item{HCA}{}
  \item{HCADESC}{}
- \item{SYSPRT_TEXT}{}
+ \item{system}{Part of system involved in accident.}
  \item{SYSPRTO}{}
- \item{FAIL_OC_TEXT}{}
+ \item{item}{Failure occurred on item.}
  \item{FAIL_OCO}{}
- \item{installation_year}{Year item installed that involved in accident.}
+ \item{installation_year}{Year the component that failed was installed.}
  \item{INC_PRS}{}
  \item{MOP}{}
  \item{OPRS}{}
@@ -114,7 +114,7 @@ A data frame with columns:
  \item{SEAM}{}
  \item{VALVE}{}
  \item{MANU}{}
- \item{MANYR}{}
+ \item{manufacture_year}{Year failed item was manufactured.}
  \item{LOCLK_TEXT}{}
  \item{LOCLKO}{}
  \item{DEPTH_COV}{}
@@ -130,8 +130,8 @@ A data frame with columns:
  \item{SHUTDAY}{}
  \item{SHUTHR }{}
  \item{SHUTMIN}{}
- \item{IGNITE}{}
- \item{EXPLO}{}
+ \item{fire}{Gas ignite (TRUE/FALSE).}
+ \item{explosion}{Explosion (TRUE/FALSE).}
  \item{EVAC}{}
  \item{EVACNO}{}
  \item{EVAC_REASON_TEXT }{}
@@ -141,14 +141,14 @@ A data frame with columns:
  \item{BIRDS}{}
  \item{TERRESTRIAL}{}
  \item{SOIL}{}
- \item{SOIL_YRD }{}
+ \item{SOIL_YRD}{}
  \item{IMPACT}{}
  \item{REMEDIAL}{}
- \item{RSURFACE}{}
- \item{RGROUND}{}
- \item{RSOIL}{}
- \item{RVEG}{}
- \item{RWILD }{}
+ \item{surface_water_remediation}{Anticipated remediation - Surface water.}
+ \item{groundwater_remediation}{Anticipated remediation - Ground water.}
+ \item{soil_remediation}{Anticipated remediation - Soil.}
+ \item{vegetation_remediation}{Anticipated remediation - Vegetation.}
+ \item{wildlife_remediation}{Anticipated remediation - Wildlife.}
  \item{water_contamination}{Water contaminated?}
  \item{AMT_IN_WATER}{}
  \item{OCEAN}{}
@@ -240,8 +240,8 @@ A data frame with columns:
  \item{OOPRPCURRENT}{}
  \item{OOPPRPCURRENT}{}
  \item{TOTAL_COST_CURRENT}{}
- \item{cause}{Cause of the incident, curated by PHMSA.}
- \item{MAP_SUBCAUSE}{}
+ \item{cause}{Cause of the incident, coded by PHMSA.}
+ \item{subcause}{Subcause of the incident, coded by PHMSA.}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{narrative}{Written description of the incident.}
  \item{volume}{Volume of oil spilled (in barrels).}

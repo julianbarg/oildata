@@ -23,7 +23,7 @@ fix_commodities <- function(x) {
                    "HVL" = "hvl",
                    "CRUDE OIL" = "crude",
                    "GASOLINE" = "rpp",
-                   "NATURAL GAS LIQUID" = "ngl",
+                   "NATURAL GAS LIQUID" = "lng",
                    "FUEL OIL" = "rpp",
                    "DIESEL FUEL" = "rpp",
                    "L. P. G." = "hvl",

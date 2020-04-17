@@ -122,9 +122,9 @@
 #'  \item{OFF_OCS_BLOCK}{}
 #'  \item{OFF_AREA_ACCIDENT_TYPE}{}
 #'  \item{PIPE_FACILITY_TYPE}{}
-#'  \item{SYSTEM_PART_INVOLVED}{}
+#'  \item{system}{Part of system involved in accident.}
 #'  \item{SYSTEM_SUBPART_INVOLVED}{}
-#'  \item{ITEM_INVOLVED}{}
+#'  \item{item}{Item involved in accident.}
 #'  \item{PIPE_TYPE}{}
 #'  \item{PIPE_DIAMETER}{}
 #'  \item{PIPE_WALL_THICKNESS}{}
@@ -166,11 +166,11 @@
 #'  \item{SOIL_CONTAMINATION}{}
 #'  \item{LONG_TERM_ASSESSMENT}{}
 #'  \item{REMEDIATION_IND}{}
-#'  \item{SURFACE_WATER_REMED_IND}{}
-#'  \item{GROUNDWATER_REMED_IND}{}
-#'  \item{SOIL_REMED_IND}{}
-#'  \item{VEGETATION_REMED_IND}{}
-#'  \item{WILDLIFE_REMED_IND}{}
+#'  \item{surface_water_remediation}{Need for surface water remediation anticipated?}
+#'  \item{groundwater_remediation}{Need for groundwater remediation anticipated?}
+#'  \item{soil_remediation}{Need for soil remediation anticipated?}
+#'  \item{vegetation_remediation}{Need for vegetation remediation anticipated?}
+#'  \item{wildlife_remediation}{Need for wildlife remediation anticipated?}
 #'  \item{water_contamination}{Water Contamination.}
 #'  \item{OCEAN_SEAWATER_IND}{}
 #'  \item{SURFACE_CONTAM_IND}{}
@@ -633,11 +633,12 @@
 #'  \item{EST_COST_EMERGENCY_CURRENT}{}
 #'  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
 #'  \item{EST_COST_OTHER_CURRENT}{}
-#'  \item{cause}{Cause of the incident, curated by PHMSA.}
-#'  \item{MAP_SUBCAUSE}{}
+#'  \item{cause}{Cause of the incident, codec by PHMSA.}
+#'  \item{subcause}{Subcause of the incident, coded by PHMSA.}
 #'  \item{SPILL_TYPE_CATEGORY}{}
 #'  \item{date}{Date of the spill.}
 #'  \item{state}{State of incidents (for offshore, the state of nearby coast).}
+#'  \item{manufacture_year}{Year that the failed pipe or valve was manufactured.}
 #' }
 #' @examples
 #' \dontrun{

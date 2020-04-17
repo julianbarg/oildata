@@ -250,8 +250,11 @@ input <-
                  name = NAME,
                  state = ACSTATE,
                  on_offshore = OFFSHORE,
+                 system = CSYS,
+                 item = ORGLK,
                  installation_year = ITMYR,
                  cause = MAP_CAUSE,
+                 subcause = MAP_SUBCAUSE,
                  cost = TOTAL_COST,
                  fatalities = NFAT,
                  injuries = NINJ,
@@ -280,18 +283,28 @@ input <-
                  long = NA,
                  lat = NA,
                  water_contamination = NA,
+                 manufacture_year = NA,
+                 surface_water_remediation = NA,
+                 groundwater_remediation = NA,
+                 soil_remediation = NA,
+                 vegetation_remediation = NA,
+                 wildlife_remediation = NA,
+                 water_contamination = NA,
                  commodity = oildata:::fix_commodities(commodity)
                  )
       },
       string_cleaning = function(x) {x %>%
-          mutate(name = str_to_title(name)) %>%
+          mutate(name = str_to_title(name),
+                 narrative = str_to_sentence(narrative),
+                 system = str_to_title(system),
+                 item = str_to_title(item),
+                 cause = tolower(cause),
+                 subcause = tolower(subcause)) %>%
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
-          mutate(narrative = str_to_sentence(narrative),
-                 serious = serious == "YES",
+          mutate(serious = serious == "YES",
                  significant = significant == "YES",
                  fire = fire == "YES",
-                 explosion = explosion == "YES",
-                 cause = tolower(cause)
+                 explosion = explosion == "YES"
           )
       }
     ),
@@ -318,7 +331,18 @@ input <-
                  explosion = EXPLO,
                  water_contamination = WATER,
                  cause = MAP_CAUSE,
+                 subcause = MAP_SUBCAUSE,
                  on_offshore = OFFSHORE,
+                 system = SYSPRT_TEXT,
+                 item = FAIL_OC_TEXT,
+                 manufacture_year = MANYR,
+                 installation_year = PRTYR,
+                 water_contamination = WATER,
+                 surface_water_remediation = RSURFACE,
+                 groundwater_remediation = RGROUND,
+                 soil_remediation = RSOIL,
+                 vegetation_remediation = RVEG,
+                 wildlife_remediation = RWILD,
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
@@ -354,14 +378,23 @@ input <-
           mutate(net_loss = volume - recovered)
       },
       string_cleaning = function(x) {x %>%
-          mutate(name = str_to_title(name)) %>%
+          mutate(name = str_to_title(name),
+                 narrative = str_to_sentence(narrative),
+                 system = str_to_title(system),
+                 item = str_to_title(item),
+                 cause = tolower(cause),
+                 subcause = tolower(subcause)) %>%
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
-          mutate(narrative = str_to_sentence(narrative),
-                 serious = serious == "YES",
+          mutate(serious = serious == "YES",
                  significant = significant == "YES",
                  fire = fire == "YES",
                  explosion = explosion == "YES",
-                 cause = tolower(cause)
+                 surface_water_remediation = surface_water_remediation == "YES",
+                 groundwater_remediation = groundwater_remediation == "YES",
+                 soil_remediation = soil_remediation == "YES",
+                 vegetation_remediation = vegetation_remediation == "YES",
+                 wildlife_remediation = wildlife_remediation == "YES",
+                 water_contamination = water_contamination == "YES"
                  )
       }
     ),
@@ -390,11 +423,19 @@ input <-
                  fire = IGNITE_IND,
                  explosion = EXPLODE_IND,
                  on_offshore = ON_OFF_SHORE,
+                 system = SYSTEM_PART_INVOLVED,
+                 item = ITEM_INVOLVED,
                  installation_year = INSTALLATION_YEAR,
+                 surface_water_remediation = SURFACE_WATER_REMED_IND,
+                 groundwater_remediation = GROUNDWATER_REMED_IND,
+                 soil_remediation = SOIL_REMED_IND,
+                 vegetation_remediation = VEGETATION_REMED_IND,
+                 wildlife_remediation = WILDLIFE_REMED_IND,
                  water_contamination = WATER_CONTAM_IND,
                  cost = TOTAL_COST,
                  excavation_damage_type = PARTY_TYPE,
                  cause = MAP_CAUSE,
+                 subcause = MAP_SUBCAUSE,
                  narrative = NARRATIVE,
                  cost_1984 = TOTAL_COST_IN84)
       },
@@ -426,17 +467,31 @@ input <-
                                   long = as.character(long),
                                   state = ifelse(on_offshore == "offshore",
                                                 OFFSHORE_STATE_ABBREVIATION,
-                                                ONSHORE_STATE_ABBREVIATION))
+                                                ONSHORE_STATE_ABBREVIATION),
+                                  manufacture_year = case_when(
+                                    str_to_lower(item) == "pipe" ~ as.integer(PIPE_MANUFACTURE_YEAR),
+                                    str_to_lower(item) == "valve" ~ as.integer(VALVE_MANUFACTURE_YEAR)
+                                  )) %>%
+                            mutate(manufacture_year = as.integer(manufacture_year))
       },
       string_cleaning = function(x) {x %>%
-          mutate(name = str_to_title(name)) %>%
+          mutate(name = str_to_title(name),
+                 narrative = str_to_sentence(narrative),
+                 system = str_to_title(system),
+                 item = str_to_title(item),
+                 cause = tolower(cause),
+                 subcause = tolower(subcause)) %>%
           mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
-          mutate(narrative = str_to_sentence(narrative),
-                 serious = serious == "YES",
+          mutate(serious = serious == "YES",
                  significant = significant == "YES",
                  fire = fire == "YES",
                  explosion = explosion == "YES",
-                 cause = tolower(cause)
+                 water_contamination = water_contamination == "YES",
+                 surface_water_remediation = surface_water_remediation == "YES",
+                 groundwater_remediation = groundwater_remediation == "YES",
+                 soil_remediation = soil_remediation == "YES",
+                 vegetation_remediation = vegetation_remediation == "YES",
+                 wildlife_remediation = wildlife_remediation == "YES",
           )
       }
     )
@@ -454,7 +509,7 @@ download_datasets <- function(datasets) {
 
 process_dataset <- function(dataset, input) {
   df <- feather::read_feather(paste0(temp_data_folder, "/", dataset, ".feather"))
-  df <- mutate_if(df, is.character, function(x) ifelse(x %in% c("nan", "NULL"), NA, x))
+  df <- mutate_if(df, is.character, function(x) ifelse(x %in% c("nan", "NULL", "UNKNOWN"), NA, x))
   functions <- input[[dataset]]
   for (f in functions) {
     df <- f(df)

@@ -15,10 +15,12 @@ A data frame with 53940 rows and 10 variables:
   \item{name}{Name of the pipelines operator at the time of the incident (year).}
   \item{state}{State of incidents (for offshore, the state of nearby coast).}
   \item{on_offshore}{Whether the oil spill occured onshore or offshore.}
+  \item{system}{Part of system involved in accident.}
+  \item{item}{Item involved in accident.}
   \item{installation_year}{Year item installed that involved in accident.}
   \item{CAUSE}{Cause, self-selected from available options.}
   \item{cause}{Coded, by PHMSA to be consistent between different versions of form accross time.}
-  \item{MAP_SUBCAUSE}{}
+  \item{subcause}{Subcause of the incident, coded by PHMSA.}
   \item{fatalities}{Total number of Fatalities.}
   \item{injuries}{Total number of Injuries.}
   \item{cost}{Total costs (in US$).}
@@ -27,6 +29,8 @@ A data frame with 53940 rows and 10 variables:
   \item{commodity}{}
   \item{volume}{}
   \item{recovered}{Estimated volume of commodity recovered (barrels).}
+  \item{fire}{Did a fire occur?}
+  \item{explosion}{Did an explosion occur?}
   \item{narrative}{}
   \item{net_loss}{Volume of substance unintentionally released (in barrels) minus volume recovered.}
   \item{year}{Year accident occurred, derived from accident date.}
@@ -34,6 +38,12 @@ A data frame with 53940 rows and 10 variables:
   \item{lat}{Accident location latitude.}
   \item{long}{Accident location longitude.}
   \item{water_contamination}{Water Contamination.}
+  \item{manufacture_year}{Year that the failed item was manufactured (for 2010 onward: pipe or valve only).}
+  \item{surface_water_remediation}{Anticipated remediation - Surface water.}
+  \item{groundwater_remediation}{Anticipated remediation - Ground water.}
+  \item{soil_remediation}{Anticipated remediation - Soil.}
+  \item{vegetation_remediation}{Anticipated remediation - Vegetation.}
+  \item{wildlife_remediation}{Anticipated remediation - Wildlife.}
 }
 }
 \usage{
