@@ -27,7 +27,7 @@ A data frame with 53940 rows and 10 variables:
   \item{cost_1984}{Converted Property Damage to Year 1984 dollars.}
   \item{TOTAL_COST_CURRENT}{}
   \item{commodity}{}
-  \item{volume}{}
+  \item{volume}{Volume of the spill (barrels).}
   \item{recovered}{Estimated volume of commodity recovered (barrels).}
   \item{fire}{Did a fire occur?}
   \item{explosion}{Did an explosion occur?}
