@@ -17,6 +17,7 @@
 #'  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}
 #'  \item{ID}{Unique operator ID.}
 #'  \item{name}{Name of the pipelines operator at the time of the report year.}
+#'  \item{state}{Headquarter state.}
 #'  \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
 #'  \item{on_offshore}{Observation describes offshore or onshroe pipelines.}
 #'  \item{hca}{Miles of pipelines in High Consequences Areas.}

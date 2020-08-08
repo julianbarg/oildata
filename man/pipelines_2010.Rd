@@ -15,7 +15,7 @@ A data frame with columns:
  \item{name}{Name of the pipelines operator at the time of the report year.}
  \item{PARTA4STREET}{}
  \item{PARTA4CITY}{}
- \item{PARTA4STATE}{}
+ \item{state}{Headquarter state.}
  \item{PARTA4ZIP}{}
  \item{PARTA4COUNTRY}{}
  \item{commodity}{The type of commodity being transported (Crude, HVL, etc.).}

@@ -24,7 +24,7 @@ A data frame with columns:
  \item{HQSTREET}{}
  \item{HQCITY}{}
  \item{HQCOUNTY}{}
- \item{HQSTATE}{}
+ \item{state}{Headquarter state.}
  \item{HQZIP}{}
  \item{CPBMT}{}
  \item{CPBOFFM}{}

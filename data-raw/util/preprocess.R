@@ -41,6 +41,7 @@ miles_cutoff = 0
 
 # Aim - list as many columns that could be encountered as possible.
 preprocess_consolidation <- list(name =                  quo(first(name)),
+                                 state =                 quo(first(state)),
                                  hca_offshore =          quo(sum(hca_offshore,          na.rm = T)),
                                  hca_onshore =           quo(sum(hca_onshore,           na.rm = T)),
                                  hca_total =             quo(sum(hca_total,             na.rm = T)),
@@ -77,6 +78,7 @@ input <-
           rename(ID = OPERATOR_ID,
                  name = NAME,
                  year = YR,
+                 state = HQSTATE,
                  commodity = SYSTEM_TYPE,
                  hca_onshore = HCAONM,
                  hca_offshore = HCAOFFM,
@@ -154,6 +156,7 @@ input <-
           rename(ID = OPERATOR_ID,
                  name = PARTA2NAMEOFCOMP,
                  year = REPORT_YEAR,
+                 state = PARTA4STATE,
                  commodity = PARTA5COMMODITY,
                  hca_onshore = PARTBHCAONSHORE,
                  hca_offshore = PARTBHCAOFFSHORE,
