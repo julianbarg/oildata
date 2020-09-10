@@ -8,8 +8,8 @@ from os import listdir
 import pandas as pd
 from functools import partial, reduce
 
-update_files = sys.argv[1:]
-temp_folder_location = "data-raw/.temp-data"
+load_files = sys.argv[1:]
+temp_folder_location = "data-raw/.temp/data"
 
 
 class PhmsaDownloader:
@@ -122,7 +122,7 @@ class PhmsaDownloader:
         :param data: The DataFrame with the downloaded data, as provided by the read_files method.
         """
         data.loc[:, data.dtypes == 'O'] = data.loc[:, data.dtypes == 'O'].astype(str)
-        data.to_feather(f"{self.temp_folder}/{file}.feather")
+        data.to_feather(f"{self.temp_folder}/{file}_raw.feather")
 
     def update_data(self, file):
         """
@@ -137,6 +137,12 @@ class PhmsaDownloader:
 
 if __name__ == "__main__":
     downloader = PhmsaDownloader(temp_folder=temp_folder_location)
-    for file in update_files:
+
+    if not load_files:
+        load_files = list(downloader.parsing.keys())
+
+    for file in load_files:
         if file in downloader.parsing.keys():
             downloader.update_data(file=file)
+        else:
+            raise NameError("Tried to download dataset that is not available.")
