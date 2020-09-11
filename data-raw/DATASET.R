@@ -1,5 +1,4 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
 
 ##################################################################
 ###     About     ################################################
@@ -31,8 +30,9 @@ system("data-raw/util/2-rename.R")
 
 # 3. Clean columns
 # As a first step, all we do is clean up columns in all files without making any transformations.
-system("data-raw/util/3a-clean_cols_p'04.R")
+system("data-raw/util/3a-clean_cols_pipelines.R")
 system("data-raw/util/3b-clean_cols_incidents.R")
 
 # 4. Fix pipelines_2004
+# There is a lot of stuff messed up with dataset in particular, such as duplicate observations, so we fix this first.
 system("data-raw/util/4-fix_p_04.R")
