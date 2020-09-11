@@ -6,6 +6,10 @@ p_04 <- readRDS("data-raw/.temp/data/pipelines_2004_renamed.rds")
 p_10 <- readRDS("data-raw/.temp/data/pipelines_2010_renamed.rds")
 
 # 1. Recode
+na_function <- function(x) ifelse(x %in% c("nan", "NULL", "UNKNOWN"), NA, x)
+p_04 %<>% mutate(across(where(is.character), na_function))
+p_10 %<>% mutate(across(where(is.character), na_function))
+
 p_04 %<>% mutate(commodity = oildata:::fix_commodities(commodity))
 p_10 %<>% mutate(commodity = oildata:::fix_commodities(commodity))
 
@@ -23,6 +27,7 @@ p_10_na_cols <-
     "volume_crude_offshore", "volume_fge_offshore", "volume_hvl_offshore",
     "volume_rpp_offshore", "volume_co2_onshore", "volume_crude_onshore",
     "volume_fge_onshore", "volume_hvl_onshore", "volume_rpp_onshore")
+custom_na <- function(x)
 p_10 %<>% mutate(across( {{p_10_na_cols}} , ~ replace_na(., 0)))
 
 # 4. Bools

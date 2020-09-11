@@ -10,7 +10,9 @@ i_10 <- readRDS("data-raw/.temp/data/incidents_2010_renamed.rds")
 dfs <- list(i_86 = i_86, i_02 = i_02, i_10 = i_10)
 
 # 1. Recode
-dfs <- map(dfs, ~ mutate(.x, commodity = oildata:::fix_commodities(commodity)))
+na_function <- function(x) ifelse(x %in% c("nan", "NULL", "UNKNOWN"), NA, x)
+dfs <- map(dfs, ~mutate(.x, across(where(is.character), na_function)))
+dfs <- map(dfs, ~mutate(.x, commodity = oildata:::fix_commodities(commodity)))
 
 dfs[["i_86"]] %<>% mutate(on_offshore = recode(
   on_offshore, YES = "offshore", NO = "onshore"))
@@ -53,7 +55,7 @@ dfs <- dfs %>%
 
 # 3. Fill NAs
 bools_i_86 <- c("serious", "significant", "fire", "explosion")
-dfs[["i_86"]] %<>% mutate(across( {{bools_i_86}} , ~ . == "YES"))
+dfs[["i_86"]] %<>% mutate(across( {{bools_i_86}} , ~. == "YES"))
 
 dfs[["i_10"]] <- dfs[["i_10"]] %>%
   mutate(fatalities = ifelse(FATALITY_IND == "NO", 0, fatalities),
@@ -64,8 +66,8 @@ bools_i_02_10 <-
   c("serious", "significant", "fire", "explosion", "surface_water_remediation",
     "groundwater_remediation", "soil_remediation", "vegetation_remediation",
     "wildlife_remediation", "water_contamination")
-dfs[["i_02"]] %<>% mutate(across( {{bools_i_02_10}} , ~ . == "YES"))
-dfs[["i_10"]] %<>% mutate(across( {{bools_i_02_10}} , ~ . == "YES"))
+dfs[["i_02"]] %<>% mutate(across( {{bools_i_02_10}} , ~. == "YES"))
+dfs[["i_10"]] %<>% mutate(across( {{bools_i_02_10}} , ~. == "YES"))
 
 # 5. Write to disk
 readr::write_rds(dfs, "data-raw/.temp/data/incidents_cleaned.rds")
