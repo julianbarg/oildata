@@ -36,3 +36,7 @@ system("data-raw/util/3b-clean_cols_incidents.R")
 # 4. Fix pipelines_2004
 # There is a lot of stuff messed up with dataset in particular, such as duplicate observations, so we fix this first.
 system("data-raw/util/4-fix_p_04.R")
+
+# 5. Create additional columns and transform as necessary
+system("data-raw/util/5a-transform_cols_pipelines.R")
+system("data-raw/util/5b-transform_cols_incidents.R")

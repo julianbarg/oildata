@@ -29,7 +29,8 @@ p_04 <- p_04_duplicates %>%
   group_by(ID, year, commodity) %>%
   summarize(across( {{take_first_cols}}, first),
             across( {{sum_na_rm_cols}}, ~ sum(.x, na.rm = T))) %>%
-  bind_rows(p_04_unique)
+  bind_rows(p_04_unique) %>%
+  ungroup()
 
 # Write to disk
 readr::write_rds(p_04, "data-raw/.temp/data/pipelines_2004_fixed.rds")
