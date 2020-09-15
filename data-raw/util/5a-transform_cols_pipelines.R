@@ -1,9 +1,11 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
-library(magrittr)
+suppressMessages(library(tidyverse))
+suppressMessages(library(magrittr))
+suppressMessages(library(here))
 
-p_04 <- readRDS("data-raw/.temp/data/pipelines_2004_fixed.rds")
-p_10 <- readRDS("data-raw/.temp/data/pipelines_2010_cleaned.rds")
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+p_04 <- readRDS(data_folder("pipelines_2004_fixed.rds"))
+p_10 <- readRDS(data_folder("pipelines_2010_cleaned.rds"))
 
 na_sum <- purrr::partial(rowSums, na.rm=T)
 
@@ -90,5 +92,7 @@ p_10_identical_cols <- c("volume_crude_offshore", "volume_hvl_offshore",
 p_10 %<>% mutate(across({{p_10_identical_cols}}, ~ .x, .names = "estimate_{.col}"))
 
 # Safe to disk
-readr::write_rds(p_04, "data-raw/.temp/data/pipelines_2004_transformed.rds")
-readr::write_rds(p_10, "data-raw/.temp/data/pipelines_2010_transformed.rds")
+readr::write_rds(p_04, data_folder("pipelines_2004_transformed.rds"))
+readr::write_rds(p_10, data_folder("pipelines_2010_transformed.rds"))
+
+print("5a - Transformed columns in the pipelines dataset.")

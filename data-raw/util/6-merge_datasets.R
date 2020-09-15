@@ -1,12 +1,16 @@
 #!/usr/bin/env Rscript
-library(magrittr)
-library(tidyverse)
+suppressMessages(library(magrittr))
+suppressMessages(library(tidyverse))
+suppressMessages(library(here))
+options(dplyr.summarise.inform = FALSE)
+
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
 
 # Read data from disk
-p_04 <- readRDS("data-raw/.temp/data/pipelines_2004_transformed.rds")
-p_10 <- readRDS("data-raw/.temp/data/pipelines_2010_transformed.rds")
+p_04 <- readRDS(data_folder("pipelines_2004_transformed.rds"))
+p_10 <- readRDS(data_folder("pipelines_2010_transformed.rds"))
 
-incidents <- readRDS("data-raw/.temp/data/incidents_transformed.rds")
+incidents <- readRDS(data_folder("incidents_transformed.rds"))
 i_86 <- incidents[["i_86"]]
 i_02 <- incidents[["i_02"]]
 i_10 <- incidents[["i_10"]]
@@ -77,3 +81,5 @@ pipelines <- incident_data %>%
   bind_rows(incident_data) %>%
   right_join(pipelines, by = c("ID", "year", "commodity", "on_offshore")) %>%
   mutate(across({{new_cols}}, ~ replace_na(.x, 0)))
+
+# Incident data only exists for the time from 2004 onward, so we filter out later years.

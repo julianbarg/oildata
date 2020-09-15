@@ -1,8 +1,10 @@
 #!/usr/bin/env Rscript
-library(magrittr)
-library(tidyverse)
+suppressMessages(library(magrittr))
+suppressMessages(library(tidyverse))
+suppressMessages(library(here))
 
-dfs <- readRDS("data-raw/.temp/data/incidents_cleaned.rds")
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+dfs <- readRDS(data_folder("incidents_cleaned.rds"))
 
 dfs[["i_86"]] <- dfs[["i_86"]] %>%
   mutate(net_loss = volume - recovered,
@@ -46,4 +48,6 @@ dfs[["i_10"]] <- dfs[["i_10"]] %>%
            )) %>%
     mutate(manufacture_year = as.integer(manufacture_year))
 
-readr::write_rds(dfs, "data-raw/.temp/data/incidents_transformed.rds")
+readr::write_rds(dfs, data_folder("incidents_transformed.rds"))
+
+print("5b - Transformed columns in the incidents dataset.")

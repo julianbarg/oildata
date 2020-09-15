@@ -1,11 +1,13 @@
 #!/usr/bin/env Rscript
-library(magrittr)
-library(tidyverse)
-library(purrr)
+suppressMessages(library(magrittr))
+suppressMessages(library(tidyverse))
+suppressMessages(library(purrr))
+suppressMessages(library(here))
 
-i_86 <- readRDS("data-raw/.temp/data/incidents_1986_renamed.rds")
-i_02 <- readRDS("data-raw/.temp/data/incidents_2002_renamed.rds")
-i_10 <- readRDS("data-raw/.temp/data/incidents_2010_renamed.rds")
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+i_86 <- readRDS(data_folder("incidents_1986_renamed.rds"))
+i_02 <- readRDS(data_folder("incidents_2002_renamed.rds"))
+i_10 <- readRDS(data_folder("incidents_2010_renamed.rds"))
 
 dfs <- list(i_86 = i_86, i_02 = i_02, i_10 = i_10)
 
@@ -70,4 +72,6 @@ dfs[["i_02"]] %<>% mutate(across( {{bools_i_02_10}} , ~. == "YES"))
 dfs[["i_10"]] %<>% mutate(across( {{bools_i_02_10}} , ~. == "YES"))
 
 # 5. Write to disk
-readr::write_rds(dfs, "data-raw/.temp/data/incidents_cleaned.rds")
+readr::write_rds(dfs, data_folder("incidents_cleaned.rds"))
+
+print("3b - Cleaned incidents dataset.")

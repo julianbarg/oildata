@@ -1,13 +1,15 @@
 #!/usr/bin/env Rscript
-library(arrow)
-library(dplyr)
-library(readr)
+suppressMessages(library(arrow))
+suppressMessages(library(dplyr))
+suppressMessages(library(readr))
+suppressMessages(library(here))
 
-pipelines_2004 <- read_feather("data-raw/.temp/data/pipelines_2004_raw.feather")
-pipelines_2010 <- read_feather("data-raw/.temp/data/pipelines_2010_raw.feather")
-incidents_1986 <- read_feather("data-raw/.temp/data/incidents_1986_raw.feather")
-incidents_2002 <- read_feather("data-raw/.temp/data/incidents_2002_raw.feather")
-incidents_2010 <- read_feather("data-raw/.temp/data/incidents_2010_raw.feather")
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+pipelines_2004 <- read_feather(data_folder("pipelines_2004_raw.feather"))
+pipelines_2010 <- read_feather(data_folder("pipelines_2010_raw.feather"))
+incidents_1986 <- read_feather(data_folder("incidents_1986_raw.feather"))
+incidents_2002 <- read_feather(data_folder("incidents_2002_raw.feather"))
+incidents_2010 <- read_feather(data_folder("incidents_2010_raw.feather"))
 
 pipelines_2004 <- pipelines_2004 %>%
   rename(ID = OPERATOR_ID,
@@ -142,8 +144,10 @@ incidents_2010 <- incidents_2010  %>%
          narrative = NARRATIVE,
          cost_1984 = TOTAL_COST_IN84)
 
-write_rds(pipelines_2004, "data-raw/.temp/data/pipelines_2004_renamed.rds")
-write_rds(pipelines_2010, "data-raw/.temp/data/pipelines_2010_renamed.rds")
-write_rds(incidents_1986, "data-raw/.temp/data/incidents_1986_renamed.rds")
-write_rds(incidents_2002, "data-raw/.temp/data/incidents_2002_renamed.rds")
-write_rds(incidents_2010, "data-raw/.temp/data/incidents_2010_renamed.rds")
+write_rds(pipelines_2004, data_folder("pipelines_2004_renamed.rds"))
+write_rds(pipelines_2010, data_folder("pipelines_2010_renamed.rds"))
+write_rds(incidents_1986, data_folder("incidents_1986_renamed.rds"))
+write_rds(incidents_2002, data_folder("incidents_2002_renamed.rds"))
+write_rds(incidents_2010, data_folder("incidents_2010_renamed.rds"))
+
+print("2 - Finished renaming columns.")
