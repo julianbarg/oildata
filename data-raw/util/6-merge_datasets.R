@@ -15,7 +15,7 @@ i_86 <- incidents[["i_86"]]
 i_02 <- incidents[["i_02"]]
 i_10 <- incidents[["i_10"]]
 
-# Merge pipeline datasetsb
+# Merge pipeline datasets
 common_cols <- intersect(colnames(p_04), colnames(p_10))
 pipelines <- bind_rows(p_04[ ,common_cols], p_10[ ,common_cols])  %>%
   pivot_longer(matches("offshore$|onshore$|total$"),
@@ -26,7 +26,7 @@ pipelines <- bind_rows(p_04[ ,common_cols], p_10[ ,common_cols])  %>%
 # Merge incident datasets
 common_cols <- Reduce(intersect, map(incidents, colnames))
 incidents <- incidents %>%
-  map(~ select(.x, {{common_cols}} )) %>%
+  map(~ select(.x, {{ common_cols }} )) %>%
   map_dfr(bind_rows)
 
 # Create _specific cols to show when crude pipeline transports crude etc.
@@ -44,8 +44,7 @@ aggregate_inc <- function(columns, filter_col = NULL){
   filter <- if (!is.null(filter_col)) spills_grouped[[filter_col]] == TRUE else T
   column_values <- unname(columns)
   spills_grouped[filter,] %>%
-  # (if (significant) sign_grouped else spills_grouped) %>%
-    summarize(across({{column_values}}, ~sum(.x, na.rm = T))) %>%
+    summarize(across({{ column_values }}, ~sum(.x, na.rm = T))) %>%
     rename(!!! columns)
 }
 
@@ -63,7 +62,9 @@ new_cols <- c(names(sum_cols), names(sum_cols_sign), names(sum_cols_serious))
 # Prepare a spill df for merging
 join_incidents <- partial(left_join,
                           by = c("ID", "year", "commodity", "on_offshore"))
-incident_data <- aggregate_inc(sum_cols) %>%
+incident_data <- spills_grouped %>%
+  summarize(incidents = n()) %>%
+  join_incidents(aggregate_inc(sum_cols)) %>%
   join_incidents(aggregate_inc(sum_cols_sign, "significant")) %>%
   join_incidents(aggregate_inc(sum_cols_serious, "serious"))
 
@@ -80,6 +81,7 @@ pipelines <- incident_data %>%
                names_pattern = "(.*)_(.*)") %>%
   bind_rows(incident_data) %>%
   right_join(pipelines, by = c("ID", "year", "commodity", "on_offshore")) %>%
-  mutate(across({{new_cols}}, ~ replace_na(.x, 0)))
+  mutate(across({{ new_cols }}, ~ replace_na(.x, 0)))
 
-# Incident data only exists for the time from 2004 onward, so we filter out later years.
+readr::write_rds(pipelines, data_folder("pipelines_merged.rds"))
+readr::write_rds(incidents, data_folder("incidents_merged.rds"))

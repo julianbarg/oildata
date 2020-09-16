@@ -51,9 +51,9 @@
 #'  \item{item}{Item involved; Pipe, Valve, Scraper Trap, Pump, Welding Fitting, Girth, Tank, Bolted Fitting, Longitudinal Weld, Other.}
 #'  \item{ORGLO}{}
 #'  \item{installation_year}{Year item installed.}
-#'  \item{CAUSE}{}
+#'  \item{MAP_CAUSE}{Cause, coded by PHMSA.}
 #'  \item{CAUSO}{}
-#'  \item{cause}{Cause of the incident, coded by PHMSA.}
+#'  \item{cause}{Cause of the incident.}
 #'  \item{subcause}{Subcause of the incident, coded by PHMSA.}
 #'  \item{TFAT}{}
 #'  \item{EFAT}{}

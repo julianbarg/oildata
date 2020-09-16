@@ -29,8 +29,8 @@ p_04_unique <- subset(p_04, !duplicates)
 # Consolidate
 p_04 <- p_04_duplicates %>%
   group_by(ID, year, commodity) %>%
-  summarize(across( {{take_first_cols}}, first),
-            across( {{sum_na_rm_cols}}, ~ sum(.x, na.rm = T))) %>%
+  summarize(across({{ take_first_cols }}, first),
+            across({{ sum_na_rm_cols }}, ~ sum(.x, na.rm = T))) %>%
   bind_rows(p_04_unique) %>%
   ungroup()
 

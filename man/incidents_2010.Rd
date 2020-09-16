@@ -238,7 +238,7 @@ A data frame with columns:
  \item{NUM_EMPLOYEES_FAILED}{}
  \item{NUM_CONTRACTORS_TESTED}{}
  \item{NUM_CONTRACTORS_FAILED}{}
- \item{CAUSE}{Apparent Cause of the Incident (self-reported).}
+ \item{MAP_CAUSE}{Cause, coded by PHMSA.}
  \item{CAUSE_DETAILS}{}
  \item{INTERNAL_EXTERNAL}{}
  \item{VISUAL_EXAM_RESULTS}{}
@@ -610,7 +610,7 @@ A data frame with columns:
  \item{EST_COST_EMERGENCY_CURRENT}{}
  \item{EST_COST_ENVIRONMENTAL_CURRENT}{}
  \item{EST_COST_OTHER_CURRENT}{}
- \item{cause}{Cause of the incident, codec by PHMSA.}
+ \item{cause}{Cause of the incident.}
  \item{subcause}{Subcause of the incident, coded by PHMSA.}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{date}{Date of the spill.}

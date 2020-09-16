@@ -51,7 +51,7 @@ A data frame with columns:
  \item{SPUNIT_TEXT}{}
  \item{LOSS}{}
  \item{RECOV}{}
- \item{CAUSE}{Apparent Cause of the Incident (self-reported).}
+ \item{MAP_CAUSE}{Cause, coded by PHMSA.}
  \item{LINE_SEG}{}
  \item{IFED}{}
  \item{INTER}{}
@@ -240,7 +240,7 @@ A data frame with columns:
  \item{OOPRPCURRENT}{}
  \item{OOPPRPCURRENT}{}
  \item{TOTAL_COST_CURRENT}{}
- \item{cause}{Cause of the incident, coded by PHMSA.}
+ \item{cause}{Cause of the incident.}
  \item{subcause}{Subcause of the incident, coded by PHMSA.}
  \item{SPILL_TYPE_CATEGORY}{}
  \item{narrative}{Written description of the incident.}

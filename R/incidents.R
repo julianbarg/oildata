@@ -13,8 +13,8 @@
 #'   \item{system}{Part of system involved in accident.}
 #'   \item{item}{Item involved in accident.}
 #'   \item{installation_year}{Year item installed that involved in accident.}
-#'   \item{CAUSE}{Cause, self-selected from available options.}
-#'   \item{cause}{Coded, by PHMSA to be consistent between different versions of form accross time.}
+#'   \item{MAP_CAUSE}{Cause, coded by PHMSA.}
+#'   \item{cause}{Cause of the incident.}
 #'   \item{subcause}{Subcause of the incident, coded by PHMSA.}
 #'   \item{fatalities}{Total number of Fatalities.}
 #'   \item{injuries}{Total number of Injuries.}

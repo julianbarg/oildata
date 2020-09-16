@@ -35,31 +35,32 @@ identical_cols <- c("volume_crude_total", "volume_hvl_total",
                     "volume_rpp_total", "volume_other_total")
 p_04 %<>% mutate(across({{identical_cols}}, ~ .x, .names = "estimate_{.col}"))
 
-p_04$volume_all_total <- rowSums(select(p_04,
-                                        volume_crude_total,
-                                        volume_hvl_total,
-                                        volume_rpp_total,
-                                        volume_other_total))
-p_04$volume_all_offshore <- rowSums(select(p_04,
-                                           volume_crude_offshore,
-                                           volume_hvl_offshore,
-                                           volume_rpp_offshore,
-                                           volume_other_offshore))
-p_04$volume_all_onshore <- rowSums(select(p_04,
-                                          volume_crude_onshore,
-                                          volume_hvl_onshore,
-                                          volume_rpp_onshore,
-                                          volume_other_onshore))
-p_04$estimate_volume_all_offshore <- rowSums(select(p_04,
-                                                    estimate_volume_crude_offshore,
-                                                    estimate_volume_hvl_offshore,
-                                                    estimate_volume_rpp_offshore,
-                                                    estimate_volume_other_offshore))
-p_04$estimate_volume_all_onshore <-  rowSums(select(p_04,
-                                                    estimate_volume_crude_onshore,
-                                                    estimate_volume_hvl_onshore,
-                                                    estimate_volume_rpp_onshore,
-                                                    estimate_volume_other_onshore))
+p_04$volume_all_total <- na_sum(select(p_04,
+                                       volume_crude_total,
+                                       volume_hvl_total,
+                                       volume_rpp_total,
+                                       volume_other_total))
+p_04$volume_all_offshore <- na_sum(select(p_04,
+                                          volume_crude_offshore,
+                                          volume_hvl_offshore,
+                                          volume_rpp_offshore,
+                                          volume_other_offshore))
+p_04$volume_all_onshore <- na_sum(select(p_04,
+                                         volume_crude_onshore,
+                                         volume_hvl_onshore,
+                                         volume_rpp_onshore,
+                                         volume_other_onshore))
+p_04$estimate_volume_all_offshore <- na_sum(select(p_04,
+                                                   estimate_volume_crude_offshore,
+                                                   estimate_volume_hvl_offshore,
+                                                   estimate_volume_rpp_offshore,
+                                                   estimate_volume_other_offshore))
+p_04$estimate_volume_all_onshore <-  na_sum(select(p_04,
+                                                   estimate_volume_crude_onshore,
+                                                   estimate_volume_hvl_onshore,
+                                                   estimate_volume_rpp_onshore,
+                                                   estimate_volume_other_onshore))
+p_04$estimate_volume_all_total <- p_04$volume_all_total
 
 # Pipelines 2010
 p_10$volume_co2_total   <- na_sum(select(p_10, volume_co2_offshore, volume_co2_onshore))
@@ -74,11 +75,11 @@ p_10$volume_other_total <-    na_sum(select(p_10, volume_co2_total, volume_fge_t
 p_10$volume_other_offshore <- na_sum(select(p_10, volume_co2_offshore, volume_fge_offshore))
 p_10$volume_other_onshore <-  na_sum(select(p_10, volume_co2_onshore, volume_fge_onshore))
 
-p_10$volume_all_total <-    rowSums(select(p_10, volume_crude_total, volume_hvl_total,
-                                           volume_rpp_total, volume_other_total))
-p_10$volume_all_offshore <- rowSums(select(p_10, volume_crude_offshore, volume_hvl_offshore,
+p_10$volume_all_total <-    na_sum(select(p_10, volume_crude_total, volume_hvl_total,
+                                          volume_rpp_total, volume_other_total))
+p_10$volume_all_offshore <- na_sum(select(p_10, volume_crude_offshore, volume_hvl_offshore,
                                            volume_rpp_offshore, volume_other_offshore))
-p_10$volume_all_onshore <-  rowSums(select(p_10, volume_crude_onshore, volume_hvl_onshore,
+p_10$volume_all_onshore <-  na_sum(select(p_10, volume_crude_onshore, volume_hvl_onshore,
                                            volume_rpp_onshore, volume_other_onshore))
 
 #We have this information for this dataset, but not for the data on the years before. So we add this column to be able to check the estimated data.
@@ -88,7 +89,8 @@ p_10_identical_cols <- c("volume_crude_offshore", "volume_hvl_offshore",
                          "volume_other_offshore", "volume_all_onshore",
                          "volume_all_total", "volume_crude_total",
                          "volume_hvl_total", "volume_rpp_total",
-                         "volume_other_total")
+                         "volume_other_total", "volume_all_total",
+                         "volume_other_onshore", "volume_all_offshore")
 p_10 %<>% mutate(across({{p_10_identical_cols}}, ~ .x, .names = "estimate_{.col}"))
 
 # Safe to disk

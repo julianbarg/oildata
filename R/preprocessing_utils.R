@@ -36,7 +36,8 @@ fix_commodities <- function(x) {
                    "PROPANE" = "hvl",
                    "KEROSENE" = "rpp",
                    "GASOLINE AND FUEL OIL" = "rpp",
-                   "CO2/N2 OR OTHER NON-FLAMMABLE, NON-TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "co2")
+                   "CO2/N2 OR OTHER NON-FLAMMABLE, NON-TOXIC FLUID WHICH IS A GAS AT AMBIENT CONDITIONS" = "co2",
+                   "CO2 OR OTHER" = "co2")
 
   return(recode(x, !!! commodities))
 }
