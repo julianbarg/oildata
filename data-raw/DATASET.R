@@ -51,7 +51,7 @@ system(here("data-raw", "util", "6-merge_datasets.R"))
 
 # 8. Use data
 if (overwrite) {
-  data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+  data_folder <- purrr::partial(here::here, "data-raw", ".temp", "data")
 
   pipelines_2004 <- readRDS(data_folder("pipelines_2004_transformed.rds"))
   usethis::use_data(pipelines_2004, overwrite = T)
@@ -68,8 +68,8 @@ if (overwrite) {
 
   incidents <- readRDS(data_folder("incidents_merged.rds"))
   usethis::use_data(incidents, overwrite = T)
-  pipelines <- readRDS(data_folder("pipelines_merged.rds"))
-  usethis::use_data(pipelines, overwrite = T)
+  pipelines_ungrouped <- readRDS(data_folder("pipelines_merged.rds"))
+  usethis::use_data(pipelines_ungrouped, overwrite = T)
 }
 
 
