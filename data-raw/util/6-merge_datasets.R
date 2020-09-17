@@ -70,7 +70,7 @@ incident_data <- spills_grouped %>%
 
 # Clean and merge and clean
 pipelines <- incident_data %>%
-  group_by(ID, year, commodity) %>%
+  group_by(ID, year) %>%
   summarize(across({{ new_cols }},
                    ~sum(.x, na.rm = T),
                    .names = "{new_cols}_total")) %>%
