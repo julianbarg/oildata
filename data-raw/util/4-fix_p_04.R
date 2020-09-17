@@ -22,9 +22,11 @@ sum_na_rm_cols <-
     "volume_hvl_total", "volume_rpp_total", "volume_other_total")
 
 # Grab duplicates
-duplicates <- duplicated(select(p_04, ID, year, commodity))
-p_04_duplicates <- subset(p_04, duplicates)
-p_04_unique <- subset(p_04, !duplicates)
+p_04 <- p_04 %>%
+  group_by(ID, year, commodity) %>%
+  mutate(n = n())
+p_04_duplicates <- subset(p_04, n > 1)
+p_04_unique <- subset(p_04, n == 1)
 
 # Consolidate
 p_04 <- p_04_duplicates %>%
@@ -32,7 +34,8 @@ p_04 <- p_04_duplicates %>%
   summarize(across({{ take_first_cols }}, first),
             across({{ sum_na_rm_cols }}, ~ sum(.x, na.rm = T))) %>%
   bind_rows(p_04_unique) %>%
-  ungroup()
+  ungroup() %>%
+  select(-n)
 
 # Write to disk
 readr::write_rds(p_04,
