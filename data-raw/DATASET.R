@@ -46,8 +46,8 @@ system(here("data-raw", "util", "5b-transform_cols_incidents.R"))
 # 6. Merge datasets
 system(here("data-raw", "util", "6-merge_datasets.R"))
 
-# TODO: this
 # 7. Handle M&As
+system(here("data-raw", "util", "7-handle_m_as.R"))
 
 # 8. Use data
 if (overwrite) {
@@ -70,6 +70,9 @@ if (overwrite) {
   usethis::use_data(incidents, overwrite = T)
   pipelines_ungrouped <- readRDS(data_folder("pipelines_merged.rds"))
   usethis::use_data(pipelines_ungrouped, overwrite = T)
+
+  pipelines <- readRDS(data_folder("pipelines_grouped.rds"))
+  usethis::use_data(pipelines, overwrite = T)
 }
 
 

@@ -18,7 +18,6 @@
 #'  \item{ID}{Unique operator ID.}
 #'  \item{name}{Name of the pipelines operator at the time of the report year.}
 #'  \item{state}{Headquarter state.}
-#'  \item{offshore_share}{Share of total pipeline miles that is offshore pipelines.}
 #'  \item{on_offshore}{Observation describes offshore or onshroe pipelines.}
 #'  \item{hca}{Miles of pipelines in High Consequences Areas.}
 #'  \item{miles}{Total number of pipeline miles.}
@@ -43,6 +42,7 @@
 #'  \item{significant_incidents_volume}{Total number of barrels spilled across all significant incidents.}
 #'  \item{incidents_cost}{Combined cost of all incidents (in 1984 dollars).}
 #'  \item{significant_incidents_cost}{Combined cost of all significant incidents (in 1984 dollars).}
+#'  \item{ma_year}{The first year of an M&A, or selloff of an operators in a group.}
 #' }
 #' @examples
 #' \dontrun{

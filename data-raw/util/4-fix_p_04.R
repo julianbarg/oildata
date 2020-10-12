@@ -15,11 +15,8 @@ p_04 %<>% mutate(miles_onshore = CPBONM + CPCONM + CUBONM + CUCONM)
 p_04 %<>% mutate(miles_offshore = CPBOFFM + CPCOFFM + CUBOFFM + CUCOFFM)
 
 # Consolidation rules
-take_first_cols <- c("name", "state")
-sum_na_rm_cols <-
-  c("hca_offshore", "hca_onshore", "hca_total", "miles_onshore",
-    "miles_offshore", "miles_total", "volume_crude_total",
-    "volume_hvl_total", "volume_rpp_total", "volume_other_total")
+take_first_cols <- parameters[["aggregate_p_04"]][["take_first_cols"]]
+sum_na_rm_cols <- parameters[["aggregate_p_04"]][["sum_na_rm_cols"]]
 
 # Grab duplicates
 p_04 <- p_04 %>%

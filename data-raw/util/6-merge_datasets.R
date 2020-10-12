@@ -4,6 +4,7 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(here))
 options(dplyr.summarise.inform = FALSE)
 
+parameters <- readRDS(here("data-raw", ".temp", "parameters.RDS"))
 data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
 
 # Read data from disk
@@ -49,14 +50,9 @@ aggregate_inc <- function(columns, filter_col = NULL){
 }
 
 # Define the spill columns we want to create
-sum_cols <-         c(incidents_volume = "volume",
-                      recovered = "recovered",
-                      net_loss_volume = "net_loss",
-                      incidents_cost = "cost_1984")
-sum_cols_sign <-    c(significant_incidents = "significant",
-                      significant_incidents_cost = "cost_1984",
-                      significant_incidents_volume = "volume")
-sum_cols_serious <- c(serious_incidents = "serious")
+sum_cols <- parameters[["aggregate_incidents"]][["sum_cols"]]
+sum_cols_sign <- parameters[["aggregate_incidents"]][["sum_cols_sign"]]
+sum_cols_serious <- parameters[["aggregate_incidents"]][["sum_cols_serious"]]
 new_cols <- c(names(sum_cols), names(sum_cols_sign), names(sum_cols_serious))
 
 # Prepare a spill df for merging
@@ -82,6 +78,8 @@ pipelines <- incident_data %>%
   bind_rows(incident_data) %>%
   right_join(pipelines, by = c("ID", "year", "commodity", "on_offshore")) %>%
   mutate(across({{ new_cols }}, ~ replace_na(.x, 0)))
+pipelines <- select(pipelines, -offshore_share)
 
 readr::write_rds(pipelines, data_folder("pipelines_merged.rds"))
 readr::write_rds(incidents, data_folder("incidents_merged.rds"))
+print("6 - Merged all datasets.")
