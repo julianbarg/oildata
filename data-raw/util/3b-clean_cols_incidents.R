@@ -13,8 +13,10 @@ dfs <- list(i_86 = i_86, i_02 = i_02, i_10 = i_10)
 
 # 1. Recode
 na_function <- function(x) ifelse(x %in% c("nan", "NULL", "UNKNOWN"), NA, x)
-dfs <- map(dfs, ~mutate(.x, across(where(is.character), na_function)))
-dfs <- map(dfs, ~mutate(.x, commodity = oildata:::fix_commodities(commodity)))
+dfs <- dfs %>%
+  map(~mutate(.x, across(where(is.character), na_function))) %>%
+  map(~mutate(.x, commodity = oildata:::fix_commodities(commodity))) %>%
+  map(~mutate(.x, incident_ID = as.character(incident_ID)))
 
 dfs[["i_86"]] %<>% mutate(on_offshore = recode(
   on_offshore, YES = "offshore", NO = "onshore"))

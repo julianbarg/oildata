@@ -82,4 +82,8 @@ pipelines <- select(pipelines, -offshore_share)
 
 readr::write_rds(pipelines, data_folder("pipelines_merged.rds"))
 readr::write_rds(incidents, data_folder("incidents_merged.rds"))
+readr::write_rds(
+  select(incidents, incident_ID, ID, name, on_offshore, commodity, year,
+         narrative),
+  here("data-raw", "util", "assets", "narratives.rds"))
 print("6 - Merged all datasets.")
