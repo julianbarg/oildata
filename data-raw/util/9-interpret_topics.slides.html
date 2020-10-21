@@ -17406,6 +17406,7 @@ Failure occurred in weld located 50 ft from the bank of the kentucky river.  The
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">labels</span> <span class="o">&lt;-</span> <span class="nf">distinct</span><span class="p">(</span><span class="nf">select</span><span class="p">(</span><span class="n">gammas</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">cause_topic</span><span class="p">))</span>
+<span class="n">labels</span><span class="o">$</span><span class="n">topic</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="n">labels</span><span class="o">$</span><span class="n">topic</span><span class="p">)</span>
 <span class="nf">head</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 </pre></div>
 
@@ -17431,7 +17432,7 @@ Failure occurred in weld located 50 ft from the bank of the kentucky river.  The
 <caption>A tibble: 6 × 3</caption>
 <thead>
 	<tr><th scope=col>topic</th><th scope=col>label</th><th scope=col>cause_topic</th></tr>
-	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
 </thead>
 <tbody>
 	<tr><td>1</td><td>report_mngt   </td><td>FALSE</td></tr>
