@@ -1,0 +1,615 @@
+---
+jupyter:
+  jupytext:
+    formats: ipynb,Rmd
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.6.0
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+# Interpret Topics
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:27.562565Z', 'iopub.status.busy': '2020-10-26T19:13:27.560228Z', 'iopub.status.idle': '2020-10-26T19:13:30.225721Z', 'shell.execute_reply': '2020-10-26T19:13:30.224514Z'}, slideshow={'slide_type': 'skip'}}
+# library("oildata")
+library("incidentmodels")
+suppressMessages(library("tidyverse"))
+library("tidytext")
+suppressMessages(library("magrittr"))
+suppressMessages(library("glue"))
+suppressMessages(library("here"))
+
+data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.392152Z', 'iopub.status.busy': '2020-10-26T19:13:30.230733Z', 'iopub.status.idle': '2020-10-26T19:13:30.596365Z', 'shell.execute_reply': '2020-10-26T19:13:30.595935Z'}, slideshow={'slide_type': 'subslide'}}
+gammas <- readRDS(data_folder("gammas.rds"))
+gammas$label <- as.character(NA)
+gammas$cause_topic <- NA
+head(gammas)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.605461Z', 'iopub.status.busy': '2020-10-26T19:13:30.603979Z', 'iopub.status.idle': '2020-10-26T19:13:30.676285Z', 'shell.execute_reply': '2020-10-26T19:13:30.675885Z'}, slideshow={'slide_type': 'subslide'}}
+head(betas)
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Functions
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.684388Z', 'iopub.status.busy': '2020-10-26T19:13:30.683877Z', 'iopub.status.idle': '2020-10-26T19:13:30.790397Z', 'shell.execute_reply': '2020-10-26T19:13:30.789128Z'}}
+top_terms <- betas %>%
+    arrange(desc(beta)) %>%
+    group_by(topic) %>%
+    slice_head(n = 8) %>%
+    ungroup() %>%
+    arrange(topic, -beta)
+
+head(top_terms)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.798543Z', 'iopub.status.busy': '2020-10-26T19:13:30.796902Z', 'iopub.status.idle': '2020-10-26T19:13:30.946681Z', 'shell.execute_reply': '2020-10-26T19:13:30.945497Z'}}
+get_terms <- function(topic) {
+    filter(top_terms, topic == {{ topic }})
+}
+narratives <- select(incidents, incident_ID, narrative) %>%
+    mutate(incident_ID = as.character(incident_ID))
+get_narrative <- function(topic) {
+    gammas %>%
+        filter(topic == {{ topic }}) %>%
+        filter(gamma == max(gamma)) %>%
+        left_join(narratives, by = "incident_ID") %$%
+        glue("Incident ID: {incident_ID}
+              Operator ID: {ID}
+
+              {narrative}")
+}
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Topics 1-5
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 1
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.953137Z', 'iopub.status.busy': '2020-10-26T19:13:30.951870Z', 'iopub.status.idle': '2020-10-26T19:13:30.981429Z', 'shell.execute_reply': '2020-10-26T19:13:30.980263Z'}}
+get_terms(topic = 1)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:30.985905Z', 'iopub.status.busy': '2020-10-26T19:13:30.984632Z', 'iopub.status.idle': '2020-10-26T19:13:31.020502Z', 'shell.execute_reply': '2020-10-26T19:13:31.019286Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(1))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic seems to be related to the management of incident reports**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.025004Z', 'iopub.status.busy': '2020-10-26T19:13:31.023657Z', 'iopub.status.idle': '2020-10-26T19:13:31.190392Z', 'shell.execute_reply': '2020-10-26T19:13:31.189329Z'}}
+gammas[gammas$topic == 1, ]$label <- "report_mngt"
+gammas[gammas$topic == 1, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 2
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.199194Z', 'iopub.status.busy': '2020-10-26T19:13:31.197973Z', 'iopub.status.idle': '2020-10-26T19:13:31.223117Z', 'shell.execute_reply': '2020-10-26T19:13:31.221897Z'}}
+get_terms(topic = 2)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.227665Z', 'iopub.status.busy': '2020-10-26T19:13:31.226371Z', 'iopub.status.idle': '2020-10-26T19:13:31.264146Z', 'shell.execute_reply': '2020-10-26T19:13:31.262978Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(2))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to the management of spills**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.268722Z', 'iopub.status.busy': '2020-10-26T19:13:31.267351Z', 'iopub.status.idle': '2020-10-26T19:13:31.302555Z', 'shell.execute_reply': '2020-10-26T19:13:31.301433Z'}}
+gammas[gammas$topic == 2, ]$label <- "spill_mngt"
+gammas[gammas$topic == 2, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 3
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.308620Z', 'iopub.status.busy': '2020-10-26T19:13:31.307361Z', 'iopub.status.idle': '2020-10-26T19:13:31.332489Z', 'shell.execute_reply': '2020-10-26T19:13:31.331265Z'}}
+get_terms(topic = 3)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.342978Z', 'iopub.status.busy': '2020-10-26T19:13:31.342497Z', 'iopub.status.idle': '2020-10-26T19:13:31.363650Z', 'shell.execute_reply': '2020-10-26T19:13:31.360295Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(3))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to contractors and excavation**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.373209Z', 'iopub.status.busy': '2020-10-26T19:13:31.372707Z', 'iopub.status.idle': '2020-10-26T19:13:31.392126Z', 'shell.execute_reply': '2020-10-26T19:13:31.391003Z'}}
+gammas[gammas$topic == 3, ]$label <- "excavation"
+gammas[gammas$topic == 3, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 4
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.403406Z', 'iopub.status.busy': '2020-10-26T19:13:31.402909Z', 'iopub.status.idle': '2020-10-26T19:13:31.421334Z', 'shell.execute_reply': '2020-10-26T19:13:31.419864Z'}}
+get_terms(topic = 4)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.435723Z', 'iopub.status.busy': '2020-10-26T19:13:31.435037Z', 'iopub.status.idle': '2020-10-26T19:13:31.464944Z', 'shell.execute_reply': '2020-10-26T19:13:31.464525Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(4))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to storms, water and related damages**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.479331Z', 'iopub.status.busy': '2020-10-26T19:13:31.478794Z', 'iopub.status.idle': '2020-10-26T19:13:31.626093Z', 'shell.execute_reply': '2020-10-26T19:13:31.624995Z'}}
+gammas[gammas$topic == 4, ]$label <- "water"
+gammas[gammas$topic == 4, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 5
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.632276Z', 'iopub.status.busy': '2020-10-26T19:13:31.631029Z', 'iopub.status.idle': '2020-10-26T19:13:31.656608Z', 'shell.execute_reply': '2020-10-26T19:13:31.655340Z'}}
+get_terms(topic = 5)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.669512Z', 'iopub.status.busy': '2020-10-26T19:13:31.664553Z', 'iopub.status.idle': '2020-10-26T19:13:31.688861Z', 'shell.execute_reply': '2020-10-26T19:13:31.687718Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(5))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to remote operation of pipelines**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.704893Z', 'iopub.status.busy': '2020-10-26T19:13:31.704394Z', 'iopub.status.idle': '2020-10-26T19:13:31.716127Z', 'shell.execute_reply': '2020-10-26T19:13:31.715007Z'}}
+gammas[gammas$topic == 5, ]$label <- "control_center"
+gammas[gammas$topic == 5, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Topics 6-10
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 6
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.724646Z', 'iopub.status.busy': '2020-10-26T19:13:31.724157Z', 'iopub.status.idle': '2020-10-26T19:13:31.746922Z', 'shell.execute_reply': '2020-10-26T19:13:31.745859Z'}}
+get_terms(topic = 6)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.751617Z', 'iopub.status.busy': '2020-10-26T19:13:31.750345Z', 'iopub.status.idle': '2020-10-26T19:13:31.779046Z', 'shell.execute_reply': '2020-10-26T19:13:31.777739Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(6))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to service and repair**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.784066Z', 'iopub.status.busy': '2020-10-26T19:13:31.782656Z', 'iopub.status.idle': '2020-10-26T19:13:31.811050Z', 'shell.execute_reply': '2020-10-26T19:13:31.810036Z'}}
+gammas[gammas$topic == 6, ]$label <- "service"
+gammas[gammas$topic == 6, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 7
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.815944Z', 'iopub.status.busy': '2020-10-26T19:13:31.814680Z', 'iopub.status.idle': '2020-10-26T19:13:31.845768Z', 'shell.execute_reply': '2020-10-26T19:13:31.844636Z'}}
+get_terms(topic = 7)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.851511Z', 'iopub.status.busy': '2020-10-26T19:13:31.850026Z', 'iopub.status.idle': '2020-10-26T19:13:31.885869Z', 'shell.execute_reply': '2020-10-26T19:13:31.885468Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(7))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to pumps and their components**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:31.892692Z', 'iopub.status.busy': '2020-10-26T19:13:31.889955Z', 'iopub.status.idle': '2020-10-26T19:13:32.064346Z', 'shell.execute_reply': '2020-10-26T19:13:32.063939Z'}}
+gammas[gammas$topic == 7, ]$label <- "pumps"
+gammas[gammas$topic == 7, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 8
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.078611Z', 'iopub.status.busy': '2020-10-26T19:13:32.074060Z', 'iopub.status.idle': '2020-10-26T19:13:32.097142Z', 'shell.execute_reply': '2020-10-26T19:13:32.096630Z'}}
+get_terms(topic = 8)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.104361Z', 'iopub.status.busy': '2020-10-26T19:13:32.103868Z', 'iopub.status.idle': '2020-10-26T19:13:32.135815Z', 'shell.execute_reply': '2020-10-26T19:13:32.128563Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(8))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to procedures**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.143879Z', 'iopub.status.busy': '2020-10-26T19:13:32.139326Z', 'iopub.status.idle': '2020-10-26T19:13:32.164293Z', 'shell.execute_reply': '2020-10-26T19:13:32.163891Z'}}
+gammas[gammas$topic == 8, ]$label <- "procedures"
+gammas[gammas$topic == 8, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 9
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.171497Z', 'iopub.status.busy': '2020-10-26T19:13:32.170936Z', 'iopub.status.idle': '2020-10-26T19:13:32.197073Z', 'shell.execute_reply': '2020-10-26T19:13:32.196644Z'}}
+get_terms(topic = 9)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.202214Z', 'iopub.status.busy': '2020-10-26T19:13:32.201729Z', 'iopub.status.idle': '2020-10-26T19:13:32.231813Z', 'shell.execute_reply': '2020-10-26T19:13:32.227448Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(9))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to the commodity transported**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.236614Z', 'iopub.status.busy': '2020-10-26T19:13:32.235865Z', 'iopub.status.idle': '2020-10-26T19:13:32.274498Z', 'shell.execute_reply': '2020-10-26T19:13:32.271865Z'}}
+gammas[gammas$topic == 9, ]$label <- "commodity"
+gammas[gammas$topic == 9, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 10
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.279441Z', 'iopub.status.busy': '2020-10-26T19:13:32.278921Z', 'iopub.status.idle': '2020-10-26T19:13:32.304125Z', 'shell.execute_reply': '2020-10-26T19:13:32.303669Z'}}
+get_terms(topic = 10)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.312559Z', 'iopub.status.busy': '2020-10-26T19:13:32.311922Z', 'iopub.status.idle': '2020-10-26T19:13:32.332361Z', 'shell.execute_reply': '2020-10-26T19:13:32.331813Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(10))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to testing and monitoring**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.340335Z', 'iopub.status.busy': '2020-10-26T19:13:32.339848Z', 'iopub.status.idle': '2020-10-26T19:13:32.360327Z', 'shell.execute_reply': '2020-10-26T19:13:32.359901Z'}}
+gammas[gammas$topic == 10, ]$label <- "monitoring"
+gammas[gammas$topic == 10, ]$cause_topic <- T
+```
+
+## Topics 11-15
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 11
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.367842Z', 'iopub.status.busy': '2020-10-26T19:13:32.363846Z', 'iopub.status.idle': '2020-10-26T19:13:32.386784Z', 'shell.execute_reply': '2020-10-26T19:13:32.386256Z'}}
+get_terms(topic = 11)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.393262Z', 'iopub.status.busy': '2020-10-26T19:13:32.391945Z', 'iopub.status.idle': '2020-10-26T19:13:32.417455Z', 'shell.execute_reply': '2020-10-26T19:13:32.416314Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(11))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related flow, pressure and relief**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.427264Z', 'iopub.status.busy': '2020-10-26T19:13:32.426069Z', 'iopub.status.idle': '2020-10-26T19:13:32.455390Z', 'shell.execute_reply': '2020-10-26T19:13:32.454324Z'}}
+gammas[gammas$topic == 11, ]$label <- "pressure"
+gammas[gammas$topic == 11, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 12
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.460538Z', 'iopub.status.busy': '2020-10-26T19:13:32.459786Z', 'iopub.status.idle': '2020-10-26T19:13:32.486913Z', 'shell.execute_reply': '2020-10-26T19:13:32.485808Z'}}
+get_terms(topic = 12)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.491728Z', 'iopub.status.busy': '2020-10-26T19:13:32.490476Z', 'iopub.status.idle': '2020-10-26T19:13:32.514282Z', 'shell.execute_reply': '2020-10-26T19:13:32.513217Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(12))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to corrosion of pipes**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.518992Z', 'iopub.status.busy': '2020-10-26T19:13:32.517847Z', 'iopub.status.idle': '2020-10-26T19:13:32.541541Z', 'shell.execute_reply': '2020-10-26T19:13:32.540494Z'}}
+gammas[gammas$topic == 12, ]$label <- "corrosion"
+gammas[gammas$topic == 12, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 13
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.546259Z', 'iopub.status.busy': '2020-10-26T19:13:32.545058Z', 'iopub.status.idle': '2020-10-26T19:13:32.573585Z', 'shell.execute_reply': '2020-10-26T19:13:32.572492Z'}}
+get_terms(topic = 13)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.579680Z', 'iopub.status.busy': '2020-10-26T19:13:32.578415Z', 'iopub.status.idle': '2020-10-26T19:13:32.629365Z', 'shell.execute_reply': '2020-10-26T19:13:32.628942Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(13))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to gaskets and related components**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.643222Z', 'iopub.status.busy': '2020-10-26T19:13:32.642179Z', 'iopub.status.idle': '2020-10-26T19:13:32.662089Z', 'shell.execute_reply': '2020-10-26T19:13:32.661024Z'}}
+gammas[gammas$topic == 13, ]$label <- "gaskets"
+gammas[gammas$topic == 13, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 14
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.671560Z', 'iopub.status.busy': '2020-10-26T19:13:32.670287Z', 'iopub.status.idle': '2020-10-26T19:13:32.709675Z', 'shell.execute_reply': '2020-10-26T19:13:32.708036Z'}}
+get_terms(topic = 14)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.720539Z', 'iopub.status.busy': '2020-10-26T19:13:32.718720Z', 'iopub.status.idle': '2020-10-26T19:13:32.748177Z', 'shell.execute_reply': '2020-10-26T19:13:32.747034Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(14))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to reporting of the spill**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.755228Z', 'iopub.status.busy': '2020-10-26T19:13:32.754009Z', 'iopub.status.idle': '2020-10-26T19:13:32.778073Z', 'shell.execute_reply': '2020-10-26T19:13:32.776457Z'}}
+gammas[gammas$topic == 14, ]$label <- "report"
+gammas[gammas$topic == 14, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 15
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.788944Z', 'iopub.status.busy': '2020-10-26T19:13:32.787449Z', 'iopub.status.idle': '2020-10-26T19:13:32.816048Z', 'shell.execute_reply': '2020-10-26T19:13:32.814598Z'}}
+get_terms(topic = 15)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.827273Z', 'iopub.status.busy': '2020-10-26T19:13:32.826072Z', 'iopub.status.idle': '2020-10-26T19:13:32.850018Z', 'shell.execute_reply': '2020-10-26T19:13:32.848945Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(15))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to the personnels response on site**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.854611Z', 'iopub.status.busy': '2020-10-26T19:13:32.853373Z', 'iopub.status.idle': '2020-10-26T19:13:32.891373Z', 'shell.execute_reply': '2020-10-26T19:13:32.890965Z'}}
+gammas[gammas$topic == 15, ]$label <- "response"
+gammas[gammas$topic == 15, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Topics 16-20
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 16
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.896191Z', 'iopub.status.busy': '2020-10-26T19:13:32.895652Z', 'iopub.status.idle': '2020-10-26T19:13:32.923589Z', 'shell.execute_reply': '2020-10-26T19:13:32.923149Z'}}
+get_terms(topic = 16)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.932595Z', 'iopub.status.busy': '2020-10-26T19:13:32.931962Z', 'iopub.status.idle': '2020-10-26T19:13:32.960456Z', 'shell.execute_reply': '2020-10-26T19:13:32.959979Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(16))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to valves and related equipment**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:32.967072Z', 'iopub.status.busy': '2020-10-26T19:13:32.964252Z', 'iopub.status.idle': '2020-10-26T19:13:32.992318Z', 'shell.execute_reply': '2020-10-26T19:13:32.991911Z'}}
+gammas[gammas$topic == 16, ]$label <- "valve"
+gammas[gammas$topic == 16, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 17
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.000380Z', 'iopub.status.busy': '2020-10-26T19:13:32.999865Z', 'iopub.status.idle': '2020-10-26T19:13:33.019162Z', 'shell.execute_reply': '2020-10-26T19:13:33.018519Z'}}
+get_terms(topic = 17)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.028395Z', 'iopub.status.busy': '2020-10-26T19:13:33.027898Z', 'iopub.status.idle': '2020-10-26T19:13:33.051598Z', 'shell.execute_reply': '2020-10-26T19:13:33.050953Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(17))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to the leak and clean up**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.060552Z', 'iopub.status.busy': '2020-10-26T19:13:33.059979Z', 'iopub.status.idle': '2020-10-26T19:13:33.081854Z', 'shell.execute_reply': '2020-10-26T19:13:33.076564Z'}}
+gammas[gammas$topic == 17, ]$label <- "leak"
+gammas[gammas$topic == 17, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 18
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.088367Z', 'iopub.status.busy': '2020-10-26T19:13:33.087875Z', 'iopub.status.idle': '2020-10-26T19:13:33.119844Z', 'shell.execute_reply': '2020-10-26T19:13:33.115427Z'}}
+get_terms(topic = 18)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.124473Z', 'iopub.status.busy': '2020-10-26T19:13:33.123880Z', 'iopub.status.idle': '2020-10-26T19:13:33.153645Z', 'shell.execute_reply': '2020-10-26T19:13:33.153089Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(18))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to soil, contamination and cleanup**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.161206Z', 'iopub.status.busy': '2020-10-26T19:13:33.159242Z', 'iopub.status.idle': '2020-10-26T19:13:33.178716Z', 'shell.execute_reply': '2020-10-26T19:13:33.177907Z'}}
+gammas[gammas$topic == 18, ]$label <- "contamination"
+gammas[gammas$topic == 18, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 19
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.188260Z', 'iopub.status.busy': '2020-10-26T19:13:33.187755Z', 'iopub.status.idle': '2020-10-26T19:13:33.210895Z', 'shell.execute_reply': '2020-10-26T19:13:33.208201Z'}}
+get_terms(topic = 19)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.216553Z', 'iopub.status.busy': '2020-10-26T19:13:33.215880Z', 'iopub.status.idle': '2020-10-26T19:13:33.243734Z', 'shell.execute_reply': '2020-10-26T19:13:33.241850Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(19))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to the release of oil**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.252346Z', 'iopub.status.busy': '2020-10-26T19:13:33.251872Z', 'iopub.status.idle': '2020-10-26T19:13:33.279842Z', 'shell.execute_reply': '2020-10-26T19:13:33.275872Z'}}
+gammas[gammas$topic == 19, ]$label <- "release"
+gammas[gammas$topic == 19, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 20
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.286166Z', 'iopub.status.busy': '2020-10-26T19:13:33.285662Z', 'iopub.status.idle': '2020-10-26T19:13:33.312385Z', 'shell.execute_reply': '2020-10-26T19:13:33.311947Z'}}
+get_terms(topic = 20)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.320383Z', 'iopub.status.busy': '2020-10-26T19:13:33.319895Z', 'iopub.status.idle': '2020-10-26T19:13:33.341128Z', 'shell.execute_reply': '2020-10-26T19:13:33.340681Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(20))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic contains words to describe a spill**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.348369Z', 'iopub.status.busy': '2020-10-26T19:13:33.347860Z', 'iopub.status.idle': '2020-10-26T19:13:33.372317Z', 'shell.execute_reply': '2020-10-26T19:13:33.371909Z'}}
+gammas[gammas$topic == 20, ]$label <- "spill"
+gammas[gammas$topic == 20, ]$cause_topic <- F
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Topics 21-23
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 21
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.379837Z', 'iopub.status.busy': '2020-10-26T19:13:33.375864Z', 'iopub.status.idle': '2020-10-26T19:13:33.403218Z', 'shell.execute_reply': '2020-10-26T19:13:33.400651Z'}}
+get_terms(topic = 21)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.411829Z', 'iopub.status.busy': '2020-10-26T19:13:33.406840Z', 'iopub.status.idle': '2020-10-26T19:13:33.437118Z', 'shell.execute_reply': '2020-10-26T19:13:33.435963Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(21))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to fire and emergencies**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.441574Z', 'iopub.status.busy': '2020-10-26T19:13:33.440302Z', 'iopub.status.idle': '2020-10-26T19:13:33.464360Z', 'shell.execute_reply': '2020-10-26T19:13:33.459058Z'}}
+gammas[gammas$topic == 21, ]$label <- "fire"
+gammas[gammas$topic == 21, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 22
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.468727Z', 'iopub.status.busy': '2020-10-26T19:13:33.467498Z', 'iopub.status.idle': '2020-10-26T19:13:33.493735Z', 'shell.execute_reply': '2020-10-26T19:13:33.492554Z'}}
+get_terms(topic = 22)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.498436Z', 'iopub.status.busy': '2020-10-26T19:13:33.497042Z', 'iopub.status.idle': '2020-10-26T19:13:33.533430Z', 'shell.execute_reply': '2020-10-26T19:13:33.532293Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(22))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to tanks and related facilities and equipment**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.537891Z', 'iopub.status.busy': '2020-10-26T19:13:33.536625Z', 'iopub.status.idle': '2020-10-26T19:13:33.557032Z', 'shell.execute_reply': '2020-10-26T19:13:33.555948Z'}}
+gammas[gammas$topic == 22, ]$label <- "tanks"
+gammas[gammas$topic == 22, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Topic 23
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.567185Z', 'iopub.status.busy': '2020-10-26T19:13:33.565944Z', 'iopub.status.idle': '2020-10-26T19:13:33.590904Z', 'shell.execute_reply': '2020-10-26T19:13:33.589588Z'}}
+get_terms(topic = 23)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.595761Z', 'iopub.status.busy': '2020-10-26T19:13:33.594307Z', 'iopub.status.idle': '2020-10-26T19:13:33.622990Z', 'shell.execute_reply': '2020-10-26T19:13:33.619972Z'}, slideshow={'slide_type': 'subslide'}}
+print(get_narrative(23))
+```
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+**This topic is related to cracks and other kinds of failures**
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.636633Z', 'iopub.status.busy': '2020-10-26T19:13:33.636080Z', 'iopub.status.idle': '2020-10-26T19:13:33.669079Z', 'shell.execute_reply': '2020-10-26T19:13:33.667453Z'}}
+gammas[gammas$topic == 23, ]$label <- "crack"
+gammas[gammas$topic == 23, ]$cause_topic <- T
+```
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Save results
+<!-- #endregion -->
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.676547Z', 'iopub.status.busy': '2020-10-26T19:13:33.675958Z', 'iopub.status.idle': '2020-10-26T19:13:33.708356Z', 'shell.execute_reply': '2020-10-26T19:13:33.701932Z'}}
+head(gammas)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.714634Z', 'iopub.status.busy': '2020-10-26T19:13:33.714154Z', 'iopub.status.idle': '2020-10-26T19:13:33.768396Z', 'shell.execute_reply': '2020-10-26T19:13:33.767975Z'}, slideshow={'slide_type': 'subslide'}}
+table(unique(paste(gammas$topic, gammas$label)))
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.776350Z', 'iopub.status.busy': '2020-10-26T19:13:33.775857Z', 'iopub.status.idle': '2020-10-26T19:13:33.809035Z', 'shell.execute_reply': '2020-10-26T19:13:33.806592Z'}, slideshow={'slide_type': 'subslide'}}
+labels <- distinct(select(gammas, topic, label, cause_topic))
+labels$topic <- as.character(labels$topic)
+head(labels)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.818685Z', 'iopub.status.busy': '2020-10-26T19:13:33.812355Z', 'iopub.status.idle': '2020-10-26T19:13:33.843014Z', 'shell.execute_reply': '2020-10-26T19:13:33.842607Z'}}
+head(gammas)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.848302Z', 'iopub.status.busy': '2020-10-26T19:13:33.847823Z', 'iopub.status.idle': '2020-10-26T19:13:33.863871Z', 'shell.execute_reply': '2020-10-26T19:13:33.858491Z'}}
+write_rds(labels, data_folder("labels.rds"))
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:33.870088Z', 'iopub.status.busy': '2020-10-26T19:13:33.869395Z', 'iopub.status.idle': '2020-10-26T19:13:34.043822Z', 'shell.execute_reply': '2020-10-26T19:13:34.042027Z'}}
+incidents <- readRDS(data_folder("incidents_merged.rds"))
+incidents_gammas <- gammas %>%
+    select(incident_ID, topic, gamma) %>%
+    pivot_wider(incident_ID, names_from = topic, values_from = gamma, names_prefix = "topic_") %>%
+    right_join(incidents) %>%
+    select(-starts_with("topic_"), starts_with("topic_")) # Move topic columns to back
+head(incidents_gammas)
+```
+
+```{r execution={'iopub.execute_input': '2020-10-26T19:13:34.055902Z', 'iopub.status.busy': '2020-10-26T19:13:34.050181Z', 'iopub.status.idle': '2020-10-26T19:13:34.130817Z', 'shell.execute_reply': '2020-10-26T19:13:34.127839Z'}, slideshow={'slide_type': 'subslide'}}
+write_rds(incidents_gammas, data_folder("incidents_topics.rds"))
+```

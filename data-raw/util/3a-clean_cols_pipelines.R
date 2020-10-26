@@ -33,7 +33,9 @@ p_10_na_cols <-
 custom_na <- function(x)
 p_10 %<>% mutate(across({{ p_10_na_cols }}, ~ replace_na(., 0)))
 
-# 4. Bools
+# 4. ID
+p_04$ID <- as.character(p_04$ID)
+p_10$ID <- as.character(p_10$ID)
 
 # 5. Write to disk
 readr::write_rds(p_04, data_folder("pipelines_2004_cleaned.rds"))

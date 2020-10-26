@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 library(usethis)
+suppressMessages(library(tidyverse))
 suppressMessages(library(here))
 
 ##################################################################
@@ -14,12 +15,15 @@ suppressMessages(library(here))
 # iv. Pipeline incidents 2002-2009
 # v. Pipeline incidents 2010-today
 
+# All data is arrange before saving to allow for easier comparison with
+# all.equal later on.
+
 arguments <- commandArgs(trailingOnly = TRUE)
 redownload <- "--download" %in% arguments
 overwrite <- "--overwrite" %in% arguments
 
-data_folder <- purrr::partial(here, "data-raw", ".temp", "data")
-script_folder <- purrr::partial(here, "data-raw", "util")
+data_folder <- partial(here, "data-raw", ".temp", "data")
+script_folder <- partial(here, "data-raw", "util")
 
 # 0. Parameters
 system(script_folder("0-define_parameters.R"))
@@ -40,17 +44,22 @@ system(script_folder("2-rename.R"))
 # As a first step, all we do is clean up columns in all files without making any transformations.
 system(script_folder("3a-clean_cols_pipelines.R"))
 pipelines_2004 <- readRDS(data_folder("pipelines_2004_transformed.rds"))
+pipelines_2004 <- arrange(pipelines_2004, ID, year, commodity)
 use_data(pipelines_2004, overwrite = overwrite)
 pipelines_2010 <- readRDS(data_folder("pipelines_2010_transformed.rds"))
+pipelines_2010 <- arrange(pipelines_2010, ID, year, commodity)
 use_data(pipelines_2010, overwrite = overwrite)
 
 system(script_folder("3b-clean_cols_incidents.R"))
 incidents <- readRDS(data_folder("incidents_transformed.rds"))
 incidents_1986 <- incidents[["i_86"]]
+incidents_1986 <- arrange(incidents_1986, incident_ID)
 use_data(incidents_1986, overwrite = overwrite)
 incidents_2002 <- incidents[["i_02"]]
+incidents_2002 <- arrange(incidents_2002, incident_ID)
 use_data(incidents_2002, overwrite = overwrite)
 incidents_2010 <- incidents[["i_10"]]
+incidents_2010 <- arrange(incidents_2010, incident_ID)
 use_data(incidents_2010, overwrite = overwrite)
 
 # 4. Fix pipelines_2004
@@ -64,22 +73,27 @@ system(script_folder("5b-transform_cols_incidents.R"))
 # 6. Merge datasets
 system(script_folder("6-merge_datasets.R"))
 pipelines_ungrouped <- readRDS(data_folder("pipelines_merged.rds"))
+pipelines_ungrouped <- arrange(pipelines_ungrouped,
+                               ID, year, commodity, on_offshore)
 use_data(pipelines_ungrouped, overwrite = overwrite)
 
 # 7. Handle M&As
 system(script_folder("7-handle_m_as.R"))
 pipelines <- readRDS(data_folder("pipelines_grouped.rds"))
+pipelines <- arrange(pipelines, ID, year, commodity, on_offshore)
 use_data(pipelines, overwrite = overwrite)
 
 # 8. Create topic models
 system("jupyter nbconvert --to notebook --execute --inplace data-raw/util/8-topic_model.ipynb")
 system("jupyter nbconvert --to slides data-raw/util/8-topic_model.ipynb")
+system("jupytext --to Rmd data-raw/util/8-topic_model.ipynb")
 betas <- readRDS(data_folder("betas.rds"))
 use_data(betas, overwrite = overwrite)
 
 # 9. Interpret topic models
 system("jupyter nbconvert --to notebook --execute --inplace data-raw/util/9-interpret_topics.ipynb")
 system("jupyter nbconvert --to slides data-raw/util/9-interpret_topics.ipynb")
+system("jupytext --to Rmd data-raw/util/9-interpret_topics.ipynb")
 labels <- readRDS(data_folder("labels.rds"))
 use_data(labels, overwrite = overwrite)
 incidents <- readRDS(data_folder("incidents_topics.rds"))

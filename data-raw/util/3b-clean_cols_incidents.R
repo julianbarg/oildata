@@ -15,8 +15,8 @@ dfs <- list(i_86 = i_86, i_02 = i_02, i_10 = i_10)
 na_function <- function(x) ifelse(x %in% c("nan", "NULL", "UNKNOWN"), NA, x)
 dfs <- dfs %>%
   map(~mutate(.x, across(where(is.character), na_function))) %>%
-  map(~mutate(.x, commodity = oildata:::fix_commodities(commodity))) %>%
-  map(~mutate(.x, incident_ID = as.character(incident_ID)))
+  map(~mutate(.x, commodity = oildata:::fix_commodities(commodity),
+              ID = as.character(ID), incident_ID = as.character(incident_ID)))
 
 dfs[["i_86"]] %<>% mutate(on_offshore = recode(
   on_offshore, YES = "offshore", NO = "onshore"))
