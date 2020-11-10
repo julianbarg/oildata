@@ -16,7 +16,7 @@ jupyter:
 # Create Topic Model for Incidents
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:41.562356Z', 'iopub.status.busy': '2020-10-26T19:12:41.559406Z', 'iopub.status.idle': '2020-10-26T19:12:44.581989Z', 'shell.execute_reply': '2020-10-26T19:12:44.458026Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:13.059805Z', 'iopub.status.busy': '2020-11-10T19:12:13.057266Z', 'iopub.status.idle': '2020-11-10T19:12:15.836580Z', 'shell.execute_reply': '2020-11-10T19:12:15.835969Z'}}
 suppressMessages(library(here))
 suppressMessages(library(tidyverse))
 library(tidytext)
@@ -35,7 +35,7 @@ Used data as of Oct 12, 2020.
 Original exploration can be found at: https://julianbarg.github.io/spills/inquiries/incident_variance/2020-08-03.slides.html#/
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:44.625906Z', 'iopub.status.busy': '2020-10-26T19:12:44.590134Z', 'iopub.status.idle': '2020-10-26T19:12:44.701965Z', 'shell.execute_reply': '2020-10-26T19:12:44.700659Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:15.879844Z', 'iopub.status.busy': '2020-11-10T19:12:15.851223Z', 'iopub.status.idle': '2020-11-10T19:12:16.107848Z', 'shell.execute_reply': '2020-11-10T19:12:16.106587Z'}}
 # incidents <- readRDS(data_folder("incidents_merged.rds"))
 # readr::write_rds(
 #   select(incidents, incident_ID, ID, name, on_offshore, commodity, year,
@@ -49,7 +49,7 @@ head(narratives)
 ### We want to grab the company names, so we can remove those from the dataset
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:44.711119Z', 'iopub.status.busy': '2020-10-26T19:12:44.709895Z', 'iopub.status.idle': '2020-10-26T19:12:44.919071Z', 'shell.execute_reply': '2020-10-26T19:12:44.917877Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:16.117602Z', 'iopub.status.busy': '2020-11-10T19:12:16.115597Z', 'iopub.status.idle': '2020-11-10T19:12:16.327421Z', 'shell.execute_reply': '2020-11-10T19:12:16.325972Z'}}
 company_names <- unique(word(narratives$name, 1))
 paste(company_names, collapse = ", ")
 ```
@@ -62,14 +62,14 @@ Limite data set to observation period and only retain relevant columns.
 ## Create document-term matrix
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:44.926390Z', 'iopub.status.busy': '2020-10-26T19:12:44.924858Z', 'iopub.status.idle': '2020-10-26T19:12:44.943043Z', 'shell.execute_reply': '2020-10-26T19:12:44.938850Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:16.334978Z', 'iopub.status.busy': '2020-11-10T19:12:16.332335Z', 'iopub.status.idle': '2020-11-10T19:12:16.350303Z', 'shell.execute_reply': '2020-11-10T19:12:16.348815Z'}, slideshow={'slide_type': 'subslide'}}
 narratives <- subset(narratives, on_offshore == "onshore" 
                      & commodity %in% c("rpp", "crude") 
                      & year >= 2004 & year < 2020 
                      & !is.na(narrative))
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:44.948104Z', 'iopub.status.busy': '2020-10-26T19:12:44.946518Z', 'iopub.status.idle': '2020-10-26T19:12:50.961269Z', 'shell.execute_reply': '2020-10-26T19:12:50.960709Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:16.356363Z', 'iopub.status.busy': '2020-11-10T19:12:16.354658Z', 'iopub.status.idle': '2020-11-10T19:12:21.809657Z', 'shell.execute_reply': '2020-11-10T19:12:21.808767Z'}}
 word_counts <- narratives %>%
     unnest_tokens(word, narrative) %>%
     anti_join(data.frame(word = str_to_lower(company_names)), by = "word") %>%
@@ -87,7 +87,7 @@ word_counts
 Models based on data as of Oct 12, 2020.
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:50.969447Z', 'iopub.status.busy': '2020-10-26T19:12:50.967430Z', 'iopub.status.idle': '2020-10-26T19:12:50.984366Z', 'shell.execute_reply': '2020-10-26T19:12:50.982938Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:21.814173Z', 'iopub.status.busy': '2020-11-10T19:12:21.812853Z', 'iopub.status.idle': '2020-11-10T19:12:21.825099Z', 'shell.execute_reply': '2020-11-10T19:12:21.824149Z'}, slideshow={'slide_type': 'subslide'}}
 # results_1 <- FindTopicsNumber(word_counts, 
 #                               topics = c(5, 10, 20, 40, 80, 120, 160), 
 #                               metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
@@ -97,11 +97,11 @@ Models based on data as of Oct 12, 2020.
 results_1 <- readRDS(assets("results_1.rds"))
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:51.000802Z', 'iopub.status.busy': '2020-10-26T19:12:51.000066Z', 'iopub.status.idle': '2020-10-26T19:12:52.158445Z', 'shell.execute_reply': '2020-10-26T19:12:52.157011Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:21.830040Z', 'iopub.status.busy': '2020-11-10T19:12:21.828468Z', 'iopub.status.idle': '2020-11-10T19:12:22.748416Z', 'shell.execute_reply': '2020-11-10T19:12:22.747121Z'}, slideshow={'slide_type': 'subslide'}}
 FindTopicsNumber_plot(results_1)
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:52.163768Z', 'iopub.status.busy': '2020-10-26T19:12:52.162363Z', 'iopub.status.idle': '2020-10-26T19:12:52.177266Z', 'shell.execute_reply': '2020-10-26T19:12:52.175869Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:22.754454Z', 'iopub.status.busy': '2020-11-10T19:12:22.752486Z', 'iopub.status.idle': '2020-11-10T19:12:22.766527Z', 'shell.execute_reply': '2020-11-10T19:12:22.765432Z'}, slideshow={'slide_type': 'subslide'}}
 # results_2 <- FindTopicsNumber(word_counts, 
 #                             topics = c(15, 18, 19, 20, 21, 22, 25), 
 #                             metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
@@ -111,11 +111,11 @@ FindTopicsNumber_plot(results_1)
 results_2 <- readRDS(assets("results_2.rds"))
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:52.188215Z', 'iopub.status.busy': '2020-10-26T19:12:52.187027Z', 'iopub.status.idle': '2020-10-26T19:12:52.765365Z', 'shell.execute_reply': '2020-10-26T19:12:52.763786Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:22.771892Z', 'iopub.status.busy': '2020-11-10T19:12:22.770577Z', 'iopub.status.idle': '2020-11-10T19:12:23.293976Z', 'shell.execute_reply': '2020-11-10T19:12:23.292958Z'}, slideshow={'slide_type': 'subslide'}}
 FindTopicsNumber_plot(results_2)
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:52.775942Z', 'iopub.status.busy': '2020-10-26T19:12:52.769189Z', 'iopub.status.idle': '2020-10-26T19:12:52.784198Z', 'shell.execute_reply': '2020-10-26T19:12:52.783812Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:23.299005Z', 'iopub.status.busy': '2020-11-10T19:12:23.296941Z', 'iopub.status.idle': '2020-11-10T19:12:23.311265Z', 'shell.execute_reply': '2020-11-10T19:12:23.310107Z'}, slideshow={'slide_type': 'subslide'}}
 # results_3 <- FindTopicsNumber(word_counts, 
 #                             topics = seq(15, 35), 
 #                             metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
@@ -125,7 +125,7 @@ FindTopicsNumber_plot(results_2)
 results_3 <- readRDS(assets("results_3.rds"))
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:52.795909Z', 'iopub.status.busy': '2020-10-26T19:12:52.795321Z', 'iopub.status.idle': '2020-10-26T19:12:53.375392Z', 'shell.execute_reply': '2020-10-26T19:12:53.373992Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:23.315403Z', 'iopub.status.busy': '2020-11-10T19:12:23.314034Z', 'iopub.status.idle': '2020-11-10T19:12:23.842422Z', 'shell.execute_reply': '2020-11-10T19:12:23.840995Z'}, slideshow={'slide_type': 'subslide'}}
 FindTopicsNumber_plot(results_3)
 ```
 
@@ -134,7 +134,7 @@ FindTopicsNumber_plot(results_3)
 Models based on data as of Oct 12, 2020.
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.383819Z', 'iopub.status.busy': '2020-10-26T19:12:53.382296Z', 'iopub.status.idle': '2020-10-26T19:12:53.450421Z', 'shell.execute_reply': '2020-10-26T19:12:53.449288Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:23.847428Z', 'iopub.status.busy': '2020-11-10T19:12:23.846109Z', 'iopub.status.idle': '2020-11-10T19:12:23.912087Z', 'shell.execute_reply': '2020-11-10T19:12:23.910798Z'}}
 # narratives_lda <- LDA(word_counts, method = "Gibbs", k = 23, control = list(seed = 912))
 # saveRDS(narratives_lda, assets("narratives_lda.rds"))
 narratives_lda <- readRDS(assets("narratives_lda.rds"))
@@ -145,12 +145,12 @@ narratives_lda
 ## Get betas and gammas 
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.455614Z', 'iopub.status.busy': '2020-10-26T19:12:53.454148Z', 'iopub.status.idle': '2020-10-26T19:12:53.509519Z', 'shell.execute_reply': '2020-10-26T19:12:53.509097Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:23.923631Z', 'iopub.status.busy': '2020-11-10T19:12:23.923083Z', 'iopub.status.idle': '2020-11-10T19:12:23.969522Z', 'shell.execute_reply': '2020-11-10T19:12:23.968408Z'}}
 gammas <- tidy(narratives_lda, matrix = "gamma")
 head(gammas)
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.524503Z', 'iopub.status.busy': '2020-10-26T19:12:53.523984Z', 'iopub.status.idle': '2020-10-26T19:12:53.556218Z', 'shell.execute_reply': '2020-10-26T19:12:53.554866Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:23.974688Z', 'iopub.status.busy': '2020-11-10T19:12:23.973230Z', 'iopub.status.idle': '2020-11-10T19:12:24.017913Z', 'shell.execute_reply': '2020-11-10T19:12:24.016548Z'}, slideshow={'slide_type': 'subslide'}}
 betas <- tidy(narratives_lda, matrix = "beta")
 head(betas)
 ```
@@ -159,11 +159,11 @@ head(betas)
 ## Save model
 <!-- #endregion -->
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.561119Z', 'iopub.status.busy': '2020-10-26T19:12:53.559527Z', 'iopub.status.idle': '2020-10-26T19:12:53.733682Z', 'shell.execute_reply': '2020-10-26T19:12:53.733277Z'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:24.022894Z', 'iopub.status.busy': '2020-11-10T19:12:24.021486Z', 'iopub.status.idle': '2020-11-10T19:12:24.183034Z', 'shell.execute_reply': '2020-11-10T19:12:24.181902Z'}}
 saveRDS(betas, data_folder("betas.rds"))
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.752422Z', 'iopub.status.busy': '2020-10-26T19:12:53.751916Z', 'iopub.status.idle': '2020-10-26T19:12:53.805702Z', 'shell.execute_reply': '2020-10-26T19:12:53.804956Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:24.188121Z', 'iopub.status.busy': '2020-11-10T19:12:24.186769Z', 'iopub.status.idle': '2020-11-10T19:12:24.233551Z', 'shell.execute_reply': '2020-11-10T19:12:24.232389Z'}, slideshow={'slide_type': 'subslide'}}
 gammas <- narratives %>%
     mutate(incident_ID = as.character(incident_ID)) %>%
     select(incident_ID, ID, year, commodity, on_offshore) %>%
@@ -172,6 +172,6 @@ gammas <- narratives %>%
 head(gammas)
 ```
 
-```{r execution={'iopub.execute_input': '2020-10-26T19:12:53.818487Z', 'iopub.status.busy': '2020-10-26T19:12:53.818024Z', 'iopub.status.idle': '2020-10-26T19:12:54.078195Z', 'shell.execute_reply': '2020-10-26T19:12:54.076932Z'}, slideshow={'slide_type': 'subslide'}}
+```{r execution={'iopub.execute_input': '2020-11-10T19:12:24.238247Z', 'iopub.status.busy': '2020-11-10T19:12:24.236903Z', 'iopub.status.idle': '2020-11-10T19:12:24.448052Z', 'shell.execute_reply': '2020-11-10T19:12:24.447159Z'}, slideshow={'slide_type': 'subslide'}}
 saveRDS(gammas, data_folder("gammas.rds"))
 ```
