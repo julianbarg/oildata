@@ -18,10 +18,12 @@ p_10 %<>% mutate(commodity = oildata:::fix_commodities(commodity))
 # 2. String cosmetics
 p_04 <- p_04 %>%
   mutate(name = str_to_title(name)) %>%
-  mutate(name = DataAnalysisTools::remove_company_suffixes(name))
+  mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
+  mutate(name = stringr::str_trim(name))
 p_10 <- p_10 %>%
   mutate(name = str_to_title(name)) %>%
-  mutate(name = DataAnalysisTools::remove_company_suffixes(name))
+  mutate(name = DataAnalysisTools::remove_company_suffixes(name)) %>%
+  mutate(name = stringr::str_trim(name))
 
 # 3. Fill NAs
 # Filling in some columns that operators typically leave empty

@@ -47,6 +47,7 @@ pipelines_grouped <- pipelines_ungrouped %>%
   group_by(group_name, year, commodity, on_offshore) %>%
   summarize(across({{ sum_na_rm_cols }}, ~sum(.x, na.rm = T)),
             across({{ take_first_cols }}, first)) %>%
+  ungroup() %>%
   rename("ID" = "group_name") %>%
   mutate(name = str_remove(ID, " \\(Group\\)")) %>%
   bind_rows(no_ma) %>%
