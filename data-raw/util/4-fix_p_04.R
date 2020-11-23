@@ -25,6 +25,12 @@ p_04 <- p_04 %>%
 p_04_duplicates <- subset(p_04, n > 1)
 p_04_unique <- subset(p_04, n == 1)
 
+# Manually checking shows that information are consistent between duplicates.
+# check <- p_04 %>%
+#   group_by(ID, year, commodity) %>%
+#   filter(n() > 1) %>%
+#   arrange(desc(ID))
+
 # Consolidate
 p_04 <- p_04_duplicates %>%
   group_by(ID, year, commodity) %>%
